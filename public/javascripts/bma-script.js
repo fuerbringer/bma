@@ -15,21 +15,21 @@ var grid = function(numberPerSide, size, pixelsPerSide, colors) {
   svg.setAttribute("height", pixelsPerSide);
   svg.setAttribute("viewBox", [0, 0, numberPerSide * size, numberPerSide * size].join(" "));
 
-  for(var i = 0; i < numberPerSide; i++) {    // x-axis
-    for(var j = 0; j < numberPerSide; j++) {  // y-axis
+  for(var i = 0; i < numberPerSide; i++) {
+    for(var j = 0; j < numberPerSide; j++) {
       // Alternate colors, if "colors" has array-size n > 1
       var color1 = colors[(i+j) % colors.length];
       var color2 = colors[(i+j+1) % colors.length];  
 
       var g = document.createSvg("g");
-      g.setAttribute("transform", ["translate(", i*size, ",", j*size, ")"].join(""));
+      g.setAttribute("transform", ["translate(", j*size, ",", i*size, ")"].join(""));
 
       var number = numberPerSide * i + j;
       var box = document.createSvg("rect");
       box.setAttribute("width", size);
       box.setAttribute("height", size);
       box.setAttribute("fill", color1);
-      box.setAttribute("id", "b" + number); 
+      box.setAttribute("id", "coord-" + j + "-" + i); 
       box.setAttribute("stroke", "black"); 
       box.setAttribute("stroke-width", "0.1"); 
       g.appendChild(box);
