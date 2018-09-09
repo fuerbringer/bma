@@ -1,5 +1,5 @@
 /* Tiny grid demo, should come in handy */
-/* Needs some serious modularization before moving on */
+/* TODO: Needs some serious modularization before moving on */
 
 document.createSvg = function(tagName) {
   var svgNS = "http://www.w3.org/2000/svg";
@@ -28,20 +28,24 @@ var grid = function(numberPerSide, size, pixelsPerSide, colors) {
       var box = document.createSvg("rect");
       box.setAttribute("width", size);
       box.setAttribute("height", size);
-      box.setAttribute("fill", color1);
+      if(Math.round(10 * Math.random()) % 4 == 0) {
+        box.setAttribute("fill", "grey");
+      } else {
+        box.setAttribute("fill", color1);
+      }
       box.setAttribute("id", "coord-" + j + "-" + i); 
       box.setAttribute("stroke", "black"); 
       box.setAttribute("stroke-width", "0.1"); 
       g.appendChild(box);
 
-      var text = document.createSvg("text");
+      /*var text = document.createSvg("text");
       text.appendChild(document.createTextNode(i * numberPerSide + j));
       text.setAttribute("fill", colors.length > 1 ? color2 : "black");
       text.setAttribute("font-size", 6);
       text.setAttribute("x", 0);
       text.setAttribute("y", size/2);
       text.setAttribute("id", "t" + number);
-      g.appendChild(text);
+      g.appendChild(text);*/
       svg.appendChild(g);
     }  
   }
@@ -56,7 +60,7 @@ var grid = function(numberPerSide, size, pixelsPerSide, colors) {
 
 function ready() {
   var container = document.getElementById("container");
-  container.appendChild(grid(10, 10, 1000, ["white"/*, "blue"*/]));
+  container.appendChild(grid(16, 16, 512, ["white"/*, "blue"*/]));
 }
 
 addEventListener("DOMContentLoaded", ready, false);
