@@ -2,8 +2,10 @@ doctype html
 html
   head
     title= title
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     block content
+    script(src='/javascripts/bootstrap.min.js')
     script(src='/javascripts/pathfinding-browser.min.js')
     script(src='/javascripts/bma-script.js')

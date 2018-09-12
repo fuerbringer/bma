@@ -1,5 +1,5 @@
 /* Tiny grid demo, should come in handy */
-/* TODO: Needs some serious modularization before moving on */
+/* TODO AND WARNING: Needs some serious cleanup and modularization before moving on */
 
 document.createSvg = function(tagName) {
   var svgNS = "http://www.w3.org/2000/svg";
@@ -37,15 +37,6 @@ var grid = function(numberPerSide, size, pixelsPerSide, colors) {
       box.setAttribute("stroke", "black"); 
       box.setAttribute("stroke-width", "0.1"); 
       g.appendChild(box);
-
-      /*var text = document.createSvg("text");
-      text.appendChild(document.createTextNode(i * numberPerSide + j));
-      text.setAttribute("fill", colors.length > 1 ? color2 : "black");
-      text.setAttribute("font-size", 6);
-      text.setAttribute("x", 0);
-      text.setAttribute("y", size/2);
-      text.setAttribute("id", "t" + number);
-      g.appendChild(text);*/
       svg.appendChild(g);
     }  
   }
@@ -58,9 +49,30 @@ var grid = function(numberPerSide, size, pixelsPerSide, colors) {
   return svg;
 };
 
+function pathFindingTest() {
+  var dbgWnd = document.getElementById("debug-out");
+  var matrix = [
+    [0, 0, 0, 1, 0],
+    [1, 0, 0, 0, 1],
+    [0, 0, 1, 0, 0],
+  ];
+  dbgWnd.innerHTML += "Gegeben ist die matrix: \n";
+  dbgWnd.innerHTML += matrix[0].toString() + "\n";
+  dbgWnd.innerHTML += matrix[1].toString() + "\n";
+  dbgWnd.innerHTML += matrix[2].toString() + "\n";
+  var grid = new PF.Grid(matrix);
+  var finder = new PF.AStarFinder();
+  dbgWnd.innerHTML += "Nun wird der Weg von {1,2} zu {4,2} mittels A* gesucht: \n";
+  var path = finder.findPath(1, 2, 4, 2, grid);
+  path.forEach(p => {
+    dbgWnd.innerHTML += p.toString() + "\n";
+  })
+}
+
 function ready() {
   var container = document.getElementById("container");
   container.appendChild(grid(16, 16, 512, ["white"/*, "blue"*/]));
+    pathFindingTest();
 }
 
 addEventListener("DOMContentLoaded", ready, false);

@@ -1,5 +1,11 @@
 extends layout
 
 block content
-  h1= title
-  #container
+  .container
+    .row
+      .col-sm
+        h1= title
+        #container
+      .col-sm
+        h2 PathFinding.js test
+        pre: code#debug-out
