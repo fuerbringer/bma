@@ -1,12 +1,18 @@
-/* Tiny grid demo, should come in handy */
-/* TODO AND WARNING: Needs some serious cleanup and modularization before moving on */
+/**
+ * TODO: Write functions to operate on the grid created in generateGrid
+ */
 
 document.createSvg = function(tagName) {
   var svgNS = "http://www.w3.org/2000/svg";
   return this.createElementNS(svgNS, tagName);
 };
 
-var grid = function(numberPerSide, size, pixelsPerSide, colors) {
+/**
+ * @param {int} numberPerSide Sizes for x and y axis
+ * @param {int} size Height / width attribute for inner boxes
+ * @param {int} pixelsPerSide Total width and height of the output
+ */
+var generateGrid = function(numberPerSide, size, pixelsPerSide) {
   var numberPerSide = numberPerSide ? numberPerSide : 20;
   var size = size ? size : 10;
   var pixelsPerSide = pixelsPerSide ? pixelsPerSide : 400;
@@ -15,40 +21,30 @@ var grid = function(numberPerSide, size, pixelsPerSide, colors) {
   svg.setAttribute("height", pixelsPerSide);
   svg.setAttribute("viewBox", [0, 0, numberPerSide * size, numberPerSide * size].join(" "));
 
-  for(var i = 0; i < numberPerSide; i++) {
-    for(var j = 0; j < numberPerSide; j++) {
-      // Alternate colors, if "colors" has array-size n > 1
-      var color1 = colors[(i+j) % colors.length];
-      var color2 = colors[(i+j+1) % colors.length];  
+  for(var y = 0; y < numberPerSide; y++) {
+    for(var x = 0; x < numberPerSide; x++) {
+      var g = document.createSvg("g"); // Group element we want to act as parent
+      g.setAttribute("transform", [ "translate(", x * size, ",", y * size, ")" ].join(""));
 
-      var g = document.createSvg("g");
-      g.setAttribute("transform", ["translate(", j*size, ",", i*size, ")"].join(""));
-
-      var number = numberPerSide * i + j;
-      var box = document.createSvg("rect");
+      var number = numberPerSide * y + x;
+      // Create individual cell so we can display it and modify it later
+      var box = document.createSvg("rect"); 
       box.setAttribute("width", size);
       box.setAttribute("height", size);
-      if(Math.round(10 * Math.random()) % 4 == 0) {
-        box.setAttribute("fill", "grey");
-      } else {
-        box.setAttribute("fill", color1);
-      }
-      box.setAttribute("id", "coord-" + j + "-" + i); 
+      box.setAttribute("fill", "white");
+      box.setAttribute("id", "coord-" + x + "-" + y); 
       box.setAttribute("stroke", "black"); 
       box.setAttribute("stroke-width", "0.1"); 
       g.appendChild(box);
       svg.appendChild(g);
     }  
   }
-  svg.addEventListener( "click", function(e){
-    var id = e.target.id;
-    if(id) {
-      alert("Clicked tile " + id);
-    }
-    }, false);
   return svg;
 };
 
+/**
+ * Demo function for PathFinding.js
+ */
 function pathFindingTest() {
   var dbgWnd = document.getElementById("debug-out");
   var matrix = [
@@ -71,8 +67,9 @@ function pathFindingTest() {
 
 function ready() {
   var container = document.getElementById("container");
-  container.appendChild(grid(16, 16, 512, ["white"/*, "blue"*/]));
-    pathFindingTest();
+  container.appendChild(generateGrid(16, 16, 512));
+
+  pathFindingTest();
 }
 
 addEventListener("DOMContentLoaded", ready, false);
