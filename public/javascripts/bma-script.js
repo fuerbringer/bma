@@ -1,7 +1,3 @@
-/**
- * TODO: Write functions to operate on the grid created in generateGrid
- */
-
 document.createSvg = function(tagName) {
   var svgNS = "http://www.w3.org/2000/svg";
   return this.createElementNS(svgNS, tagName);
