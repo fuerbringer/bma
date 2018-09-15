@@ -3,8 +3,9 @@ document.createSvg = function(tagName) {
   return this.createElementNS(svgNS, tagName);
 };
 
-var drawVisualPath = function(pathMatrix, polyId, id) {
+var drawVisualPath = function(pathMatrix, polyId, color, id) {
   var id = id ? id : "main-grid";
+  var color = color ? color : "green";
   var svg = document.getElementById(id);
   var polyLine = document.createSvg("polyline");
   var points = "";
@@ -18,7 +19,7 @@ var drawVisualPath = function(pathMatrix, polyId, id) {
   }
   polyLine.setAttribute("points", points);
   polyLine.setAttribute("fill", "none");
-  polyLine.setAttribute("stroke", "grey");
+  polyLine.setAttribute("stroke", color);
   polyLine.setAttribute("class", "grid-path");
   if(polyId) {
     polyLine.setAttribute("id", "grid-path");
@@ -139,40 +140,126 @@ var generateGrid = function(numberPerSide, size, pixelsPerSide, id) {
 };
 
 /**
- * Demo function for PathFinding.js
+ * @param {int} size Height / width attribute for inner boxes
+ * @param {int} pixelsPerSide Total width and height of the output
  */
-function pathFindingTest() {
-  var dbgWnd = document.getElementById("debug-out");
-  var matrix = [
-    [0, 0, 0, 1, 0],
-    [1, 0, 0, 0, 1],
-    [0, 0, 1, 0, 0],
-  ];
-  dbgWnd.innerHTML += "Gegeben ist die matrix: \n";
-  dbgWnd.innerHTML += matrix[0].toString() + "\n";
-  dbgWnd.innerHTML += matrix[1].toString() + "\n";
-  dbgWnd.innerHTML += matrix[2].toString() + "\n";
-  var grid = new PF.Grid(matrix);
-  var finder = new PF.AStarFinder();
-  dbgWnd.innerHTML += "Nun wird der Weg von {1,2} zu {4,2} mittels A* gesucht: \n";
-  var path = finder.findPath(1, 2, 4, 2, grid);
-  path.forEach(p => {
-    dbgWnd.innerHTML += p.toString() + "\n";
-  })
+var generateGridFromMatrix = function(matrix, size, pixelsPerSide, id) {
+  var size = size ? size : 10;
+  var pixelsPerSide = pixelsPerSide ? pixelsPerSide : 400;
+  var id = id ? id : "main-grid";
+  var svg = document.createSvg("svg");
+  svg.setAttribute("id", id);
+  svg.setAttribute("width", pixelsPerSide);
+  svg.setAttribute("height", pixelsPerSide);
+  svg.setAttribute("viewBox", [0, 0, matrix.length * size, matrix[0].length * size].join(" "));
+
+  for(var y = 0; y < matrix.length; y++) {
+    for(var x = 0; x < matrix[y].length; x++) {
+      var g = document.createSvg("g"); // Group element we want to act as parent
+      g.setAttribute("transform", [ "translate(", x * size, ",", y * size, ")" ].join(""));
+
+      var number = matrix.length * y + x;
+      // Create individual cell so we can display it and modify it later
+      var box = document.createSvg("rect"); 
+      box.setAttribute("width", size);
+      box.setAttribute("height", size);
+      if(matrix[y][x] == 1) {
+        box.setAttribute("fill", "grey");
+      } else if(matrix[y][x] == "s") {
+        box.setAttribute("fill", "blue");
+      } else if(matrix[y][x] == "f") {
+        box.setAttribute("fill", "green");
+      } else {
+        box.setAttribute("fill", "white");
+      }
+      box.setAttribute("id", "coord-" + x + "-" + y); 
+      box.setAttribute("class", "coord-rect");
+      box.setAttribute("stroke", "black"); 
+      box.setAttribute("stroke-width", "0.1"); 
+      g.appendChild(box);
+      svg.appendChild(g);
+    }  
+  }
+  return svg;
+};
+
+/**
+ * Prepares a 2d matrix for PathFinding.js
+ * Removes Start and Finish ("s", "f") elements
+ */
+function sanitizeMatrix(matrix) {
+  for(var y = 0; y < matrix.length; y++) {
+    for(var x = 0; x < matrix[y].length; x++) {
+      if(matrix[y][x] != 0 && matrix[y][x] != 1) {
+        matrix[y][x] = 0;
+      }
+    }
+  }
+  return matrix;
+}
+
+/**
+ * Finds "s" and "f" inside a 2d matrix, representing start and finish, and returns their coords.
+ */
+function findStartAndFinish(matrix) {
+  var startAndFinish = {
+    start: {
+      x: false,
+      y: false
+    },
+    finish: {
+      x: false, y: false
+    }
+  };
+  for(var y = 0; y < matrix.length; y++) {
+    for(var x = 0; x < matrix[y].length; x++) {
+      if(matrix[y][x] === "s") {
+        startAndFinish.start.x = x;
+        startAndFinish.start.y = y;
+      } else if(matrix[y][x] === "f") {
+        startAndFinish.finish.x = x;
+        startAndFinish.finish.y = y;
+      }
+    }
+  }
+  return startAndFinish;
 }
 
 function ready() {
+  var matrix = [
+    [0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0, 0 ],
+    [0, 1, 0,   0, 0, 0, 0,   0, 0, 0, 0, 0 ],
+    [0, 0, 1,   0, 0, 0, 0,   0, 0, 0, 0, 0 ],
+    [0, 0, 0,   1, 0, 0, 0,   0, 0, 0, 0, 0 ],
+    [0, 1, 0,   1, 0, 0, 0,   0, 0, 0, 0, 0 ],
+    [0, 1, "s", 1, 0, 0, 0,   0, 0, 0, 0, 0 ],
+    [0, 1, 0,   1, 0, 1, 1,   1, 0, 0, 0, 0 ],
+    [0, 0, 0,   1, 0, 0, 0,   0, 0, 1, 0, 0 ],
+    [0, 0, 0,   1, 0, 0, 0,   0, 0, 1, 0, 0 ],
+    [0, 0, 0,   1, 1, 0, 1, "f", 1, 0, 0, 0 ],
+    [0, 0, 0,   1, 0, 1, 0,   1, 0, 0, 0, 0 ],
+    [0, 1, 1,   1, 0, 0, 0,   0, 0, 0, 0, 0 ],
+    [0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0, 0 ],
+    [0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0, 0 ],
+    [0, 0, 0,   0, 0, 1, 1,   0, 0, 0, 0, 0 ],
+    [0, 0, 0,   0, 0, 1, 1,   0, 0, 0, 0, 0 ],
+  ];
   var container = document.getElementById("container");
-  container.appendChild(generateGrid(16, 16, 512));
-  // Demonstration of the polylines and drawVisualPath
+  container.appendChild(generateGridFromMatrix(matrix));
+  var startAndFinish = findStartAndFinish(matrix);
   var polyLine = [];
-  polyLine.push(getRealBoxCoords(0,0, { x: 8, y: 8 }));
-  polyLine.push(getRealBoxCoords(1,0, { x: 8, y: 8 }));
-  polyLine.push(getRealBoxCoords(1,1, { x: 8, y: 8 }));
-  polyLine.push(getRealBoxCoords(5,5, { x: 8, y: 8 }));
+  var dbgWnd = document.getElementById("debug-out");
+  var grid = new PF.Grid(sanitizeMatrix(matrix));
+  var finder = new PF.AStarFinder();
+  var path = finder.findPath(
+    startAndFinish.start.x, startAndFinish.start.y,
+    startAndFinish.finish.x, startAndFinish.finish.y, grid);
+  for(var i = 0; i < path.length; i++) {
+    polyLine.push(getRealBoxCoords(path[i][0], path[i][1], { x: 4, y: 4 }));
+  }
   drawVisualPath(polyLine);
 
-  pathFindingTest();
+  //pathFindingTest();
 }
 
 addEventListener("DOMContentLoaded", ready, false);
