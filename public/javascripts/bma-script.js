@@ -244,14 +244,12 @@ generatePseudoRandomMaze = function(width, height, remainderFrequency) {
     x: Math.floor(Math.random() * width),
     y: Math.floor(Math.random() * height),
   };
-  console.log(startBlock);
-  console.log(endBlock);
   matrix[startBlock.y][startBlock.x] = 's';
   matrix[endBlock.y][endBlock.x] = 'f';
   return matrix;
 }
 
-markStartAndFinish = function(matrix) {
+markStartAndFinish = function(matrix, randomSelection) {
   var possible = [];
   for(var y = 0; y < matrix.length; y++) {
     for(var x = 0; x < matrix[y].length; x++) {
@@ -261,14 +259,18 @@ markStartAndFinish = function(matrix) {
     }
   }
   var chosenStart = Math.floor(Math.random() * possible.length);
-  console.log(chosenStart);
-  matrix[possible[chosenStart].y][possible[chosenStart].x] = 's';
-  console.log(possible.length);
+  if(randomSelection) {
+    matrix[possible[chosenStart].y][possible[chosenStart].x] = 's';
+  } else {
+    matrix[possible[0].y][possible[0].x] = 's';
+  }
   possible.splice(chosenStart, 1);
-  console.log(possible.length);
   var chosenFinish = Math.floor(Math.random() * possible.length);
-  console.log(chosenFinish);
-  matrix[possible[chosenFinish].y][possible[chosenFinish].x] = 'f';
+  if(randomSelection) {
+    matrix[possible[chosenFinish].y][possible[chosenFinish].x] = 'f';
+  } else {
+    matrix[possible[possible.length - 1].y][possible[possible.length - 1].x] = 'f';
+  }
   return matrix;
 }
 
@@ -278,7 +280,7 @@ markStartAndFinish = function(matrix) {
  *  - Does not fully propagate and maximize possible corridors
  *  - Endlessly loops due to hasUnvisited
  */
-generateRecBacktrackerMaze = function(width, height) {
+generateRecBacktrackerMaze = function(width, height, randomStartAndFinish) {
   var matrix = [];
   for(var y = 0; y < height; y++) {
     var row = [];
@@ -347,21 +349,29 @@ generateRecBacktrackerMaze = function(width, height) {
       cy = newCurrent.y;
     }
   }
-  matrix = markStartAndFinish(matrix);
+  matrix = markStartAndFinish(matrix, randomStartAndFinish);
   return matrix;
 }
 
 function ready() {
   //console.debug(generateRecBacktrackerMaze(6, 6));
   //var matrix = generatePseudoRandomMaze(20, 20);
-  var matrix = generateRecBacktrackerMaze(16, 16);
+  var matrix = generateRecBacktrackerMaze(16, 16, false);
   var container = document.getElementById("container");
   container.appendChild(generateGridFromMatrix(matrix));
   var startAndFinish = findStartAndFinish(matrix);
   var polyLine = [];
   var dbgWnd = document.getElementById("debug-out");
   var grid = new PF.Grid(sanitizeMatrix(matrix));
-  var finder = new PF.AStarFinder();
+  var finder = new PF.AStarFinder({
+    allowDiagonal: true,
+    dontCrossCorners: true,
+    heuristic: function(dx, dy) {
+      // Tap into individual steps
+      console.log("Considering", dx, dy);
+      return PF.Heuristic.chebyshev(dx, dy);
+    }
+  });
   var path = finder.findPath(
     startAndFinish.start.x, startAndFinish.start.y,
     startAndFinish.finish.x, startAndFinish.finish.y, grid);
