@@ -225,25 +225,136 @@ function findStartAndFinish(matrix) {
   return startAndFinish;
 }
 
+generatePseudoRandomMaze = function(width, height, remainderFrequency) {
+  var matrix = [];
+  remainderFrequency = remainderFrequency ? remainderFrequency : 4;
+  for(var y = 0; y < height; y++) {
+    var row = [];
+    for(var x = 0; x < width; x++) {
+      var block = (((Math.random() * 100) % remainderFrequency).toFixed(0) == true) ? 1 : 0;
+      row.push(block);
+    }
+    matrix.push(row);
+  }
+  var startBlock = {
+    x: Math.floor(Math.random() * width),
+    y: Math.floor(Math.random() * height),
+  };
+  var endBlock = {
+    x: Math.floor(Math.random() * width),
+    y: Math.floor(Math.random() * height),
+  };
+  console.log(startBlock);
+  console.log(endBlock);
+  matrix[startBlock.y][startBlock.x] = 's';
+  matrix[endBlock.y][endBlock.x] = 'f';
+  return matrix;
+}
+
+markStartAndFinish = function(matrix) {
+  var possible = [];
+  for(var y = 0; y < matrix.length; y++) {
+    for(var x = 0; x < matrix[y].length; x++) {
+      if(matrix[y][x] == 0) {
+        possible.push({ x: x, y: y });
+      }
+    }
+  }
+  var chosenStart = Math.floor(Math.random() * possible.length);
+  console.log(chosenStart);
+  matrix[possible[chosenStart].y][possible[chosenStart].x] = 's';
+  console.log(possible.length);
+  possible.splice(chosenStart, 1);
+  console.log(possible.length);
+  var chosenFinish = Math.floor(Math.random() * possible.length);
+  console.log(chosenFinish);
+  matrix[possible[chosenFinish].y][possible[chosenFinish].x] = 'f';
+  return matrix;
+}
+
+/**
+ * Pseudocode from https://en.wikipedia.org/wiki/Maze_generation#Recursive_backtracker
+ * TODO / BUGS:
+ *  - Does not fully propagate and maximize possible corridors
+ *  - Endlessly loops due to hasUnvisited
+ */
+generateRecBacktrackerMaze = function(width, height) {
+  var matrix = [];
+  for(var y = 0; y < height; y++) {
+    var row = [];
+    for(var x = 0; x < width; x++) {
+      var block = 1; // Mark as unvisited for maze generation
+      row.push(block);
+    }
+    matrix.push(row);
+  }
+
+  var hasUnvisited = function(matrix) {
+    for(var y = 0; y < matrix.length; y++) {
+      for(var x = 0; x < matrix[y].length; x++) {
+        if(matrix[y][x] == 1) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  var getUnvisitedNeighbours = function(matrix, center) {
+    var neighbours = [];
+    if(center.x > 0) {
+      if(matrix[center.y][center.x - 2] == 1) {
+        neighbours.push({ x: center.x - 1, y: center.y });
+      }
+    }
+    if(center.x < matrix[0].length) {
+      if(matrix[center.y][center.x + 2] == 1) {
+        neighbours.push({ x: center.x + 1, y: center.y });
+      }
+    }
+    if(center.y > 1) {
+      if(matrix[center.y - 2][center.x] == 1) {
+        neighbours.push({ x: center.x, y: center.y - 1});
+      }
+    }
+    if(center.y < matrix.length) {
+      if(matrix.length - 1 >= (center.y + 2)) {
+        if(matrix[center.y + 2][center.x] == 1) {
+          neighbours.push({ x: center.x, y: center.y + 1 });
+        }
+      }
+    }
+    return neighbours;
+  }
+
+  // Starting points
+  var cx = Math.floor(Math.random() * width);
+  var cy = Math.floor(Math.random() * height);
+  var stack = [];
+  matrix[cy][cx] = 0; // Mark as visited
+  var i = width * height;
+  while(i--) { // TODO: Fix hasUnvisited endlessly returning true and inner loop
+    var neighbours = getUnvisitedNeighbours(matrix, {x: cx, y: cy});
+    if(neighbours.length) {
+      stack.push({ x: cx, y: cy });
+      var nextNeighbour = neighbours[Math.floor(Math.random() * neighbours.length)];
+      matrix[nextNeighbour.y][nextNeighbour.x] = 0;
+      cx = nextNeighbour.x;
+      cy = nextNeighbour.y;
+    } else if(stack.length) {
+      var newCurrent = stack.pop();
+      cx = newCurrent.x;
+      cy = newCurrent.y;
+    }
+  }
+  matrix = markStartAndFinish(matrix);
+  return matrix;
+}
+
 function ready() {
-  var matrix = [
-    [0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0, 0 ],
-    [0, 1, 0,   0, 0, 0, 0,   0, 0, 0, 0, 0 ],
-    [0, 0, 1,   0, 0, 0, 0,   0, 0, 0, 0, 0 ],
-    [0, 0, 0,   1, 0, 0, 0,   0, 0, 0, 0, 0 ],
-    [0, 1, 0,   1, 0, 0, 0,   0, 0, 0, 0, 0 ],
-    [0, 1, "s", 1, 0, 0, 0,   0, 0, 0, 0, 0 ],
-    [0, 1, 0,   1, 0, 1, 1,   1, 0, 0, 0, 0 ],
-    [0, 0, 0,   1, 0, 0, 0,   0, 0, 1, 0, 0 ],
-    [0, 0, 0,   1, 0, 0, 0,   0, 0, 1, 0, 0 ],
-    [0, 0, 0,   1, 1, 0, 1, "f", 1, 0, 0, 0 ],
-    [0, 0, 0,   1, 0, 1, 0,   1, 0, 0, 0, 0 ],
-    [0, 1, 1,   1, 0, 0, 0,   0, 0, 0, 0, 0 ],
-    [0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0, 0 ],
-    [0, 0, 0,   0, 0, 0, 0,   0, 0, 0, 0, 0 ],
-    [0, 0, 0,   0, 0, 1, 1,   0, 0, 0, 0, 0 ],
-    [0, 0, 0,   0, 0, 1, 1,   0, 0, 0, 0, 0 ],
-  ];
+  //console.debug(generateRecBacktrackerMaze(6, 6));
+  //var matrix = generatePseudoRandomMaze(20, 20);
+  var matrix = generateRecBacktrackerMaze(16, 16);
   var container = document.getElementById("container");
   container.appendChild(generateGridFromMatrix(matrix));
   var startAndFinish = findStartAndFinish(matrix);
@@ -258,8 +369,6 @@ function ready() {
     polyLine.push(getRealBoxCoords(path[i][0], path[i][1], { x: 4, y: 4 }));
   }
   drawVisualPath(polyLine);
-
-  //pathFindingTest();
 }
 
 addEventListener("DOMContentLoaded", ready, false);
