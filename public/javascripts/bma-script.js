@@ -393,8 +393,12 @@ generateRecBacktrackerMaze = function(width, height, randomStartAndFinish) {
   }
 
   // Random start
-  var start = corridors[randomIntFromInterval(0, corridors.length - 1)];
-  var finish = corridors[randomIntFromInterval(0, corridors.length - 1)];
+  var startIndex = randomIntFromInterval(0, corridors.length - 1);
+  var start = corridors[startIndex];
+  // Remove start element so start and finish don't end up as the same cell
+  corridors.splice(startIndex, 1);
+  var finishIndex = randomIntFromInterval(0, corridors.length - 1);
+  var finish = corridors[finishIndex];
   console.log(start, finish)
   matrix[start.y][start.x] = 's';
   matrix[finish.y][finish.x] = 'f';
