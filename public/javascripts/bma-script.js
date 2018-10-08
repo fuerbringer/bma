@@ -3,6 +3,11 @@ document.createSvg = function(tagName) {
   return this.createElementNS(svgNS, tagName);
 };
 
+function randomIntFromInterval(min,max)
+{
+  return Math.floor(Math.random()*(max-min+1)+min);
+}
+
 var drawVisualPath = function(pathMatrix, polyId, color, id) {
   var id = id ? id : "main-grid";
   var color = color ? color : "green";
@@ -276,87 +281,131 @@ markStartAndFinish = function(matrix, randomSelection) {
 
 /**
  * Pseudocode from https://en.wikipedia.org/wiki/Maze_generation#Recursive_backtracker
- * TODO / BUGS:
- *  - Does not fully propagate and maximize possible corridors
- *  - Endlessly loops due to hasUnvisited
  */
 generateRecBacktrackerMaze = function(width, height, randomStartAndFinish) {
+  // Border wall deltas
+  width += 2;
+  height += 2;
   var matrix = [];
-  for(var y = 0; y < height; y++) {
+  for(var y = 0; y < height - 1; y++) {
     var row = [];
-    for(var x = 0; x < width; x++) {
-      var block = 1; // Mark as unvisited for maze generation
-      row.push(block);
+    for(var x = 0; x < width - 1; x++) {
+      var block = 0;
     }
     matrix.push(row);
   }
 
-  var hasUnvisited = function(matrix) {
-    for(var y = 0; y < matrix.length; y++) {
-      for(var x = 0; x < matrix[y].length; x++) {
-        if(matrix[y][x] == 1) {
-          return true;
-        }
+  // Rest of the function body by https://github.com/semibran/maze
+  function generate(nodes, adjacent, choose) {
+    var node = choose(nodes)
+    var stack = [node]
+    var maze = new Map()
+    for (var node of nodes) {
+      maze.set(node, [])
+    }
+    while (node) {
+      var neighbors = nodes.filter(other => !maze.get(other).length && adjacent(node, other))
+      if (neighbors.length) {
+        var neighbor = choose(neighbors)
+        maze.get(node).push(neighbor)
+        maze.get(neighbor).push(node)
+        stack.unshift(neighbor)
+        node = neighbor
+
+      } else {
+        stack.shift()
+        node = stack[0]
       }
     }
-    return false;
+    return maze
   }
 
-  var getUnvisitedNeighbours = function(matrix, center) {
-    var neighbours = [];
-    if(center.x > 0) {
-      if(matrix[center.y][center.x - 2] == 1) {
-        neighbours.push({ x: center.x - 1, y: center.y });
-      }
-    }
-    if(center.x < matrix[0].length) {
-      if(matrix[center.y][center.x + 2] == 1) {
-        neighbours.push({ x: center.x + 1, y: center.y });
-      }
-    }
-    if(center.y > 1) {
-      if(matrix[center.y - 2][center.x] == 1) {
-        neighbours.push({ x: center.x, y: center.y - 1});
-      }
-    }
-    if(center.y < matrix.length) {
-      if(matrix.length - 1 >= (center.y + 2)) {
-        if(matrix[center.y + 2][center.x] == 1) {
-          neighbours.push({ x: center.x, y: center.y + 1 });
-        }
-      }
-    }
-    return neighbours;
+  var world = {
+    width: width - 1,
+    height: height - 1,
+    tiles: new Array((width - 1) * (height - 1)).fill('wall')
   }
 
-  // Starting points
-  var cx = Math.floor(Math.random() * width);
-  var cy = Math.floor(Math.random() * height);
-  var stack = [];
-  matrix[cy][cx] = 0; // Mark as visited
-  var i = width * height;
-  while(i--) { // TODO: Fix hasUnvisited endlessly returning true and inner loop
-    var neighbours = getUnvisitedNeighbours(matrix, {x: cx, y: cy});
-    if(neighbours.length) {
-      stack.push({ x: cx, y: cy });
-      var nextNeighbour = neighbours[Math.floor(Math.random() * neighbours.length)];
-      matrix[nextNeighbour.y][nextNeighbour.x] = 0;
-      cx = nextNeighbour.x;
-      cy = nextNeighbour.y;
-    } else if(stack.length) {
-      var newCurrent = stack.pop();
-      cx = newCurrent.x;
-      cy = newCurrent.y;
+  var nodes = cells(world).filter(cell => cell.x % 2 && cell.y % 2)
+  var maze = generate(nodes, adjacent, choose)
+  connect(maze, world)
+
+  function cells(grid) {
+    var { width, height  } = grid
+    var cells = new Array(width * height)
+    for (var y = 0; y < height; y++) {
+      for (var x = 0; x < width; x++) {
+        var cell = { x, y  }
+        cells[locate(grid, cell)] = cell
+      }
+    }
+    return cells
+  }
+
+  function locate(grid, cell) {
+    return cell.y * grid.width + cell.x
+
+  }
+
+  function adjacent(a, b) {
+    return Math.abs(b.x - a.x) + Math.abs(b.y - a.y) === 2
+  }
+
+  function choose(array) {
+    return array[Math.floor(Math.random() * array.length)]
+  }
+
+  function connect(maze, world) {
+    for (var [node, neighbors] of maze) {
+      world.tiles[locate(world, node)] = 'floor'
+      for (var neighbor of neighbors) {
+        var midpoint = {
+          x: node.x + (neighbor.x - node.x) / 2,
+          y: node.y + (neighbor.y - node.y) / 2
+        }
+        world.tiles[locate(world, midpoint)] = 'floor'
+      }
     }
   }
-  matrix = markStartAndFinish(matrix, randomStartAndFinish);
+
+  var x = 0;
+  var y = 0;
+  for (var cell of cells(world)) {
+    var tile = world.tiles[locate(world, cell)]
+    if (!cell.x && cell.y) {
+      y++;
+      x = 0;
+    } else {
+      x++;
+    }
+    if(x < width - 1 && y < height) {
+      matrix[y][x] = (tile == 'wall' ? 1 : 0);
+    }
+  }
+
+  var corridors = [];
+  for(var y = 1; y < height - 1; y++) {
+    for(var x = 1; x < width - 1; x++) {
+      if(matrix[y][x] == 0) {
+        corridors.push({ x: x, y: y });
+      }
+    }
+  }
+
+  // Random start
+  var start = corridors[randomIntFromInterval(0, corridors.length - 1)];
+  var finish = corridors[randomIntFromInterval(0, corridors.length - 1)];
+  console.log(start, finish)
+  matrix[start.y][start.x] = 's';
+  matrix[finish.y][finish.x] = 'f';
+  matrix[0][0] = 1; // Patch wall at (0,0)
   return matrix;
 }
 
 function ready() {
   //console.debug(generateRecBacktrackerMaze(6, 6));
   //var matrix = generatePseudoRandomMaze(20, 20);
-  var matrix = generateRecBacktrackerMaze(16, 16, false);
+  var matrix = generateRecBacktrackerMaze(24, 24, false);
   var container = document.getElementById("container");
   container.appendChild(generateGridFromMatrix(matrix));
   var startAndFinish = findStartAndFinish(matrix);
