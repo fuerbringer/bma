@@ -8,7 +8,7 @@ document.createSvg = function(tagName) {
   return this.createElementNS(svgNS, tagName);
 };
 
-var go = function() {
+var aStarDemo = function() {
   //console.debug(generateRecBacktrackerMaze(6, 6));
   //var matrix = generatePseudoRandomMaze(20, 20);
   var matrix = maze.generateRecBacktrackerMaze(24, 24, false);
@@ -36,4 +36,4 @@ var go = function() {
 
 }
 
-addEventListener("DOMContentLoaded", go, false);
+addEventListener("DOMContentLoaded", aStarDemo, false);
