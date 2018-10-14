@@ -6,7 +6,20 @@ block content
       .col-sm
         h1= title
         p [A* Pathfinder Beschreibung hier]
-        pre: code#debug-out
       .col-sm
         h2 Raster
         #container
+        .row
+          .col-3: p Startpunkt
+          .col-sm: p#stat-start
+            i Berechne...
+        .row
+          .col-3: p Endpunkt
+          .col-sm: p#stat-end
+            i Berechne...
+        .row
+          .col-3: p Zurückgelegter Weg
+          .col-sm: p#stat-distance
+            i Berechne...
+  script.
+    addEventListener("DOMContentLoaded", bma.aStarDemo, false);

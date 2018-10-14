@@ -45,8 +45,21 @@ var sanitizeMatrix = function(matrix) {
   return matrix;
 }
 
+var setStatus = function(options) {
+  if(options.hasOwnProperty("startAndFinish")) {
+    document.getElementById('stat-start').innerHTML
+      = '`S(' + options.startAndFinish.start.x + ', ' + options.startAndFinish.start.y + ')`';
+    document.getElementById('stat-end').innerHTML
+      = '`F(' + options.startAndFinish.finish.x + ', ' + options.startAndFinish.finish.y + ')`';
+  }
+  if(options.hasOwnProperty("distance")) {
+    document.getElementById('stat-distance').innerHTML = '`' + options.distance + '` Zellen';
+  }
+}
+
 module.exports = {
   randomIntFromInterval,
   findStartAndFinish,
-  sanitizeMatrix
+  sanitizeMatrix,
+  setStatus
 }

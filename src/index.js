@@ -8,7 +8,7 @@ document.createSvg = function(tagName) {
   return this.createElementNS(svgNS, tagName);
 };
 
-var aStarDemo = function() {
+var aStarDemo = function(/* TODO let user set options here*/) {
   //console.debug(generateRecBacktrackerMaze(6, 6));
   //var matrix = generatePseudoRandomMaze(20, 20);
   var matrix = maze.generateRecBacktrackerMaze(24, 24, false);
@@ -34,6 +34,12 @@ var aStarDemo = function() {
   }
   grid.drawVisualPath(polyLine);
 
+  helper.setStatus({
+    startAndFinish: startAndFinish,
+    distance: (path.length - 1)
+  });
 }
 
-addEventListener("DOMContentLoaded", aStarDemo, false);
+module.exports = {
+  aStarDemo,
+}
