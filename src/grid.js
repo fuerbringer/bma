@@ -151,7 +151,7 @@ var generateGridFromMatrix = function(matrix, size, pixelsPerSide, id) {
         txt.setAttribute("y", size);
         txt.setAttribute("font-family", "Times New Roman");
         txt.setAttribute("font-size", "8");
-        txt.setAttribute("fill", "white");
+        txt.setAttribute("fill", "darkslategray");
         txt.textContent = x;
         g.appendChild(txt);
       } else if(x == 0) {
@@ -160,7 +160,7 @@ var generateGridFromMatrix = function(matrix, size, pixelsPerSide, id) {
         txt.setAttribute("y", size);
         txt.setAttribute("font-family", "Times New Roman");
         txt.setAttribute("font-size", "8");
-        txt.setAttribute("fill", "white");
+        txt.setAttribute("fill", "darkslategray");
         txt.textContent = y;
         g.appendChild(txt);
       }

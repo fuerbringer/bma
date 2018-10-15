@@ -4,9 +4,23 @@ var maze = require('./maze')
 var pathFinding = require('./pathfinding.js')
 
 var aStarDemo = function(options) {
-  //console.debug(generateRecBacktrackerMaze(6, 6));
-  //var matrix = generatePseudoRandomMaze(20, 20);
-  var matrix = maze.generateRecBacktrackerMaze(24, 24, false);
+  var matrix = null;
+  var gridWidth = 24;
+  var gridHeight = 24;
+  if(options.hasOwnProperty('gridWidth')) {
+    gridWidth = options.gridWidth;
+  }
+  if(options.hasOwnProperty('gridHeight')) {
+    gridHeight = options.gridHeight;
+  }
+  if(options.hasOwnProperty('gridType') && options.gridType == 'recbacktracker') {
+    matrix = maze.generateRecBacktrackerMaze(gridWidth, gridHeight, false);
+  } else if(options.hasOwnProperty('gridType') && options.gridType == 'random') {
+    matrix = maze.generatePseudoRandomMaze(gridWidth, gridHeight);
+  } else {
+    matrix = maze.generateRecBacktrackerMaze(gridWidth, gridHeight, false);
+  }
+  console.log(gridWidth, gridHeight)
   var container = document.getElementById("container");
   container.appendChild(grid.generateGridFromMatrix(matrix));
   var startAndFinish = helper.findStartAndFinish(matrix);

@@ -7,6 +7,7 @@ block content
         h1= title
         p [A* Pathfinder Beschreibung hier]
       .col-sm
+        // TODO modularize this as a reusable component vvv
         h2 Raster
         #container
         // Status
@@ -25,7 +26,25 @@ block content
         // Controls
         form(action="" method="get")
           .row
-            .col-3: label(for="controls-diagonal") Diagonale zulassen
+            .col-4: label(for="controls-dimension") Matrixgrösse
+            .col-sm
+                .form-group
+                  .row
+                    .col-4: input.form-control(type="number" min="6" max="64" name="gridWidth" placeholder="Breite" value=(query.gridWidth ? query.gridWidth : 24))
+                    .col-4: input.form-control(type="number" min="6" max="64" name="gridHeight" placeholder="Höhe" value=(query.gridHeight ? query.gridHeight : 24))
+          .row
+            .col-4: label(for="controls-diagonal") Labyrinthgenerator
+            .col-sm
+                .form-group
+                  select.form-control(name="gridType" id="controls-type")
+                    if query.gridType == "recbacktracker"
+                      option(value="recbacktracker" "selected") Recursive Backtracker
+                      option(value="random") Zufallsverstreuung
+                    else
+                      option(value="recbacktracker") Recursive Backtracker
+                      option(value="random" "selected") Zufallsverstreuung
+          .row
+            .col-4: label(for="controls-diagonal") Diagonale zulassen
             .col-sm
                 .form-group
                   select.form-control(name="diagonal" id="controls-diagonal")
@@ -36,15 +55,21 @@ block content
                       option(value="true") Ja
                       option(value="false" "selected") Nein
           .row
-            .col-3: p
+            .col-4: p
             .col-sm
               .form-group
                 input.btn.btn-primary(type="submit" value="Neu generieren")
   script.
     var allowDiagonal = '!{query.diagonal}' == 'true'; // Passed through GET
+    var gridWidth = parseInt(!isNaN(!{query.gridWidth}) ? '!{query.gridWidth}' : 24);
+    var gridHeight = parseInt(!isNaN(!{query.gridHeight}) ? '!{query.gridHeight}' : 24);
+    var gridType = '!{query.gridType}';
     // Start off with showing the aStarDemo
     addEventListener("DOMContentLoaded", function() {
       bma.aStarDemo({
-        allowDiagonal: allowDiagonal
+        allowDiagonal: allowDiagonal,
+        gridType: gridType,
+        gridWidth: gridWidth,
+        gridHeight: gridHeight
       });
     }, false);
