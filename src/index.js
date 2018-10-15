@@ -34,22 +34,6 @@ var aStarDemo = function(options) {
   });
 }
 
-var aStarDemoControls = function() {
-  document.getElementById('dropdown-diagonal-y').addEventListener("click", function() {
-    var container = document.getElementById("container");
-    container.innerHTML = '';
-    bma.aStarDemo({ allowDiagonal: true });
-    MathJax.Hub.Typeset();
-  });
-  document.getElementById('dropdown-diagonal-n').addEventListener("click", function() {
-    var container = document.getElementById("container");
-    container.innerHTML = '';
-    bma.aStarDemo({ allowDiagonal: false });
-    MathJax.Hub.Typeset();
-  });
-}
-
 module.exports = {
   aStarDemo,
-  aStarDemoControls,
 }

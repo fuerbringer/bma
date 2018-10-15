@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/pathfinder/a-star', function(req, res, next) {
-  res.render('a-star', { title: 'A* Pathfinder' });
+  res.render('a-star', { title: 'A* Pathfinder', query: req.query });
 });
 
 module.exports = router;

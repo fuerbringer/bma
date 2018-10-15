@@ -23,19 +23,24 @@ block content
           .col-sm: p#stat-distance
             i Berechne...
         // Controls
-        .row
-          .col-3: p Diagonale zlassen
-          .col-sm
-            .dropdown
-              button.btn.btn-sm.btn-secondary.dropdown-toggle(type="button" id="dropdown-diagonal" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Diagonale
-              .dropdown-menu(aria-labelledby="dropdown-diagonal")
-                button.btn.dropdown-item#dropdown-diagonal-y Ja
-                button.btn.dropdown-item#dropdown-diagonal-n Nein
+        form(action="" method="get")
+          .row
+            .col-3: label(for="controls-diagonal") Diagonale zulassen
+            .col-sm
+                .form-group
+                  select.form-control(name="diagonal" id="controls-diagonal")
+                    option(value="true") Ja
+                    option(value="false") Nein
+          .row
+            .col-3: p
+            .col-sm
+              .form-group
+                input.btn.btn-primary(type="submit" value="Neu generieren")
   script.
+    var allowDiagonal = '!{query.diagonal}' == 'true'; // Passed through GET
     // Start off with showing the aStarDemo
     addEventListener("DOMContentLoaded", function() {
       bma.aStarDemo({
-        allowDiagonal: false
+        allowDiagonal: allowDiagonal
       });
-      bma.aStarDemoControls();
     }, false);
