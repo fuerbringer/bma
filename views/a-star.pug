@@ -9,6 +9,7 @@ block content
       .col-sm
         h2 Raster
         #container
+        // Status
         .row
           .col-3: p Startpunkt
           .col-sm: p#stat-start
@@ -21,5 +22,20 @@ block content
           .col-3: p Zurückgelegter Weg
           .col-sm: p#stat-distance
             i Berechne...
+        // Controls
+        .row
+          .col-3: p Diagonale zlassen
+          .col-sm
+            .dropdown
+              button.btn.btn-sm.btn-secondary.dropdown-toggle(type="button" id="dropdown-diagonal" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Diagonale
+              .dropdown-menu(aria-labelledby="dropdown-diagonal")
+                button.btn.dropdown-item#dropdown-diagonal-y Ja
+                button.btn.dropdown-item#dropdown-diagonal-n Nein
   script.
-    addEventListener("DOMContentLoaded", bma.aStarDemo, false);
+    // Start off with showing the aStarDemo
+    addEventListener("DOMContentLoaded", function() {
+      bma.aStarDemo({
+        allowDiagonal: false
+      });
+      bma.aStarDemoControls();
+    }, false);

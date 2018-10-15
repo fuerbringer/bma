@@ -1,3 +1,8 @@
+document.createSvg = function(tagName) {
+  var svgNS = "http://www.w3.org/2000/svg";
+  return this.createElementNS(svgNS, tagName);
+};
+
 var drawVisualPath =  function(pathMatrix, polyId, color, id) {
   var id = id ? id : "main-grid";
   var color = color ? color : "green";

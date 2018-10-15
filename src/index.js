@@ -3,12 +3,7 @@ var grid = require('./grid')
 var maze = require('./maze')
 var pathFinding = require('./pathfinding.js')
 
-document.createSvg = function(tagName) {
-  var svgNS = "http://www.w3.org/2000/svg";
-  return this.createElementNS(svgNS, tagName);
-};
-
-var aStarDemo = function(/* TODO let user set options here*/) {
+var aStarDemo = function(options) {
   //console.debug(generateRecBacktrackerMaze(6, 6));
   //var matrix = generatePseudoRandomMaze(20, 20);
   var matrix = maze.generateRecBacktrackerMaze(24, 24, false);
@@ -19,8 +14,7 @@ var aStarDemo = function(/* TODO let user set options here*/) {
   var dbgWnd = document.getElementById("debug-out");
   var pfGrid = new pathFinding.Grid(helper.sanitizeMatrix(matrix));
   var finder = new pathFinding.AStarFinder({
-    allowDiagonal: true,
-    dontCrossCorners: true,
+    allowDiagonal: options.allowDiagonal ? true : false,
     heuristic: function(dx, dy) {
       // Tap into individual steps if needed
       return pathFinding.Heuristic.chebyshev(dx, dy);
@@ -40,6 +34,22 @@ var aStarDemo = function(/* TODO let user set options here*/) {
   });
 }
 
+var aStarDemoControls = function() {
+  document.getElementById('dropdown-diagonal-y').addEventListener("click", function() {
+    var container = document.getElementById("container");
+    container.innerHTML = '';
+    bma.aStarDemo({ allowDiagonal: true });
+    MathJax.Hub.Typeset();
+  });
+  document.getElementById('dropdown-diagonal-n').addEventListener("click", function() {
+    var container = document.getElementById("container");
+    container.innerHTML = '';
+    bma.aStarDemo({ allowDiagonal: false });
+    MathJax.Hub.Typeset();
+  });
+}
+
 module.exports = {
   aStarDemo,
+  aStarDemoControls,
 }

@@ -53,7 +53,9 @@ var setStatus = function(options) {
       = '`F(' + options.startAndFinish.finish.x + ', ' + options.startAndFinish.finish.y + ')`';
   }
   if(options.hasOwnProperty("distance")) {
-    document.getElementById('stat-distance').innerHTML = '`' + options.distance + '` Zellen';
+    document.getElementById('stat-distance').innerHTML = '`'
+      + options.distance
+      + (options.distance == 1 ? '` Zelle' : '` Zellen');
   }
 }
 
