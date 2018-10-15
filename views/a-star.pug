@@ -29,8 +29,12 @@ block content
             .col-sm
                 .form-group
                   select.form-control(name="diagonal" id="controls-diagonal")
-                    option(value="true") Ja
-                    option(value="false") Nein
+                    if query.diagonal == "true"
+                      option(value="true" "selected") Ja
+                      option(value="false") Nein
+                    else
+                      option(value="true") Ja
+                      option(value="false" "selected") Nein
           .row
             .col-3: p
             .col-sm
