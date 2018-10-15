@@ -145,6 +145,25 @@ var generateGridFromMatrix = function(matrix, size, pixelsPerSide, id) {
       box.setAttribute("stroke", "black"); 
       box.setAttribute("stroke-width", "0.1"); 
       g.appendChild(box);
+      if(y == 0) {
+        var txt = document.createSvg("text"); 
+        txt.setAttribute("x", 0);
+        txt.setAttribute("y", size);
+        txt.setAttribute("font-family", "Times New Roman");
+        txt.setAttribute("font-size", "8");
+        txt.setAttribute("fill", "white");
+        txt.textContent = x;
+        g.appendChild(txt);
+      } else if(x == 0) {
+        var txt = document.createSvg("text"); 
+        txt.setAttribute("x", 0);
+        txt.setAttribute("y", size);
+        txt.setAttribute("font-family", "Times New Roman");
+        txt.setAttribute("font-size", "8");
+        txt.setAttribute("fill", "white");
+        txt.textContent = y;
+        g.appendChild(txt);
+      }
       svg.appendChild(g);
     }  
   }
