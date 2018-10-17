@@ -43,12 +43,13 @@ form(action="" method="get")
     .col-sm
         .form-group
           select.form-control(name="gridType" id="controls-type")
-            if query.gridType == "recbacktracker"
-              option(value="recbacktracker" "selected") Recursive Backtracker
-              option(value="random") Zufallsverstreuung
-            else
+            if query.gridType == "random"
               option(value="recbacktracker") Recursive Backtracker
               option(value="random" "selected") Zufallsverstreuung
+            else
+              // Default
+              option(value="recbacktracker" "selected") Recursive Backtracker
+              option(value="random") Zufallsverstreuung
   .row
     .col-4: label(for="controls-diagonal") Diagonale zulassen:
     .col-sm
