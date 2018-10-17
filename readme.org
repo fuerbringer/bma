@@ -6,7 +6,7 @@
     - NodeJS runtime ([[https://nodejs.org/][Link]])
 *** Ausführung
 **** Schritt 1 ─ Herunterladen
-     Repo klonen: ~git clone https://github.com/fuerbringer/bma.git~
+     Repo klonen: ~git clone --recursive https://github.com/fuerbringer/bma.git~
 
      Oder ausserhalb von Entwicklungszwecken als ZIP: [[https://github.com/fuerbringer/bma/archive/master.zip][Link]]
 **** Schritt 2 ─ Vorbereitung
