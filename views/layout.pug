@@ -19,4 +19,20 @@ html
             a.dropdown-item(href="/pathfinder/a-star") A*
             a.dropdown-item(href="/undefined") Dijkstra
         li.nav-item: a.nav-link(href="/undefined") Vergleiche
-    block content
+        li.nav-item: a.nav-link(href="/credits") Autoren
+
+
+    .page-core: block content
+
+    footer
+      .container
+        .row
+          .col-sm
+            p &copy; 2018 Severin Fürbringer, Adrian Stoop
+          .col-sm
+            p  BMS Zürich, Berufsmaturitätsarbeit
+          .col-sm
+            p 
+              a(href="https://github.com/fuerbringer/bma" target="_blank") Source Code
+              |  unter  
+              a(href="https://www.gnu.org/licenses/agpl-3.0.de.html" target="_blank") AGPL-3.0
