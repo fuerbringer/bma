@@ -57,6 +57,9 @@ var setStatus = function(options) {
       + options.distance
       + (options.distance == 1 ? '` Zelle' : '` Zellen');
   }
+  if(options.hasOwnProperty("algorithm")) {
+    document.getElementById('stat-algorithm').innerHTML = options.algorithm;
+  }
 }
 
 module.exports = {

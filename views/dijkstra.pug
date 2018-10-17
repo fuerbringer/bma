@@ -5,7 +5,7 @@ block content
     .row
       .col-sm
         h1= title
-        p TODO: A* Pathfinder Beschreibung:
+        p TODO: Dijkstra Pathfinder Beschreibung:
         ol
           li Geschichte
           li Funktionsweise einfach beschrieben
@@ -21,7 +21,7 @@ block content
     // Start off with showing the aStarDemo
     addEventListener("DOMContentLoaded", function() {
       bma.algorithmDemo({
-        algorithm: bma.pathFinding.AStarFinder,
+        algorithm: bma.pathFinding.DijkstraFinder,
         allowDiagonal: allowDiagonal,
         gridType: gridType,
         gridWidth: gridWidth,

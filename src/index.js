@@ -3,10 +3,14 @@ var grid = require('./grid')
 var maze = require('./maze')
 var pathFinding = require('./pathfinding.js')
 
-var aStarDemo = function(options) {
+var algorithmDemo = function(options) {
+  var algorithmType = pathFinding.AStarFinder;
   var matrix = null;
   var gridWidth = 24;
   var gridHeight = 24;
+  if(options.hasOwnProperty('algorithm')) {
+    algorithmType = options.algorithm;
+  }
   if(options.hasOwnProperty('gridWidth')) {
     gridWidth = options.gridWidth;
   }
@@ -27,7 +31,7 @@ var aStarDemo = function(options) {
   var polyLine = [];
   var dbgWnd = document.getElementById("debug-out");
   var pfGrid = new pathFinding.Grid(helper.sanitizeMatrix(matrix));
-  var finder = new pathFinding.AStarFinder({
+  var finder = new algorithmType({
     allowDiagonal: options.allowDiagonal ? true : false,
     heuristic: function(dx, dy) {
       // Tap into individual steps if needed
@@ -43,11 +47,13 @@ var aStarDemo = function(options) {
   grid.drawVisualPath(polyLine);
 
   helper.setStatus({
+    algorithm: algorithmType.name,
     startAndFinish: startAndFinish,
     distance: (path.length - 1)
   });
 }
 
 module.exports = {
-  aStarDemo,
+  pathFinding,
+  algorithmDemo,
 }

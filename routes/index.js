@@ -10,6 +10,10 @@ router.get('/pathfinder/a-star', function(req, res, next) {
   res.render('a-star', { title: 'A* Pathfinder', query: req.query });
 });
 
+router.get('/pathfinder/dijkstra', function(req, res, next) {
+  res.render('dijkstra', { title: 'Dijkstra Pathfinder', query: req.query });
+});
+
 router.get('/credits', function(req, res, next) {
   res.render('credits', { title: 'Autoren' });
 });
