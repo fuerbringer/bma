@@ -5,60 +5,14 @@ block content
     .row
       .col-sm
         h1= title
-        p [A* Pathfinder Beschreibung hier]
+        p TODO: A* Pathfinder Beschreibung:
+        ol
+          li Geschichte
+          li Funktionsweise einfach beschrieben
+          li Beispielablauf illustrieren
+
       .col-sm
-        // TODO modularize this as a reusable component vvv
-        h2 Raster
-        #container
-        // Status
-        .row
-          .col-3: p Startpunkt
-          .col-sm: p#stat-start
-            i Berechne...
-        .row
-          .col-3: p Endpunkt
-          .col-sm: p#stat-end
-            i Berechne...
-        .row
-          .col-3: p Zurückgelegter Weg
-          .col-sm: p#stat-distance
-            i Berechne...
-        // Controls
-        form(action="" method="get")
-          .row
-            .col-4: label(for="controls-dimension") Rastergrösse
-            .col-sm
-                .form-group
-                  .row
-                    .col-4: input.form-control(type="number" min="6" max="64" name="gridWidth" placeholder="Breite" value=(query.gridWidth ? query.gridWidth : 24))
-                    .col-4: input.form-control(type="number" min="6" max="64" name="gridHeight" placeholder="Höhe" value=(query.gridHeight ? query.gridHeight : 24))
-          .row
-            .col-4: label(for="controls-diagonal") Labyrinthgenerator
-            .col-sm
-                .form-group
-                  select.form-control(name="gridType" id="controls-type")
-                    if query.gridType == "recbacktracker"
-                      option(value="recbacktracker" "selected") Recursive Backtracker
-                      option(value="random") Zufallsverstreuung
-                    else
-                      option(value="recbacktracker") Recursive Backtracker
-                      option(value="random" "selected") Zufallsverstreuung
-          .row
-            .col-4: label(for="controls-diagonal") Diagonale zulassen
-            .col-sm
-                .form-group
-                  select.form-control(name="diagonal" id="controls-diagonal")
-                    if query.diagonal == "true"
-                      option(value="true" "selected") Ja
-                      option(value="false") Nein
-                    else
-                      option(value="true") Ja
-                      option(value="false" "selected") Nein
-          .row
-            .col-4: p
-            .col-sm
-              .form-group
-                input.btn.btn-primary(type="submit" value="Neu generieren")
+        include pathfinder-block
   script.
     var allowDiagonal = '!{query.diagonal}' == 'true'; // Passed through GET
     var gridWidth = parseInt(!isNaN(!{query.gridWidth}) ? '!{query.gridWidth}' : 24);

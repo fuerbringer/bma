@@ -1,0 +1,64 @@
+h2 Raster
+.row
+  .col-sm
+    #container
+
+// Horizontal line
+.row: .col-sm: hr
+
+// Status
+.row
+  .col-sm
+    h3 Status
+.row
+  .col-4: p Startpunkt:
+  .col-2: p#stat-start: i Berechne...
+  .col-4: p Endpunkt:
+  .col-2: p#stat-end: i Berechne...
+.row
+  .col-4: p Zurückgelegter Weg:
+  .col-8: p#stat-distance: i Berechne...
+
+// Horizontal line
+.row: .col-sm: hr
+
+.row
+  .col-sm
+    h3 Steuerung
+
+// Controls
+form(action="" method="get")
+  .row
+    .col-4: label(for="controls-dimension") Rastergrösse:
+    .col-sm
+        .form-group
+          .row
+            .col-6: input.form-control(type="number" min="6" max="64" name="gridWidth" placeholder="Breite" value=(query.gridWidth ? query.gridWidth : 24))
+            .col-6: input.form-control(type="number" min="6" max="64" name="gridHeight" placeholder="Höhe" value=(query.gridHeight ? query.gridHeight : 24))
+  .row
+    .col-4: label(for="controls-diagonal") Labyrinthgenerator:
+    .col-sm
+        .form-group
+          select.form-control(name="gridType" id="controls-type")
+            if query.gridType == "recbacktracker"
+              option(value="recbacktracker" "selected") Recursive Backtracker
+              option(value="random") Zufallsverstreuung
+            else
+              option(value="recbacktracker") Recursive Backtracker
+              option(value="random" "selected") Zufallsverstreuung
+  .row
+    .col-4: label(for="controls-diagonal") Diagonale zulassen:
+    .col-sm
+        .form-group
+          select.form-control(name="diagonal" id="controls-diagonal")
+            if query.diagonal == "true"
+              option(value="true" "selected") Ja
+              option(value="false") Nein
+            else
+              option(value="true") Ja
+              option(value="false" "selected") Nein
+  .row
+    .col-4: p
+    .col-sm
+      .form-group
+        input.btn.btn-primary(type="submit" value="Neu generieren")
