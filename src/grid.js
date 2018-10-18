@@ -109,17 +109,13 @@ var resetCoordRect = function(x, y) {
 
 /**
  * @param {int} size Height / width attribute for inner boxes
- * @param {int} pixelsPerSide Total width and height of the output
  */
-var generateGridFromMatrix = function(matrix, size, pixelsPerSide, id) {
+var generateGridFromMatrix = function(matrix, size, id) {
   var size = size ? size : 10;
-  var pixelsPerSide = pixelsPerSide ? pixelsPerSide : 400;
   var id = id ? id : "main-grid";
   var svg = document.createSvg("svg");
   svg.setAttribute("id", id);
-  svg.setAttribute("width", pixelsPerSide);
-  svg.setAttribute("height", pixelsPerSide);
-  svg.setAttribute("viewBox", [0, 0, matrix.length * size, matrix[0].length * size].join(" "));
+  svg.setAttribute("viewBox", [0, 0, matrix[0].length * size, matrix.length * size].join(" "));
 
   for(var y = 0; y < matrix.length; y++) {
     for(var x = 0; x < matrix[y].length; x++) {
