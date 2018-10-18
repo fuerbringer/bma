@@ -1,11 +1,12 @@
 {
   "name": "bma",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "node ./bin/www",
     "build": "webpack --mode production",
-    "watch": "webpack --watch --mode development"
+    "watch": "webpack --watch --mode development",
+    "test": "eslint src/{grid,helper,index,maze}.js ./bin/* ./routes/*"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
