@@ -53,9 +53,13 @@ var setStatus = function(options) {
       = '`F(' + options.startAndFinish.finish.x + ', ' + options.startAndFinish.finish.y + ')`'
   }
   if(options.hasOwnProperty('distance')) {
-    document.getElementById('stat-distance').innerHTML = '`'
-      + options.distance
-      + (options.distance == 1 ? '` Zelle' : '` Zellen')
+    if(options.distance > 0) {
+      document.getElementById('stat-distance').innerHTML = '`'
+        + options.distance
+        + (options.distance == 1 ? '` Zelle' : '` Zellen')
+    } else {
+      document.getElementById('stat-distance').innerHTML = '`0` Zellen (Weg nicht möglich)'
+    }
   }
   if(options.hasOwnProperty('algorithm')) {
     document.getElementById('stat-algorithm').innerHTML = options.algorithm

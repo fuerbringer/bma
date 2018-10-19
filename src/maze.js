@@ -1,6 +1,3 @@
-var helper = require('./helper')
-
-
 var generatePseudoRandomMaze = function(width, height, remainderFrequency) {
   var matrix = []
   remainderFrequency = remainderFrequency ? remainderFrequency : 4
@@ -12,20 +9,15 @@ var generatePseudoRandomMaze = function(width, height, remainderFrequency) {
     }
     matrix.push(row)
   }
-  var startBlock = {
-    x: Math.floor(Math.random() * width),
-    y: Math.floor(Math.random() * height),
-  }
-  var endBlock = {
-    x: Math.floor(Math.random() * width),
-    y: Math.floor(Math.random() * height),
-  }
-  matrix[startBlock.y][startBlock.x] = 's'
-  matrix[endBlock.y][endBlock.x] = 'f'
+  matrix = markStartAndFinish(matrix, true)
   return matrix
 }
 
 
+/**
+ * @param randomSelection If true selects random start and finish within the possible elements.
+ *                        Otherwise start will be the first possible element and finish the last.
+ */
 var markStartAndFinish = function(matrix, randomSelection) {
   var possible = []
   for(var y = 0; y < matrix.length; y++) {
@@ -162,15 +154,7 @@ var generateRecBacktrackerMaze = function(width, height) {
     }
   }
 
-  // Random start
-  var startIndex = helper.randomIntFromInterval(0, corridors.length - 1)
-  var start = corridors[startIndex]
-  // Remove start element so start and finish don't end up as the same cell
-  corridors.splice(startIndex, 1)
-  var finishIndex = helper.randomIntFromInterval(0, corridors.length - 1)
-  var finish = corridors[finishIndex]
-  matrix[start.y][start.x] = 's'
-  matrix[finish.y][finish.x] = 'f'
+  matrix = markStartAndFinish(matrix, true)
   matrix[0][0] = 1 // Patch wall at (0,0)
   return matrix
 }
