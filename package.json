@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": false,
   "scripts": {
-    "start": "node ./bin/www",
-    "build": "webpack --mode production",
+    "start": "npm run build & node ./bin/www",
+    "build": "webpack --mode none",
     "watch": "webpack --watch --mode development",
     "test": "eslint src/{grid,helper,index,maze}.js ./bin/* ./routes/*"
   },
