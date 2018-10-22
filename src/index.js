@@ -2,6 +2,7 @@ var helper = require('./helper')
 var grid = require('./grid')
 var maze = require('./maze')
 var pathFinding = require('./pathfinding.js')
+var presetGrids = require('./preset-grids.js')
 
 var algorithmDemo = function(options) {
   var algorithmType = pathFinding.AStarFinder
@@ -17,10 +18,13 @@ var algorithmDemo = function(options) {
   if(options.hasOwnProperty('gridHeight')) {
     gridHeight = options.gridHeight
   }
+  // TODO: detect grids/mazes other than these two, namely from addPresetGrids()
   if(options.hasOwnProperty('gridType') && options.gridType == 'recbacktracker') {
     matrix = maze.generateRecBacktrackerMaze(gridWidth, gridHeight, false)
   } else if(options.hasOwnProperty('gridType') && options.gridType == 'random') {
     matrix = maze.generatePseudoRandomMaze(gridWidth, gridHeight)
+  } else if(options.hasOwnProperty('gridType') && options.gridType.length > 0) {
+    matrix = presetGrids[options.gridType]
   } else {
     matrix = maze.generateRecBacktrackerMaze(gridWidth, gridHeight, false)
   }
@@ -51,7 +55,29 @@ var algorithmDemo = function(options) {
   })
 }
 
+var addPresetGrids = function(selected) {
+  var optionsObj = presetGrids;
+  optionsObj['recbacktracker'] = 'generator'
+  optionsObj['random'] = 'generator'
+  var options = Object.entries(optionsObj)
+  for(let [key, val] of options) {
+    var option = document.createElement('option')
+    option.setAttribute('name', key)
+    option.setAttribute('value', key)
+    if(val != 'generator') {
+      option.appendChild(document.createTextNode(`${key} (Vorgefertigt)`))
+    } else {
+      option.appendChild(document.createTextNode(`${key} (Generator)`))
+    }
+    if(selected == key) {
+      option.setAttribute('selected', 'selected')
+    }
+    document.getElementById('controls-type').appendChild(option)
+  }
+}
+
 module.exports = {
   pathFinding,
   algorithmDemo,
+  addPresetGrids
 }

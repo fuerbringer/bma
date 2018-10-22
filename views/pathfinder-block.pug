@@ -38,17 +38,12 @@ form(action="" method="get")
             .col-6: input.form-control(type="number" min="6" max="64" name="gridWidth" placeholder="Breite" value=(query.gridWidth ? query.gridWidth : 24))
             .col-6: input.form-control(type="number" min="6" max="64" name="gridHeight" placeholder="Höhe" value=(query.gridHeight ? query.gridHeight : 24))
   .row
-    .col-4: label(for="controls-diagonal") Labyrinthgenerator:
+    .col-4: label(for="controls-diagonal") Rastertyp:
     .col-sm
         .form-group
           select.form-control(name="gridType" id="controls-type")
-            if query.gridType == "random"
-              option(value="recbacktracker") Recursive Backtracker
-              option(value="random" "selected") Zufallsverstreuung
-            else
-              // Default
-              option(value="recbacktracker" "selected") Recursive Backtracker
-              option(value="random") Zufallsverstreuung
+  .row
+    .col-sm: p Hinweis: Bei Generatoren ergibt sich ein zufälliges Raster. Bei vorgefertigten Raster wird die Rastergrösse ignoriert.
   .row
     .col-4: label(for="controls-diagonal") Diagonale zulassen:
     .col-sm
