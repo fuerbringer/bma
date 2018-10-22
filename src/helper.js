@@ -64,6 +64,13 @@ var setStatus = function(options) {
   if(options.hasOwnProperty('algorithm')) {
     document.getElementById('stat-algorithm').innerHTML = options.algorithm
   }
+  if(options.hasOwnProperty('elapsedTime')) {
+    if(options.elapsedTime > 0) {
+      document.getElementById('stat-elapsed-time').innerHTML = `${options.elapsedTime} ms`
+    } else {
+      document.getElementById('stat-elapsed-time').innerHTML = '0 ms <span class="font-italic">?</span>'
+    }
+  }
 }
 
 module.exports = {
