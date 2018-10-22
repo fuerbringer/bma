@@ -12,7 +12,7 @@ h2 Raster
     h3 Status
 .row
   .col-4: p Algorithmus:
-  .col-8: p#stat-algorithm: i Nicht definiert
+  .col-8: u#stat-algorithm: i Nicht definiert
 .row
   .col-4: p Start- und Endpunkt:
   .col-4: p#stat-start: i Berechne...
@@ -33,6 +33,11 @@ h2 Raster
 
 // Controls
 form(action="" method="get")
+  .row
+    .col-4: label(for="controls-algorithm") Pathfinding Algorithmus:
+    .col-sm
+        .form-group
+          select.form-control(name="algorithm" id="controls-algorithm")
   .row
     .col-4: label(for="controls-dimension") Rastergrösse:
     .col-sm

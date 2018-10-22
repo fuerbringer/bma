@@ -45,6 +45,7 @@ var sanitizeMatrix = function(matrix) {
   return matrix
 }
 
+// TODO: Move to separate UI file
 var setStatus = function(options) {
   if(options.hasOwnProperty('startAndFinish')) {
     document.getElementById('stat-start').innerHTML
@@ -68,7 +69,7 @@ var setStatus = function(options) {
     if(options.elapsedTime > 0) {
       document.getElementById('stat-elapsed-time').innerHTML = `\`${options.elapsedTime} ms\``
     } else {
-      document.getElementById('stat-elapsed-time').innerHTML = '`0 ms` <span class="font-italic">?</span>'
+      document.getElementById('stat-elapsed-time').innerHTML = '`< 0 ms`'
     }
   }
 }

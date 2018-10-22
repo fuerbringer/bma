@@ -14,11 +14,7 @@ html
     nav.navbar.navbar-expand-sm.bg-dark.navbar-dark
       ul.navbar-nav
         li.nav-item: a.navbar-brand.nav-link(href="/") BMA
-        li.nav-item.dropdown
-          a.nav-link.dropdown-toggle(data-toggle="dropdown" id="algorithms" href="#" role="button" aria-haspopup="true" aria-expanded="false") Pathfinder
-          .dropdown-menu(aria-labelledby="algorithms")
-            a.dropdown-item(href="/pathfinder/a-star") A*
-            a.dropdown-item(href="/pathfinder/dijkstra") Dijkstra
+        li.nav-item: a.nav-link(href="/pathfinder") Pathfinder
         li.nav-item: a.nav-link(href="/") Vergleiche
         li.nav-item: a.nav-link(href="/credits") Autoren
 

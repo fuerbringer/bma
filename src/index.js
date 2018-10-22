@@ -3,6 +3,7 @@ var grid = require('./grid')
 var maze = require('./maze')
 var pathFinding = require('./pathfinding.js')
 var presetGrids = require('./preset-grids.js')
+var ui = require('./ui.js')
 
 var algorithmDemo = function(options) {
   var algorithmType = pathFinding.AStarFinder
@@ -35,7 +36,8 @@ var algorithmDemo = function(options) {
   var finder = new algorithmType({
     allowDiagonal: options.allowDiagonal ? true : false,
     heuristic: function(dx, dy) {
-      // Tap into individual steps if needed
+      // TODO: Tap into individual steps
+      // TODO: Mark 'touched' cells
       return pathFinding.Heuristic.chebyshev(dx, dy)
     }
   })
@@ -57,31 +59,13 @@ var algorithmDemo = function(options) {
   })
 }
 
-var addPresetGrids = function(selected) {
-  var optionsObj = presetGrids;
-  optionsObj['recbacktracker'] = 'generator'
-  optionsObj['random'] = 'generator'
-  var options = Object.entries(optionsObj)
-  for(let [key, val] of options) {
-    var option = document.createElement('option')
-    option.setAttribute('name', key)
-    option.setAttribute('value', key)
-    if(val != 'generator') {
-      option.appendChild(document.createTextNode(`${key} (Vorgefertigt *)`))
-    } else {
-      option.appendChild(document.createTextNode(`${key} (Generator)`))
-    }
-    if(selected == key) {
-      option.setAttribute('selected', 'selected')
-    } else if(!selected && key == 'recbacktracker') {
-      option.setAttribute('selected', 'selected')
-    }
-    document.getElementById('controls-type').appendChild(option)
-  }
+var initAlgorithmDemoInterface = function(algorithm, gridType) {
+  ui.addAlgorithmTypes(algorithm)
+  ui.addPresetGrids(gridType)
 }
 
 module.exports = {
   pathFinding,
   algorithmDemo,
-  addPresetGrids
+  initAlgorithmDemoInterface
 }
