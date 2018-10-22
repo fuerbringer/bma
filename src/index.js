@@ -67,7 +67,7 @@ var addPresetGrids = function(selected) {
     option.setAttribute('name', key)
     option.setAttribute('value', key)
     if(val != 'generator') {
-      option.appendChild(document.createTextNode(`${key} (Vorgefertigt)`))
+      option.appendChild(document.createTextNode(`${key} (Vorgefertigt *)`))
     } else {
       option.appendChild(document.createTextNode(`${key} (Generator)`))
     }

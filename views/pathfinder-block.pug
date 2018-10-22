@@ -46,8 +46,6 @@ form(action="" method="get")
         .form-group
           select.form-control(name="gridType" id="controls-type")
   .row
-    .col-sm: p Hinweis: Bei vorgefertigten Raster wird die Rastergrösse nicht beachtet.
-  .row
     .col-4: label(for="controls-diagonal") Diagonale zulassen:
     .col-sm
         .form-group
@@ -63,3 +61,5 @@ form(action="" method="get")
     .col-sm
       .form-group
         input.btn.btn-primary(type="submit" value="Neu generieren")
+  .row
+    .col-sm: p * bei vorgefertigten Rastern wird die Rastergrösse nicht beachtet.
