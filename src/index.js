@@ -36,12 +36,11 @@ var algorithmDemo = function(options) {
       return pathFinding.Heuristic.chebyshev(dx, dy)
     }
   })
-  // Start measuring time
-  var t0 = performance.now()
+  var t0 = performance.now() // Start measuring time for pathfinder calculations
   var path = finder.findPath(
     startAndFinish.start.x, startAndFinish.start.y,
     startAndFinish.finish.x, startAndFinish.finish.y, pfGrid)
-  var t1 = performance.now()
+  var t1 = performance.now() // End measuring time
   for(var i = 0; i < path.length; i++) {
     polyLine.push(grid.getRealBoxCoords(path[i][0], path[i][1], { x: 4, y: 4 }))
   }
