@@ -18,7 +18,6 @@ var algorithmDemo = function(options) {
   if(options.hasOwnProperty('gridHeight')) {
     gridHeight = options.gridHeight
   }
-  // TODO: detect grids/mazes other than these two, namely from addPresetGrids()
   if(options.hasOwnProperty('gridType') && options.gridType == 'recbacktracker') {
     matrix = maze.generateRecBacktrackerMaze(gridWidth, gridHeight, false)
   } else if(options.hasOwnProperty('gridType') && options.gridType == 'random') {
@@ -73,6 +72,8 @@ var addPresetGrids = function(selected) {
       option.appendChild(document.createTextNode(`${key} (Generator)`))
     }
     if(selected == key) {
+      option.setAttribute('selected', 'selected')
+    } else if(!selected && key == 'recbacktracker') {
       option.setAttribute('selected', 'selected')
     }
     document.getElementById('controls-type').appendChild(option)
