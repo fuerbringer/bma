@@ -1,16 +1,15 @@
-var generatePseudoRandomMaze = function(width, height, remainderFrequency) {
-  var matrix = []
+const generatePseudoRandomMaze = (width, height, remainderFrequency) => {
+  const matrix = []
   remainderFrequency = remainderFrequency ? remainderFrequency : 4
-  for(var y = 0; y < height; y++) {
-    var row = []
-    for(var x = 0; x < width; x++) {
-      var block = (((Math.random() * 100) % remainderFrequency).toFixed(0) == true) ? 1 : 0
+  for(let y = 0; y < height; y++) {
+    const row = []
+    for(let x = 0; x < width; x++) {
+      const block = (((Math.random() * 100) % remainderFrequency).toFixed(0) == true) ? 1 : 0
       row.push(block)
     }
     matrix.push(row)
   }
-  matrix = markStartAndFinish(matrix, true)
-  return matrix
+  return markStartAndFinish(matrix, true)
 }
 
 
@@ -18,23 +17,23 @@ var generatePseudoRandomMaze = function(width, height, remainderFrequency) {
  * @param randomSelection If true selects random start and finish within the possible elements.
  *                        Otherwise start will be the first possible element and finish the last.
  */
-var markStartAndFinish = function(matrix, randomSelection) {
-  var possible = []
-  for(var y = 0; y < matrix.length; y++) {
-    for(var x = 0; x < matrix[y].length; x++) {
+const markStartAndFinish = (matrix, randomSelection) => {
+  const possible = []
+  for(let y = 0; y < matrix.length; y++) {
+    for(let x = 0; x < matrix[y].length; x++) {
       if(matrix[y][x] == 0) {
         possible.push({ x: x, y: y })
       }
     }
   }
-  var chosenStart = Math.floor(Math.random() * possible.length)
+  const chosenStart = Math.floor(Math.random() * possible.length)
   if(randomSelection) {
     matrix[possible[chosenStart].y][possible[chosenStart].x] = 's'
   } else {
     matrix[possible[0].y][possible[0].x] = 's'
   }
   possible.splice(chosenStart, 1)
-  var chosenFinish = Math.floor(Math.random() * possible.length)
+  const chosenFinish = Math.floor(Math.random() * possible.length)
   if(randomSelection) {
     matrix[possible[chosenFinish].y][possible[chosenFinish].x] = 'f'
   } else {
@@ -47,28 +46,27 @@ var markStartAndFinish = function(matrix, randomSelection) {
 /**
  * Pseudocode from https://en.wikipedia.org/wiki/Maze_generation#Recursive_backtracker
  */
-var generateRecBacktrackerMaze = function(width, height) {
+const generateRecBacktrackerMaze = (width, height) => {
   // Border wall deltas
   width += 2
   height += 2
-  var matrix = []
-  for(var y = 0; y < height - 1; y++) {
-    var row = []
-    matrix.push(row)
+  let matrix = []
+  for(let y = 0; y < height - 1; y++) {
+    matrix.push([])
   }
 
   // Rest of the function body by https://github.com/semibran/maze
-  function generate(nodes, adjacent, choose) {
-    var node = choose(nodes)
-    var stack = [node]
-    var maze = new Map()
-    for (var mazeNode of nodes) {
+  const generate = (nodes, adjacent, choose) => {
+    let node = choose(nodes)
+    const stack = [node]
+    const maze = new Map()
+    for (let mazeNode of nodes) {
       maze.set(mazeNode, [])
     }
     while (node) {
-      var neighbors = nodes.filter(other => !maze.get(other).length && adjacent(node, other))
+      const neighbors = nodes.filter(other => !maze.get(other).length && adjacent(node, other))
       if (neighbors.length) {
-        var neighbor = choose(neighbors)
+        const neighbor = choose(neighbors)
         maze.get(node).push(neighbor)
         maze.get(neighbor).push(node)
         stack.unshift(neighbor)
@@ -82,46 +80,45 @@ var generateRecBacktrackerMaze = function(width, height) {
     return maze
   }
 
-  var world = {
+  const world = {
     width: width - 1,
     height: height - 1,
     tiles: new Array((width - 1) * (height - 1)).fill('wall')
   }
 
-  var nodes = cells(world).filter(cell => cell.x % 2 && cell.y % 2)
-  var maze = generate(nodes, adjacent, choose)
+  const nodes = cells(world).filter(cell => cell.x % 2 && cell.y % 2)
+  const maze = generate(nodes, adjacent, choose)
   connect(maze, world)
 
-  function cells(grid) {
-    var { width, height  } = grid
-    var cells = new Array(width * height)
-    for (var y = 0; y < height; y++) {
-      for (var x = 0; x < width; x++) {
-        var cell = { x, y  }
+  const cells = grid => {
+    const { width, height  } = grid
+    const cells = new Array(width * height)
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const cell = { x, y }
         cells[locate(grid, cell)] = cell
       }
     }
     return cells
   }
 
-  function locate(grid, cell) {
+  const locate = (grid, cell) => {
     return cell.y * grid.width + cell.x
-
   }
 
-  function adjacent(a, b) {
+  const adjacent = (a, b) => {
     return Math.abs(b.x - a.x) + Math.abs(b.y - a.y) === 2
   }
 
-  function choose(array) {
+  const choose = array => {
     return array[Math.floor(Math.random() * array.length)]
   }
 
-  function connect(maze, world) {
-    for (var [node, neighbors] of maze) {
+  const connect = (maze, world) => {
+    for (const [node, neighbors] of maze) {
       world.tiles[locate(world, node)] = 'floor'
-      for (var neighbor of neighbors) {
-        var midpoint = {
+      for (let neighbor of neighbors) {
+        const midpoint = {
           x: node.x + (neighbor.x - node.x) / 2,
           y: node.y + (neighbor.y - node.y) / 2
         }
@@ -130,10 +127,10 @@ var generateRecBacktrackerMaze = function(width, height) {
     }
   }
 
-  var currentX = 0
-  var currentY = 0
-  for (var cell of cells(world)) {
-    var tile = world.tiles[locate(world, cell)]
+  let currentX = 0
+  let currentY = 0
+  for (let cell of cells(world)) {
+    const tile = world.tiles[locate(world, cell)]
     if (!cell.x && cell.y) {
       currentY++
       currentX = 0
@@ -145,9 +142,9 @@ var generateRecBacktrackerMaze = function(width, height) {
     }
   }
 
-  var corridors = []
-  for(var cY = 1; cY < height - 1; cY++) {
-    for(var x = 1; x < width - 1; x++) {
+  const corridors = []
+  for(let cY = 1; cY < height - 1; cY++) {
+    for(let x = 1; x < width - 1; x++) {
       if(matrix[cY][x] == 0) {
         corridors.push({ x: x, y: cY })
       }

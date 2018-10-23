@@ -1,12 +1,41 @@
-var presetGrids = require('./preset-grids.js')
+const presetGrids = require('./preset-grids.js')
 
-var addPresetGrids = function(selected) {
-  var optionsObj = presetGrids;
-  optionsObj['recbacktracker'] = 'generator'
-  optionsObj['random'] = 'generator'
-  var options = Object.entries(optionsObj)
+const setStatus = options => {
+  if(options.hasOwnProperty('startAndFinish')) {
+    document.getElementById('stat-start').innerHTML
+      = '`S(' + options.startAndFinish.start.x + ', ' + options.startAndFinish.start.y + ')`'
+    document.getElementById('stat-end').innerHTML
+      = '`F(' + options.startAndFinish.finish.x + ', ' + options.startAndFinish.finish.y + ')`'
+  }
+  if(options.hasOwnProperty('distance')) {
+    if(options.distance > 0) {
+      document.getElementById('stat-distance').innerHTML = '`'
+        + options.distance
+        + (options.distance == 1 ? '` Zelle' : '` Zellen')
+    } else {
+      document.getElementById('stat-distance').innerHTML = '`0` Zellen (Weg nicht möglich)'
+    }
+  }
+  if(options.hasOwnProperty('algorithm')) {
+    document.getElementById('stat-algorithm').innerHTML = options.algorithm
+  }
+  if(options.hasOwnProperty('elapsedTime')) {
+    if(options.elapsedTime > 0) {
+      document.getElementById('stat-elapsed-time').innerHTML = `\`${options.elapsedTime} ms\``
+    } else {
+      document.getElementById('stat-elapsed-time').innerHTML = '`< 0 ms`'
+    }
+  }
+}
+
+const addPresetGrids = selected => {
+  let optionsObj = presetGrids; {
+    optionsObj['recbacktracker'] = 'generator'
+    optionsObj['random'] = 'generator'
+  }
+  const options = Object.entries(optionsObj)
   for(let [key, val] of options) {
-    var option = document.createElement('option')
+    const option = document.createElement('option')
     option.setAttribute('value', key)
     if(val != 'generator') {
       option.appendChild(document.createTextNode(`${key} (Vorgefertigt *)`))
@@ -22,14 +51,14 @@ var addPresetGrids = function(selected) {
   }
 }
 
-var addAlgorithmTypes = function(selected) {
-  var available = [
+const addAlgorithmTypes = selected => {
+  const available = [
     'AStarFinder',
     'DijkstraFinder'
   ]
-  for(var i = 0; i < available.length; i++) {
-    var algo = available[i]
-    var option = document.createElement('option')
+  for(let i = 0; i < available.length; i++) {
+    const algo = available[i]
+    const option = document.createElement('option')
     option.setAttribute('value', algo)
     option.appendChild(document.createTextNode(algo))
     if(selected == algo) {
@@ -40,6 +69,7 @@ var addAlgorithmTypes = function(selected) {
 }
 
 module.exports = {
+  setStatus,
   addPresetGrids,
   addAlgorithmTypes
 }
