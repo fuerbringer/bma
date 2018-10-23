@@ -12,6 +12,8 @@ const ui = require('./ui.js')
 const algorithmDemo = options => {
   let algorithmType = pathFinding.AStarFinder
   let matrix = null
+  let polyLine = []
+  let heuristics = []
   let gridWidth = 24
   let gridHeight = 24
   if(options.hasOwnProperty('algorithm')) {
@@ -35,13 +37,11 @@ const algorithmDemo = options => {
   const container = document.getElementById('container')
   container.appendChild(grid.generateGridFromMatrix(matrix))
   const startAndFinish = helper.findStartAndFinish(matrix)
-  let polyLine = []
   const pfGrid = new pathFinding.Grid(helper.sanitizeMatrix(matrix))
   const finder = new algorithmType({
     allowDiagonal: options.allowDiagonal ? true : false,
     heuristic: function(dx, dy) {
-      // TODO: Tap into individual steps
-      // TODO: Mark 'touched' cells
+      heuristics.push({x: dx, y: dy})
       return pathFinding.Heuristic.chebyshev(dx, dy)
     }
   })
@@ -59,8 +59,11 @@ const algorithmDemo = options => {
     algorithm: algorithmType.name,
     startAndFinish: startAndFinish,
     distance: (path.length - 1),
-    elapsedTime: (t1 - t0)
+    elapsedTime: (t1 - t0),
+    heuristics: heuristics.length,
+    totalCells: (gridWidth * gridHeight)
   })
+  ui.handleHeuristicsToggle(matrix, heuristics)
 }
 
 const initAlgorithmDemoInterface = (algorithm, gridType) => {

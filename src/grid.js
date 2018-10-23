@@ -183,6 +183,23 @@ const generateGridFromMatrix = (matrix, size, id) => {
 }
 
 
+/**
+ * @param {Array} cells - Array of cells (objects with {x, y}). Cells to be marked.
+ */
+const markCellHeuristics = (cells = []) => {
+  for(let i = 0; i < cells.length; i++) {
+    setRectAttribute(cells[i].x, cells[i].y, 'filter', 'blur(1px) drop-shadow(1px 1px 1px blue)')
+  }
+}
+
+const unmarkCellHeuristics = matrix => {
+  for(let y = 0; y < matrix.length; y++) {
+    for(let x = 0; x < matrix[y].length; x++) {
+      setRectAttribute(x, y, 'filter', '')
+    }
+  }
+}
+
 module.exports = {
   drawVisualPath,
   clearVisualPaths,
@@ -191,5 +208,7 @@ module.exports = {
   setRectAttribute,
   resetAllCoordRects,
   resetCoordRect,
-  generateGridFromMatrix
+  generateGridFromMatrix,
+  markCellHeuristics,
+  unmarkCellHeuristics
 }

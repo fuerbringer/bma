@@ -1,4 +1,6 @@
 const presetGrids = require('./preset-grids.js')
+const grid = require('./grid.js')
+
 
 /**
  * Update text status in the #stat-* elements
@@ -30,7 +32,16 @@ const setStatus = options => {
       document.getElementById('stat-elapsed-time').innerHTML = '`< 0 ms`'
     }
   }
+  if(options.hasOwnProperty('heuristics')) {
+    document.getElementById('stat-heuristics').innerHTML = `\`${options.heuristics}\` Zellen`
+    if(options.hasOwnProperty('totalCells')) {
+      // How many % of the cells have been heuristically analyzed
+      const percentHeuristics = (options.heuristics / options.totalCells) * 100
+      document.getElementById('stat-heuristics').innerHTML += ` \`(${percentHeuristics.toFixed(2)}%)\``
+    }
+  }
 }
+
 
 /**
  * Add preset grids as option to the select/dropdown field of grid generators
@@ -59,6 +70,7 @@ const addPresetGrids = selected => {
   }
 }
 
+
 /**
  * Add algorithm (pathfinder) types as option to the select/dropdown field of pathfinders
  * @param {String} selected - name of the already selected option
@@ -80,8 +92,28 @@ const addAlgorithmTypes = selected => {
   }
 }
 
+
+/**
+ * Handle toggling of button for heuristically marked cells
+ * @param {Array} matrix - 2d array
+ * @param {Array} heuristics - Array of objects in the form of {x: x, y: y}
+ */
+const handleHeuristicsToggle = (matrix, heuristics, buttonId = 'toggle-heuristics') => {
+  document.getElementById(buttonId).addEventListener('click', function() {
+    const toggledClass = 'toggled'
+    if (this.classList.contains(toggledClass)) {
+      grid.unmarkCellHeuristics(matrix)
+    } else {
+      grid.markCellHeuristics(heuristics)
+    }
+    this.classList.toggle(toggledClass);
+  }, false);
+}
+
+
 module.exports = {
   setStatus,
   addPresetGrids,
-  addAlgorithmTypes
+  addAlgorithmTypes,
+  handleHeuristicsToggle
 }

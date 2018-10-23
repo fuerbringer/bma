@@ -2,6 +2,11 @@ h2 Raster
 .row
   .col-sm
     #container
+// Horizontal line
+.row: .col-sm: hr
+
+.row
+  .col-sm: button.btn.btn-outline-primary#toggle-heuristics(title="Zellen, welche heuristisch mit einbezogen wurden markieren.") Heuristikzellen einblenden
 
 // Horizontal line
 .row: .col-sm: hr
@@ -20,6 +25,9 @@ h2 Raster
 .row
   .col-4: p Zurückgelegter Weg:
   .col-8: p#stat-distance: i Berechne...
+.row
+  .col-4: p Heuristisch analysiert:
+  .col-8: p#stat-heuristics: i Berechne...
 .row
   .col-4: p Vergangene Zeit:
   .col-8: p#stat-elapsed-time: i Berechne...
