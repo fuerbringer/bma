@@ -1,3 +1,5 @@
+const config = require('./config.js')
+
 document.createSvg = function(tagName) {
   const svgNS = 'http://www.w3.org/2000/svg'
   return this.createElementNS(svgNS, tagName)
@@ -11,7 +13,7 @@ document.createSvg = function(tagName) {
  */
 const drawVisualPath = (pathMatrix, polyId, color, id) => {
   const svgId = id ? id : 'main-grid'
-  const svgColor = color ? color : 'green'
+  const svgColor = color ? color : config.grid.polyLineColor
   const svg = document.getElementById(svgId)
   const polyLine = document.createSvg('polyline')
   let points = ''
@@ -104,9 +106,9 @@ const setRectAttribute = (x, y, name, value) => {
 const resetAllCoordRects = () => {
   const rects = document.getElementsByClassName('coord-rect')
   for(let i = 0; i < rects.length; i++) {
-    rects[i].setAttribute('fill', 'white')
-    rects[i].setAttribute('stroke', 'black') 
-    rects[i].setAttribute('stroke-width', '0.1') 
+    rects[i].setAttribute('fill', config.grid.boxFill)
+    rects[i].setAttribute('stroke', config.grid.boxStroke) 
+    rects[i].setAttribute('stroke-width', config.grid.boxStrokeWidth) 
   }
 }
 
@@ -116,9 +118,9 @@ const resetAllCoordRects = () => {
  */
 const resetCoordRect = (x, y) => {
   const rect = document.getElementById('coord-' + x + '-' + y)
-  rect.setAttribute('fill', 'white')
-  rect.setAttribute('stroke', 'black') 
-  rect.setAttribute('stroke-width', '0.1') 
+  rect.setAttribute('fill', config.grid.boxFill)
+  rect.setAttribute('stroke', config.grid.boxStroke) 
+  rect.setAttribute('stroke-width', config.grid.boxStrokeWidth) 
 }
 
 
@@ -144,35 +146,35 @@ const generateGridFromMatrix = (matrix, size, id) => {
       box.setAttribute('width', innerSize)
       box.setAttribute('height', innerSize)
       if(matrix[y][x] == 1) {
-        box.setAttribute('fill', 'grey')
+        box.setAttribute('fill', config.grid.boxFillWall)
       } else if(matrix[y][x] == 's') {
-        box.setAttribute('fill', 'blue')
+        box.setAttribute('fill', config.grid.boxFillStart)
       } else if(matrix[y][x] == 'f') {
-        box.setAttribute('fill', 'green')
+        box.setAttribute('fill', config.grid.boxFillFinish)
       } else {
-        box.setAttribute('fill', 'white')
+        box.setAttribute('fill', config.grid.boxFill)
       }
       box.setAttribute('id', 'coord-' + x + '-' + y) 
       box.setAttribute('class', 'coord-rect')
-      box.setAttribute('stroke', 'black') 
-      box.setAttribute('stroke-width', '0.1') 
+      box.setAttribute('stroke', config.grid.boxStroke) 
+      box.setAttribute('stroke-width', config.grid.boxStrokeWidth)
       g.appendChild(box)
       if(y == 0) {
         const txtForY = document.createSvg('text') 
         txtForY.setAttribute('x', 0)
         txtForY.setAttribute('y', innerSize)
-        txtForY.setAttribute('font-family', 'Times New Roman')
-        txtForY.setAttribute('font-size', '8')
-        txtForY.setAttribute('fill', 'darkslategray')
+        txtForY.setAttribute('font-family', config.grid.textFontFamily)
+        txtForY.setAttribute('font-size', config.grid.textFontSize)
+        txtForY.setAttribute('fill', config.grid.textFontColor)
         txtForY.textContent = x
         g.appendChild(txtForY)
       } else if(x == 0) {
         const txtForX = document.createSvg('text') 
         txtForX.setAttribute('x', 0)
         txtForX.setAttribute('y', innerSize)
-        txtForX.setAttribute('font-family', 'Times New Roman')
-        txtForX.setAttribute('font-size', '8')
-        txtForX.setAttribute('fill', 'darkslategray')
+        txtForX.setAttribute('font-family', config.grid.textFontFamily)
+        txtForX.setAttribute('font-size', config.grid.textFontSize)
+        txtForX.setAttribute('fill', config.grid.textFontColor)
         txtForX.textContent = y
         g.appendChild(txtForX)
       }
@@ -188,7 +190,8 @@ const generateGridFromMatrix = (matrix, size, id) => {
  */
 const markCellHeuristics = (cells = []) => {
   for(let i = 0; i < cells.length; i++) {
-    setRectAttribute(cells[i].x, cells[i].y, 'filter', 'blur(1px) drop-shadow(1px 1px 1px blue)')
+    setRectAttribute(cells[i].x, cells[i].y, 'filter', config.grid.heuristicFilter)
+    setRectAttribute(cells[i].x, cells[i].y, 'stroke-width', config.grid.heuristicStrokeWidth)
   }
 }
 
@@ -196,6 +199,7 @@ const unmarkCellHeuristics = matrix => {
   for(let y = 0; y < matrix.length; y++) {
     for(let x = 0; x < matrix[y].length; x++) {
       setRectAttribute(x, y, 'filter', '')
+      setRectAttribute(x, y, 'stroke-width', config.grid.boxStrokeWidth)
     }
   }
 }
