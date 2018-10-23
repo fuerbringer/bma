@@ -1,3 +1,5 @@
+const mazeHelper = require('./maze-helper')
+
 const generatePseudoRandomMaze = (width, height, remainderFrequency) => {
   const matrix = []
   remainderFrequency = remainderFrequency ? remainderFrequency : 4
@@ -55,82 +57,20 @@ const generateRecBacktrackerMaze = (width, height) => {
     matrix.push([])
   }
 
-  // Rest of the function body by https://github.com/semibran/maze
-  const generate = (nodes, adjacent, choose) => {
-    let node = choose(nodes)
-    const stack = [node]
-    const maze = new Map()
-    for (let mazeNode of nodes) {
-      maze.set(mazeNode, [])
-    }
-    while (node) {
-      const neighbors = nodes.filter(other => !maze.get(other).length && adjacent(node, other))
-      if (neighbors.length) {
-        const neighbor = choose(neighbors)
-        maze.get(node).push(neighbor)
-        maze.get(neighbor).push(node)
-        stack.unshift(neighbor)
-        node = neighbor
-
-      } else {
-        stack.shift()
-        node = stack[0]
-      }
-    }
-    return maze
-  }
-
   const world = {
     width: width - 1,
     height: height - 1,
     tiles: new Array((width - 1) * (height - 1)).fill('wall')
   }
 
-  const nodes = cells(world).filter(cell => cell.x % 2 && cell.y % 2)
-  const maze = generate(nodes, adjacent, choose)
-  connect(maze, world)
-
-  const cells = grid => {
-    const { width, height  } = grid
-    const cells = new Array(width * height)
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        const cell = { x, y }
-        cells[locate(grid, cell)] = cell
-      }
-    }
-    return cells
-  }
-
-  const locate = (grid, cell) => {
-    return cell.y * grid.width + cell.x
-  }
-
-  const adjacent = (a, b) => {
-    return Math.abs(b.x - a.x) + Math.abs(b.y - a.y) === 2
-  }
-
-  const choose = array => {
-    return array[Math.floor(Math.random() * array.length)]
-  }
-
-  const connect = (maze, world) => {
-    for (const [node, neighbors] of maze) {
-      world.tiles[locate(world, node)] = 'floor'
-      for (let neighbor of neighbors) {
-        const midpoint = {
-          x: node.x + (neighbor.x - node.x) / 2,
-          y: node.y + (neighbor.y - node.y) / 2
-        }
-        world.tiles[locate(world, midpoint)] = 'floor'
-      }
-    }
-  }
+  const nodes = mazeHelper.cells(world).filter(cell => cell.x % 2 && cell.y % 2)
+  const maze = mazeHelper.generate(nodes, mazeHelper.adjacent, mazeHelper.choose)
+  mazeHelper.connect(maze, world)
 
   let currentX = 0
   let currentY = 0
-  for (let cell of cells(world)) {
-    const tile = world.tiles[locate(world, cell)]
+  for (let cell of mazeHelper.cells(world)) {
+    const tile = world.tiles[mazeHelper.locate(world, cell)]
     if (!cell.x && cell.y) {
       currentY++
       currentX = 0
