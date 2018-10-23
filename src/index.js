@@ -1,15 +1,19 @@
-var helper = require('./helper')
-var grid = require('./grid')
-var maze = require('./maze')
-var pathFinding = require('./pathfinding.js')
-var presetGrids = require('./preset-grids.js')
-var ui = require('./ui.js')
+const helper = require('./helper')
+const grid = require('./grid')
+const maze = require('./maze')
+const pathFinding = require('./pathfinding.js')
+const presetGrids = require('./preset-grids.js')
+const ui = require('./ui.js')
 
-var algorithmDemo = function(options) {
-  var algorithmType = pathFinding.AStarFinder
-  var matrix = null
-  var gridWidth = 24
-  var gridHeight = 24
+/**
+ * Entry point for the individual pathfinder demonstration
+ * @param {Object} options - Grid, Pathfinder, etc settings
+ */
+const algorithmDemo = options => {
+  let algorithmType = pathFinding.AStarFinder
+  let matrix = null
+  let gridWidth = 24
+  let gridHeight = 24
   if(options.hasOwnProperty('algorithm')) {
     algorithmType = options.algorithm
   }
@@ -28,12 +32,12 @@ var algorithmDemo = function(options) {
   } else {
     matrix = maze.generateRecBacktrackerMaze(gridWidth, gridHeight, false)
   }
-  var container = document.getElementById('container')
+  const container = document.getElementById('container')
   container.appendChild(grid.generateGridFromMatrix(matrix))
-  var startAndFinish = helper.findStartAndFinish(matrix)
-  var polyLine = []
-  var pfGrid = new pathFinding.Grid(helper.sanitizeMatrix(matrix))
-  var finder = new algorithmType({
+  const startAndFinish = helper.findStartAndFinish(matrix)
+  let polyLine = []
+  const pfGrid = new pathFinding.Grid(helper.sanitizeMatrix(matrix))
+  const finder = new algorithmType({
     allowDiagonal: options.allowDiagonal ? true : false,
     heuristic: function(dx, dy) {
       // TODO: Tap into individual steps
@@ -41,17 +45,17 @@ var algorithmDemo = function(options) {
       return pathFinding.Heuristic.chebyshev(dx, dy)
     }
   })
-  var t0 = performance.now() // Start measuring time for pathfinder calculations
-  var path = finder.findPath(
+  const t0 = performance.now() // Start measuring time for pathfinder calculations
+  const path = finder.findPath(
     startAndFinish.start.x, startAndFinish.start.y,
     startAndFinish.finish.x, startAndFinish.finish.y, pfGrid)
-  var t1 = performance.now() // End measuring time
-  for(var i = 0; i < path.length; i++) {
+  const t1 = performance.now() // End measuring time
+  for(let i = 0; i < path.length; i++) {
     polyLine.push(grid.getRealBoxCoords(path[i][0], path[i][1], { x: 4, y: 4 }))
   }
   grid.drawVisualPath(polyLine)
 
-  helper.setStatus({
+  ui.setStatus({
     algorithm: algorithmType.name,
     startAndFinish: startAndFinish,
     distance: (path.length - 1),
@@ -59,7 +63,7 @@ var algorithmDemo = function(options) {
   })
 }
 
-var initAlgorithmDemoInterface = function(algorithm, gridType) {
+const initAlgorithmDemoInterface = (algorithm, gridType) => {
   ui.addAlgorithmTypes(algorithm)
   ui.addPresetGrids(gridType)
 }

@@ -1,3 +1,6 @@
+/**
+ * Contains preset grids to use alongside generated mazes
+ */
 module.exports = {
   testMazeA: [
     ['s',1,0,0,0,1,0,0,0,1,0, 1],

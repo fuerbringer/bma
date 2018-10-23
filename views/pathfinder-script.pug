@@ -1,4 +1,5 @@
 script.
+  // This snippet has to be written in a more compatible style due to not being sent through babel/webpack
   var allowDiagonal = '!{query.diagonal}' == 'true'; // Passed through GET
   var gridWidth = parseInt(!isNaN(!{query.gridWidth}) ? '!{query.gridWidth}' : 24);
   var gridHeight = parseInt(!isNaN(!{query.gridHeight}) ? '!{query.gridHeight}' : 24);
