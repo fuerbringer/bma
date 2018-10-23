@@ -1,5 +1,9 @@
 const presetGrids = require('./preset-grids.js')
 
+/**
+ * Update text status in the #stat-* elements
+ * @param {Object} options - Object containing key->values for status
+ */
 const setStatus = options => {
   if(options.hasOwnProperty('startAndFinish')) {
     document.getElementById('stat-start').innerHTML
@@ -28,6 +32,10 @@ const setStatus = options => {
   }
 }
 
+/**
+ * Add preset grids as option to the select/dropdown field of grid generators
+ * @param {String} selected - name of the already selected option
+ */
 const addPresetGrids = selected => {
   let optionsObj = presetGrids; {
     optionsObj['recbacktracker'] = 'generator'
@@ -51,6 +59,10 @@ const addPresetGrids = selected => {
   }
 }
 
+/**
+ * Add algorithm (pathfinder) types as option to the select/dropdown field of pathfinders
+ * @param {String} selected - name of the already selected option
+ */
 const addAlgorithmTypes = selected => {
   const available = [
     'AStarFinder',

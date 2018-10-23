@@ -5,6 +5,10 @@ const pathFinding = require('./pathfinding.js')
 const presetGrids = require('./preset-grids.js')
 const ui = require('./ui.js')
 
+/**
+ * Entry point for the individual pathfinder demonstration
+ * @param {Object} options - Grid, Pathfinder, etc settings
+ */
 const algorithmDemo = options => {
   let algorithmType = pathFinding.AStarFinder
   let matrix = null

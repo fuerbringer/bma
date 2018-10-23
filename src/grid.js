@@ -3,7 +3,12 @@ document.createSvg = function(tagName) {
   return this.createElementNS(svgNS, tagName)
 }
 
-
+/**
+ * @param {Array} pathMatrix - 2d Matrix with start and finish
+ * @param {String} polyId - HTML id of the element in which the svg grid is stored
+ * @param {String} color - SVG color
+ * @param {String} id - HTML id of the polyLine
+ */
 const drawVisualPath = (pathMatrix, polyId, color, id) => {
   const svgId = id ? id : 'main-grid'
   const svgColor = color ? color : 'green'
@@ -30,7 +35,7 @@ const drawVisualPath = (pathMatrix, polyId, color, id) => {
 
 
 /**
- * Delete all paths
+ * Delete all paths. See drawVisualPath()
  */
 const clearVisualPaths = () => {
   const polys = document.getElementsByClassName('grid-path')
@@ -43,6 +48,7 @@ const clearVisualPaths = () => {
 /**
  * Given a rect#coord-N-N returns the parents <g> translate/transform x and y in an array
  * Example: [0, 16]
+ * @param {String} id - HTML id of the element
  */
 const getSvgBoxCoord = id => {
   // Assuming base element with id `id` has a parent with an attribute `transform`
@@ -58,6 +64,9 @@ const getSvgBoxCoord = id => {
  *  let f(x) = x
  *  f(5) = x <=> getRealBoxCoords(5,5)
  *  Returns exact pixel coordinates for 5,5
+ *
+ * @param {Number} x - Point on the x axis (not pixel coordinate)
+ * @param {Number} y - Point on the y axis (not pixel coordinate)
  */
 const getRealBoxCoords = (x, y, centeringOffset) => {
   const id = 'coord-' + x + '-' + y
@@ -73,6 +82,10 @@ const getRealBoxCoords = (x, y, centeringOffset) => {
  * Example:
  *  // Fills box at 1,1 with red color
  *  setRectAttribute(1, 1, "fill", "red");
+ * @param {Number} x - Point on the x axis (not pixel coordinate)
+ * @param {Number} y - Point on the y axis (not pixel coordinate)
+ * @param {String} name - attribute name (key)
+ * @param {String} value - attribute value (val)
  */
 const setRectAttribute = (x, y, name, value) => {
   const rect = document.getElementById('coord-' + x + '-' + y)
@@ -110,7 +123,9 @@ const resetCoordRect = (x, y) => {
 
 
 /**
- * @param {int} size Height / width attribute for inner boxes
+ * @param {Array} matrix - 2d array
+ * @param {Number} size - Height / width attribute for inner boxes
+ * @param {String} id - HTML id
  */
 const generateGridFromMatrix = (matrix, size, id) => {
   const innerSize = size ? size : 10

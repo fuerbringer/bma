@@ -1,5 +1,10 @@
 const mazeHelper = require('./maze-helper')
 
+/**
+ * @param {Number} width
+ * @param {Number} height
+ * @param {Number} remainderFrequency - modulo rvalue - Can be used to control the frequency of walls
+ */
 const generatePseudoRandomMaze = (width, height, remainderFrequency) => {
   const matrix = []
   remainderFrequency = remainderFrequency ? remainderFrequency : 4
@@ -16,8 +21,8 @@ const generatePseudoRandomMaze = (width, height, remainderFrequency) => {
 
 
 /**
- * @param randomSelection If true selects random start and finish within the possible elements.
- *                        Otherwise start will be the first possible element and finish the last.
+ * @param {Boolean} randomSelection - If true selects random start and finish within the possible elements.
+ *  Otherwise start will be the first possible element and finish the last.
  */
 const markStartAndFinish = (matrix, randomSelection) => {
   const possible = []
@@ -46,7 +51,10 @@ const markStartAndFinish = (matrix, randomSelection) => {
 
 
 /**
- * Pseudocode from https://en.wikipedia.org/wiki/Maze_generation#Recursive_backtracker
+ * Used to generate always solveable mazes
+ * See https://en.wikipedia.org/wiki/Maze_generation#Recursive_backtracker
+ * @param {Number} width
+ * @param {Number} height
  */
 const generateRecBacktrackerMaze = (width, height) => {
   // Border wall deltas
