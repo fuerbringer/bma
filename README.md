@@ -48,6 +48,12 @@ Folgendes muss installiert sein:
 Entwicklung
 -----------
 
+### Dokumentation
+
+Zum bestehenden Code steht unter [/docs](https://bma.fuerbringer/docs) eine automatisch aus Kommentaren generierte Dokumentation zur Verfügung.
+
+### Git
+
 1.  Alle Schritte aus `Ausführung` oben erledigen.
 2.  Für das zu entwickelnde Feature / den Bugfix / etc. einen neuen
     Branch erstellen (`git checkout -b feature123`).

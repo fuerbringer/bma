@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ui.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ui.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const presetGrids = require('./preset-grids.js')
+
+/**
+ * Update text status in the #stat-* elements
+ * @param {Object} options - Object containing key->values for status
+ */
+const setStatus = options => {
+  if(options.hasOwnProperty('startAndFinish')) {
+    document.getElementById('stat-start').innerHTML
+      = '`S(' + options.startAndFinish.start.x + ', ' + options.startAndFinish.start.y + ')`'
+    document.getElementById('stat-end').innerHTML
+      = '`F(' + options.startAndFinish.finish.x + ', ' + options.startAndFinish.finish.y + ')`'
+  }
+  if(options.hasOwnProperty('distance')) {
+    if(options.distance > 0) {
+      document.getElementById('stat-distance').innerHTML = '`'
+        + options.distance
+        + (options.distance == 1 ? '` Zelle' : '` Zellen')
+    } else {
+      document.getElementById('stat-distance').innerHTML = '`0` Zellen (Weg nicht möglich)'
+    }
+  }
+  if(options.hasOwnProperty('algorithm')) {
+    document.getElementById('stat-algorithm').innerHTML = options.algorithm
+  }
+  if(options.hasOwnProperty('elapsedTime')) {
+    if(options.elapsedTime > 0) {
+      document.getElementById('stat-elapsed-time').innerHTML = `\`${options.elapsedTime} ms\``
+    } else {
+      document.getElementById('stat-elapsed-time').innerHTML = '`&lt; 0 ms`'
+    }
+  }
+}
+
+/**
+ * Add preset grids as option to the select/dropdown field of grid generators
+ * @param {String} selected - name of the already selected option
+ */
+const addPresetGrids = selected => {
+  let optionsObj = presetGrids; {
+    optionsObj['recbacktracker'] = 'generator'
+    optionsObj['random'] = 'generator'
+  }
+  const options = Object.entries(optionsObj)
+  for(let [key, val] of options) {
+    const option = document.createElement('option')
+    option.setAttribute('value', key)
+    if(val != 'generator') {
+      option.appendChild(document.createTextNode(`${key} (Vorgefertigt *)`))
+    } else {
+      option.appendChild(document.createTextNode(`${key} (Generator)`))
+    }
+    if(selected == key) {
+      option.setAttribute('selected', 'selected')
+    } else if(!selected &amp;&amp; key == 'recbacktracker') {
+      option.setAttribute('selected', 'selected')
+    }
+    document.getElementById('controls-type').appendChild(option)
+  }
+}
+
+/**
+ * Add algorithm (pathfinder) types as option to the select/dropdown field of pathfinders
+ * @param {String} selected - name of the already selected option
+ */
+const addAlgorithmTypes = selected => {
+  const available = [
+    'AStarFinder',
+    'DijkstraFinder'
+  ]
+  for(let i = 0; i &lt; available.length; i++) {
+    const algo = available[i]
+    const option = document.createElement('option')
+    option.setAttribute('value', algo)
+    option.appendChild(document.createTextNode(algo))
+    if(selected == algo) {
+      option.setAttribute('selected', 'selected')
+    }
+    document.getElementById('controls-algorithm').appendChild(option)
+  }
+}
+
+module.exports = {
+  setStatus,
+  addPresetGrids,
+  addAlgorithmTypes
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="PF.Heuristic.html">Heuristic</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAlgorithmTypes">addAlgorithmTypes</a></li><li><a href="global.html#addPresetGrids">addPresetGrids</a></li><li><a href="global.html#algorithmDemo">algorithmDemo</a></li><li><a href="global.html#clearVisualPaths">clearVisualPaths</a></li><li><a href="global.html#drawVisualPath">drawVisualPath</a></li><li><a href="global.html#findStartAndFinish">findStartAndFinish</a></li><li><a href="global.html#generateGridFromMatrix">generateGridFromMatrix</a></li><li><a href="global.html#generatePseudoRandomMaze">generatePseudoRandomMaze</a></li><li><a href="global.html#generateRecBacktrackerMaze">generateRecBacktrackerMaze</a></li><li><a href="global.html#getRealBoxCoords">getRealBoxCoords</a></li><li><a href="global.html#getSvgBoxCoord">getSvgBoxCoord</a></li><li><a href="global.html#markStartAndFinish">markStartAndFinish</a></li><li><a href="global.html#randomIntFromInterval">randomIntFromInterval</a></li><li><a href="global.html#resetAllCoordRects">resetAllCoordRects</a></li><li><a href="global.html#resetCoordRect">resetCoordRect</a></li><li><a href="global.html#sanitizeMatrix">sanitizeMatrix</a></li><li><a href="global.html#setRectAttribute">setRectAttribute</a></li><li><a href="global.html#setStatus">setStatus</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Oct 23 2018 14:53:24 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

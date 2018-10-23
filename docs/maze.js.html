@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: maze.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: maze.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const mazeHelper = require('./maze-helper')
+
+/**
+ * @param {Number} width
+ * @param {Number} height
+ * @param {Number} remainderFrequency - modulo rvalue - Can be used to control the frequency of walls
+ */
+const generatePseudoRandomMaze = (width, height, remainderFrequency) => {
+  const matrix = []
+  remainderFrequency = remainderFrequency ? remainderFrequency : 4
+  for(let y = 0; y &lt; height; y++) {
+    const row = []
+    for(let x = 0; x &lt; width; x++) {
+      const block = (((Math.random() * 100) % remainderFrequency).toFixed(0) == true) ? 1 : 0
+      row.push(block)
+    }
+    matrix.push(row)
+  }
+  return markStartAndFinish(matrix, true)
+}
+
+
+/**
+ * @param {Boolean} randomSelection - If true selects random start and finish within the possible elements.
+ *  Otherwise start will be the first possible element and finish the last.
+ */
+const markStartAndFinish = (matrix, randomSelection) => {
+  const possible = []
+  for(let y = 0; y &lt; matrix.length; y++) {
+    for(let x = 0; x &lt; matrix[y].length; x++) {
+      if(matrix[y][x] == 0) {
+        possible.push({ x: x, y: y })
+      }
+    }
+  }
+  const chosenStart = Math.floor(Math.random() * possible.length)
+  if(randomSelection) {
+    matrix[possible[chosenStart].y][possible[chosenStart].x] = 's'
+  } else {
+    matrix[possible[0].y][possible[0].x] = 's'
+  }
+  possible.splice(chosenStart, 1)
+  const chosenFinish = Math.floor(Math.random() * possible.length)
+  if(randomSelection) {
+    matrix[possible[chosenFinish].y][possible[chosenFinish].x] = 'f'
+  } else {
+    matrix[possible[possible.length - 1].y][possible[possible.length - 1].x] = 'f'
+  }
+  return matrix
+}
+
+
+/**
+ * Used to generate always solveable mazes
+ * See https://en.wikipedia.org/wiki/Maze_generation#Recursive_backtracker
+ * @param {Number} width
+ * @param {Number} height
+ */
+const generateRecBacktrackerMaze = (width, height) => {
+  // Border wall deltas
+  width += 2
+  height += 2
+  let matrix = []
+  for(let y = 0; y &lt; height - 1; y++) {
+    matrix.push([])
+  }
+
+  const world = {
+    width: width - 1,
+    height: height - 1,
+    tiles: new Array((width - 1) * (height - 1)).fill('wall')
+  }
+
+  const nodes = mazeHelper.cells(world).filter(cell => cell.x % 2 &amp;&amp; cell.y % 2)
+  const maze = mazeHelper.generate(nodes, mazeHelper.adjacent, mazeHelper.choose)
+  mazeHelper.connect(maze, world)
+
+  let currentX = 0
+  let currentY = 0
+  for (let cell of mazeHelper.cells(world)) {
+    const tile = world.tiles[mazeHelper.locate(world, cell)]
+    if (!cell.x &amp;&amp; cell.y) {
+      currentY++
+      currentX = 0
+    } else {
+      currentX++
+    }
+    if(currentX &lt; width - 1 &amp;&amp; currentY &lt; height) {
+      matrix[currentY][currentX] = (tile == 'wall' ? 1 : 0)
+    }
+  }
+
+  const corridors = []
+  for(let cY = 1; cY &lt; height - 1; cY++) {
+    for(let x = 1; x &lt; width - 1; x++) {
+      if(matrix[cY][x] == 0) {
+        corridors.push({ x: x, y: cY })
+      }
+    }
+  }
+
+  matrix = markStartAndFinish(matrix, true)
+  matrix[0][0] = 1 // Patch wall at (0,0)
+  return matrix
+}
+
+
+module.exports = {
+  generatePseudoRandomMaze,
+  markStartAndFinish,
+  generateRecBacktrackerMaze
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="PF.Heuristic.html">Heuristic</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAlgorithmTypes">addAlgorithmTypes</a></li><li><a href="global.html#addPresetGrids">addPresetGrids</a></li><li><a href="global.html#algorithmDemo">algorithmDemo</a></li><li><a href="global.html#clearVisualPaths">clearVisualPaths</a></li><li><a href="global.html#drawVisualPath">drawVisualPath</a></li><li><a href="global.html#findStartAndFinish">findStartAndFinish</a></li><li><a href="global.html#generateGridFromMatrix">generateGridFromMatrix</a></li><li><a href="global.html#generatePseudoRandomMaze">generatePseudoRandomMaze</a></li><li><a href="global.html#generateRecBacktrackerMaze">generateRecBacktrackerMaze</a></li><li><a href="global.html#getRealBoxCoords">getRealBoxCoords</a></li><li><a href="global.html#getSvgBoxCoord">getSvgBoxCoord</a></li><li><a href="global.html#markStartAndFinish">markStartAndFinish</a></li><li><a href="global.html#randomIntFromInterval">randomIntFromInterval</a></li><li><a href="global.html#resetAllCoordRects">resetAllCoordRects</a></li><li><a href="global.html#resetCoordRect">resetCoordRect</a></li><li><a href="global.html#sanitizeMatrix">sanitizeMatrix</a></li><li><a href="global.html#setRectAttribute">setRectAttribute</a></li><li><a href="global.html#setStatus">setStatus</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Oct 23 2018 14:53:24 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
