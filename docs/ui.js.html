@@ -27,6 +27,8 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>const presetGrids = require('./preset-grids.js')
+const grid = require('./grid.js')
+
 
 /**
  * Update text status in the #stat-* elements
@@ -58,7 +60,16 @@ const setStatus = options => {
       document.getElementById('stat-elapsed-time').innerHTML = '`&lt; 0 ms`'
     }
   }
+  if(options.hasOwnProperty('heuristics')) {
+    document.getElementById('stat-heuristics').innerHTML = `\`${options.heuristics}\` Zellen`
+    if(options.hasOwnProperty('totalCells')) {
+      // How many % of the cells have been heuristically analyzed
+      const percentHeuristics = (options.heuristics / options.totalCells) * 100
+      document.getElementById('stat-heuristics').innerHTML += ` \`(${percentHeuristics.toFixed(2)}%)\``
+    }
+  }
 }
+
 
 /**
  * Add preset grids as option to the select/dropdown field of grid generators
@@ -87,6 +98,7 @@ const addPresetGrids = selected => {
   }
 }
 
+
 /**
  * Add algorithm (pathfinder) types as option to the select/dropdown field of pathfinders
  * @param {String} selected - name of the already selected option
@@ -108,10 +120,30 @@ const addAlgorithmTypes = selected => {
   }
 }
 
+
+/**
+ * Handle toggling of button for heuristically marked cells
+ * @param {Array} matrix - 2d array
+ * @param {Array} heuristics - Array of objects in the form of {x: x, y: y}
+ */
+const handleHeuristicsToggle = (matrix, heuristics, buttonId = 'toggle-heuristics') => {
+  document.getElementById(buttonId).addEventListener('click', function() {
+    const toggledClass = 'toggled'
+    if (this.classList.contains(toggledClass)) {
+      grid.unmarkCellHeuristics(matrix)
+    } else {
+      grid.markCellHeuristics(heuristics)
+    }
+    this.classList.toggle(toggledClass);
+  }, false);
+}
+
+
 module.exports = {
   setStatus,
   addPresetGrids,
-  addAlgorithmTypes
+  addAlgorithmTypes,
+  handleHeuristicsToggle
 }
 </code></pre>
         </article>
@@ -123,13 +155,13 @@ module.exports = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="PF.Heuristic.html">Heuristic</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAlgorithmTypes">addAlgorithmTypes</a></li><li><a href="global.html#addPresetGrids">addPresetGrids</a></li><li><a href="global.html#algorithmDemo">algorithmDemo</a></li><li><a href="global.html#clearVisualPaths">clearVisualPaths</a></li><li><a href="global.html#drawVisualPath">drawVisualPath</a></li><li><a href="global.html#findStartAndFinish">findStartAndFinish</a></li><li><a href="global.html#generateGridFromMatrix">generateGridFromMatrix</a></li><li><a href="global.html#generatePseudoRandomMaze">generatePseudoRandomMaze</a></li><li><a href="global.html#generateRecBacktrackerMaze">generateRecBacktrackerMaze</a></li><li><a href="global.html#getRealBoxCoords">getRealBoxCoords</a></li><li><a href="global.html#getSvgBoxCoord">getSvgBoxCoord</a></li><li><a href="global.html#markStartAndFinish">markStartAndFinish</a></li><li><a href="global.html#randomIntFromInterval">randomIntFromInterval</a></li><li><a href="global.html#resetAllCoordRects">resetAllCoordRects</a></li><li><a href="global.html#resetCoordRect">resetCoordRect</a></li><li><a href="global.html#sanitizeMatrix">sanitizeMatrix</a></li><li><a href="global.html#setRectAttribute">setRectAttribute</a></li><li><a href="global.html#setStatus">setStatus</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="PF.Heuristic.html">Heuristic</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAlgorithmTypes">addAlgorithmTypes</a></li><li><a href="global.html#addPresetGrids">addPresetGrids</a></li><li><a href="global.html#algorithmDemo">algorithmDemo</a></li><li><a href="global.html#clearVisualPaths">clearVisualPaths</a></li><li><a href="global.html#drawVisualPath">drawVisualPath</a></li><li><a href="global.html#findStartAndFinish">findStartAndFinish</a></li><li><a href="global.html#generateGridFromMatrix">generateGridFromMatrix</a></li><li><a href="global.html#generatePseudoRandomMaze">generatePseudoRandomMaze</a></li><li><a href="global.html#generateRecBacktrackerMaze">generateRecBacktrackerMaze</a></li><li><a href="global.html#getRealBoxCoords">getRealBoxCoords</a></li><li><a href="global.html#getSvgBoxCoord">getSvgBoxCoord</a></li><li><a href="global.html#handleHeuristicsToggle">handleHeuristicsToggle</a></li><li><a href="global.html#initAlgorithmDemoInterface">initAlgorithmDemoInterface</a></li><li><a href="global.html#markCellHeuristics">markCellHeuristics</a></li><li><a href="global.html#markStartAndFinish">markStartAndFinish</a></li><li><a href="global.html#randomIntFromInterval">randomIntFromInterval</a></li><li><a href="global.html#resetAllCoordRects">resetAllCoordRects</a></li><li><a href="global.html#resetCoordRect">resetCoordRect</a></li><li><a href="global.html#sanitizeMatrix">sanitizeMatrix</a></li><li><a href="global.html#setRectAttribute">setRectAttribute</a></li><li><a href="global.html#setStatus">setStatus</a></li><li><a href="global.html#unmarkCellHeuristics">unmarkCellHeuristics</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Oct 23 2018 14:53:24 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Oct 24 2018 09:35:48 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>

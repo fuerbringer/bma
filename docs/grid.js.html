@@ -26,7 +26,12 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>document.createSvg = function(tagName) {
+            <pre class="prettyprint source linenums"><code>const config = require('./config.js')
+
+/**
+ * Create SVG element to be used for grid / matrix
+ */
+document.createSvg = function(tagName) {
   const svgNS = 'http://www.w3.org/2000/svg'
   return this.createElementNS(svgNS, tagName)
 }
@@ -37,10 +42,8 @@
  * @param {String} color - SVG color
  * @param {String} id - HTML id of the polyLine
  */
-const drawVisualPath = (pathMatrix, polyId, color, id) => {
-  const svgId = id ? id : 'main-grid'
-  const svgColor = color ? color : 'green'
-  const svg = document.getElementById(svgId)
+const drawVisualPath = (pathMatrix, polyId, color = config.grid.polyLineColor, id = 'main-grid') => {
+  const svg = document.getElementById(id)
   const polyLine = document.createSvg('polyline')
   let points = ''
   for (let i = 0; i &lt; pathMatrix.length; i++){
@@ -53,7 +56,7 @@ const drawVisualPath = (pathMatrix, polyId, color, id) => {
   }
   polyLine.setAttribute('points', points)
   polyLine.setAttribute('fill', 'none')
-  polyLine.setAttribute('stroke', svgColor)
+  polyLine.setAttribute('stroke', color)
   polyLine.setAttribute('class', 'grid-path')
   if(polyId) {
     polyLine.setAttribute('id', 'grid-path')
@@ -93,16 +96,15 @@ const getSvgBoxCoord = id => {
  *  f(5) = x &lt;=> getRealBoxCoords(5,5)
  *  Returns exact pixel coordinates for 5,5
  *
- * @param {Number} x - Point on the x axis (not pixel coordinate)
- * @param {Number} y - Point on the y axis (not pixel coordinate)
+ * @param {Number} x - Cartesian x coordinate
+ * @param {Number} y - Cartesian y coordinate
  */
-const getRealBoxCoords = (x, y, centeringOffset) => {
+const getRealBoxCoords = (x, y, centeringOffset = { x: 0, y: 0 }) => {
   const id = 'coord-' + x + '-' + y
-  const offset = centeringOffset ? centeringOffset : { x: 0, y: 0 }
   // Assuming base element with id `id` has a parent with an attribute `transform`
   const translate = document.getElementById(id).parentNode.getAttribute('transform')
   const parts = /translate\(\s*([^\s,)]+)[ , ]([^\s,)]+)/.exec(translate)
-  return [ parseInt(parts[1]) + offset.x, parseInt(parts[2]) + offset.y ]
+  return [ parseInt(parts[1]) + centeringOffset.x, parseInt(parts[2]) + centeringOffset.y ]
 }
 
 
@@ -110,6 +112,7 @@ const getRealBoxCoords = (x, y, centeringOffset) => {
  * Example:
  *  // Fills box at 1,1 with red color
  *  setRectAttribute(1, 1, "fill", "red");
+ *
  * @param {Number} x - Point on the x axis (not pixel coordinate)
  * @param {Number} y - Point on the y axis (not pixel coordinate)
  * @param {String} name - attribute name (key)
@@ -132,21 +135,23 @@ const setRectAttribute = (x, y, name, value) => {
 const resetAllCoordRects = () => {
   const rects = document.getElementsByClassName('coord-rect')
   for(let i = 0; i &lt; rects.length; i++) {
-    rects[i].setAttribute('fill', 'white')
-    rects[i].setAttribute('stroke', 'black') 
-    rects[i].setAttribute('stroke-width', '0.1') 
+    rects[i].setAttribute('fill', config.grid.boxFill)
+    rects[i].setAttribute('stroke', config.grid.boxStroke) 
+    rects[i].setAttribute('stroke-width', config.grid.boxStrokeWidth) 
   }
 }
 
 
 /**
  * Resets rect at x,y to its initial state
+ * @param {Number} x - Cartesian x coordinate
+ * @param {Number} y - Cartesian y coordinate
  */
 const resetCoordRect = (x, y) => {
   const rect = document.getElementById('coord-' + x + '-' + y)
-  rect.setAttribute('fill', 'white')
-  rect.setAttribute('stroke', 'black') 
-  rect.setAttribute('stroke-width', '0.1') 
+  rect.setAttribute('fill', config.grid.boxFill)
+  rect.setAttribute('stroke', config.grid.boxStroke) 
+  rect.setAttribute('stroke-width', config.grid.boxStrokeWidth) 
 }
 
 
@@ -155,52 +160,51 @@ const resetCoordRect = (x, y) => {
  * @param {Number} size - Height / width attribute for inner boxes
  * @param {String} id - HTML id
  */
-const generateGridFromMatrix = (matrix, size, id) => {
-  const innerSize = size ? size : 10
+const generateGridFromMatrix = (matrix, size = 10, id) => {
   const gridId = id ? id : 'main-grid'
   const svg = document.createSvg('svg')
   svg.setAttribute('id', gridId)
-  svg.setAttribute('viewBox', [0, 0, matrix[0].length * innerSize, matrix.length * innerSize].join(' '))
+  svg.setAttribute('viewBox', [0, 0, matrix[0].length * size, matrix.length * size].join(' '))
 
   for(let y = 0; y &lt; matrix.length; y++) {
     for(let x = 0; x &lt; matrix[y].length; x++) {
       const g = document.createSvg('g') // Group element we want to act as parent
-      g.setAttribute('transform', [ 'translate(', x * innerSize, ',', y * innerSize, ')' ].join(''))
+      g.setAttribute('transform', [ 'translate(', x * size, ',', y * size, ')' ].join(''))
 
       // Create individual cell so we can display it and modify it later
       const box = document.createSvg('rect') 
-      box.setAttribute('width', innerSize)
-      box.setAttribute('height', innerSize)
+      box.setAttribute('width', size)
+      box.setAttribute('height', size)
       if(matrix[y][x] == 1) {
-        box.setAttribute('fill', 'grey')
+        box.setAttribute('fill', config.grid.boxFillWall)
       } else if(matrix[y][x] == 's') {
-        box.setAttribute('fill', 'blue')
+        box.setAttribute('fill', config.grid.boxFillStart)
       } else if(matrix[y][x] == 'f') {
-        box.setAttribute('fill', 'green')
+        box.setAttribute('fill', config.grid.boxFillFinish)
       } else {
-        box.setAttribute('fill', 'white')
+        box.setAttribute('fill', config.grid.boxFill)
       }
       box.setAttribute('id', 'coord-' + x + '-' + y) 
       box.setAttribute('class', 'coord-rect')
-      box.setAttribute('stroke', 'black') 
-      box.setAttribute('stroke-width', '0.1') 
+      box.setAttribute('stroke', config.grid.boxStroke) 
+      box.setAttribute('stroke-width', config.grid.boxStrokeWidth)
       g.appendChild(box)
       if(y == 0) {
         const txtForY = document.createSvg('text') 
         txtForY.setAttribute('x', 0)
-        txtForY.setAttribute('y', innerSize)
-        txtForY.setAttribute('font-family', 'Times New Roman')
-        txtForY.setAttribute('font-size', '8')
-        txtForY.setAttribute('fill', 'darkslategray')
+        txtForY.setAttribute('y', size)
+        txtForY.setAttribute('font-family', config.grid.textFontFamily)
+        txtForY.setAttribute('font-size', config.grid.textFontSize)
+        txtForY.setAttribute('fill', config.grid.textFontColor)
         txtForY.textContent = x
         g.appendChild(txtForY)
       } else if(x == 0) {
         const txtForX = document.createSvg('text') 
         txtForX.setAttribute('x', 0)
-        txtForX.setAttribute('y', innerSize)
-        txtForX.setAttribute('font-family', 'Times New Roman')
-        txtForX.setAttribute('font-size', '8')
-        txtForX.setAttribute('fill', 'darkslategray')
+        txtForX.setAttribute('y', size)
+        txtForX.setAttribute('font-family', config.grid.textFontFamily)
+        txtForX.setAttribute('font-size', config.grid.textFontSize)
+        txtForX.setAttribute('fill', config.grid.textFontColor)
         txtForX.textContent = y
         g.appendChild(txtForX)
       }
@@ -211,6 +215,30 @@ const generateGridFromMatrix = (matrix, size, id) => {
 }
 
 
+/**
+ * @param {Array} cells - Array of cells (objects with {x, y}). Cells to be marked.
+ */
+const markCellHeuristics = (cells = []) => {
+  for(let i = 0; i &lt; cells.length; i++) {
+    setRectAttribute(cells[i].x, cells[i].y, 'filter', config.grid.heuristicFilter)
+    setRectAttribute(cells[i].x, cells[i].y, 'stroke-width', config.grid.heuristicStrokeWidth)
+  }
+}
+
+/**
+ * Undo cells marked as heuristically analyzed
+ * See markCellHeuristics()
+ * @param {Array} matrix - 2d matrix
+ */
+const unmarkCellHeuristics = (matrix = []) => {
+  for(let y = 0; y &lt; matrix.length; y++) {
+    for(let x = 0; x &lt; matrix[y].length; x++) {
+      setRectAttribute(x, y, 'filter', '')
+      setRectAttribute(x, y, 'stroke-width', config.grid.boxStrokeWidth)
+    }
+  }
+}
+
 module.exports = {
   drawVisualPath,
   clearVisualPaths,
@@ -219,7 +247,9 @@ module.exports = {
   setRectAttribute,
   resetAllCoordRects,
   resetCoordRect,
-  generateGridFromMatrix
+  generateGridFromMatrix,
+  markCellHeuristics,
+  unmarkCellHeuristics
 }
 </code></pre>
         </article>
@@ -231,13 +261,13 @@ module.exports = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="PF.Heuristic.html">Heuristic</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAlgorithmTypes">addAlgorithmTypes</a></li><li><a href="global.html#addPresetGrids">addPresetGrids</a></li><li><a href="global.html#algorithmDemo">algorithmDemo</a></li><li><a href="global.html#clearVisualPaths">clearVisualPaths</a></li><li><a href="global.html#drawVisualPath">drawVisualPath</a></li><li><a href="global.html#findStartAndFinish">findStartAndFinish</a></li><li><a href="global.html#generateGridFromMatrix">generateGridFromMatrix</a></li><li><a href="global.html#generatePseudoRandomMaze">generatePseudoRandomMaze</a></li><li><a href="global.html#generateRecBacktrackerMaze">generateRecBacktrackerMaze</a></li><li><a href="global.html#getRealBoxCoords">getRealBoxCoords</a></li><li><a href="global.html#getSvgBoxCoord">getSvgBoxCoord</a></li><li><a href="global.html#markStartAndFinish">markStartAndFinish</a></li><li><a href="global.html#randomIntFromInterval">randomIntFromInterval</a></li><li><a href="global.html#resetAllCoordRects">resetAllCoordRects</a></li><li><a href="global.html#resetCoordRect">resetCoordRect</a></li><li><a href="global.html#sanitizeMatrix">sanitizeMatrix</a></li><li><a href="global.html#setRectAttribute">setRectAttribute</a></li><li><a href="global.html#setStatus">setStatus</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="PF.Heuristic.html">Heuristic</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAlgorithmTypes">addAlgorithmTypes</a></li><li><a href="global.html#addPresetGrids">addPresetGrids</a></li><li><a href="global.html#algorithmDemo">algorithmDemo</a></li><li><a href="global.html#clearVisualPaths">clearVisualPaths</a></li><li><a href="global.html#drawVisualPath">drawVisualPath</a></li><li><a href="global.html#findStartAndFinish">findStartAndFinish</a></li><li><a href="global.html#generateGridFromMatrix">generateGridFromMatrix</a></li><li><a href="global.html#generatePseudoRandomMaze">generatePseudoRandomMaze</a></li><li><a href="global.html#generateRecBacktrackerMaze">generateRecBacktrackerMaze</a></li><li><a href="global.html#getRealBoxCoords">getRealBoxCoords</a></li><li><a href="global.html#getSvgBoxCoord">getSvgBoxCoord</a></li><li><a href="global.html#handleHeuristicsToggle">handleHeuristicsToggle</a></li><li><a href="global.html#initAlgorithmDemoInterface">initAlgorithmDemoInterface</a></li><li><a href="global.html#markCellHeuristics">markCellHeuristics</a></li><li><a href="global.html#markStartAndFinish">markStartAndFinish</a></li><li><a href="global.html#randomIntFromInterval">randomIntFromInterval</a></li><li><a href="global.html#resetAllCoordRects">resetAllCoordRects</a></li><li><a href="global.html#resetCoordRect">resetCoordRect</a></li><li><a href="global.html#sanitizeMatrix">sanitizeMatrix</a></li><li><a href="global.html#setRectAttribute">setRectAttribute</a></li><li><a href="global.html#setStatus">setStatus</a></li><li><a href="global.html#unmarkCellHeuristics">unmarkCellHeuristics</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Oct 23 2018 14:53:24 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Oct 24 2018 09:35:48 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>

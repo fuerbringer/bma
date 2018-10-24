@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: preset-grids.js</title>
+    <title>JSDoc: Source: config.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: preset-grids.js</h1>
+    <h1 class="page-title">Source: config.js</h1>
 
     
 
@@ -26,39 +26,25 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Contains preset grids to use alongside generated mazes
- */
-module.exports = {
-  testMazeA: [
-    ['s',1,0,0,0,1,0,0,0,1,0, 1],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  0,0,1,0,0,0,1,0,0,0,'f'],
-  ],
-  testMazeB: [
-    ['s',0,0,0,0,0,0,0,0,0,0, 0],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  0,0,0,0,0,0,0,0,0,0, 0],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  0,0,0,0,0,0,0,0,0,0, 0],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  0,0,0,0,0,0,0,0,0,0, 0],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  0,0,0,0,0,0,0,0,0,0, 0],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  0,0,0,0,0,0,0,0,0,0, 0],
-    [0,  1,0,1,0,1,0,1,0,1,0, 1],
-    [0,  0,0,0,0,0,0,0,0,0,0,'f'],
-  ],
+            <pre class="prettyprint source linenums"><code>module.exports = {
+  /**
+   * Visual settings used for SVGs and such
+   */
+  grid: {
+    polyLineColor: 'green',
+    boxStroke: 'black',
+    boxFill: 'white',
+    boxFillStart: 'blue',
+    boxFillFinish: 'green',
+    boxFillWall: 'grey',
+    boxStrokeWidth: '0.1',
+    textFontSize: '8',
+    textFontFamily: 'Times New Roman',
+    textFontColor: 'darkslategray',
+    heuristicFilter: 'blur(1px) sepia(100%)',
+    heuristicStroke: 'black',
+    heuristicStrokeWidth: '1'
+  }
 }
 </code></pre>
         </article>
