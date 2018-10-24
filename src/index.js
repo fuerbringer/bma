@@ -11,6 +11,7 @@ const ui = require('./ui.js')
  */
 const algorithmDemo = (options = {}) => {
   let algorithmType = pathFinding.AStarFinder
+  let heuristic = 'manhattan'
   let matrix = null
   let polyLine = []
   let heuristics = []
@@ -18,6 +19,9 @@ const algorithmDemo = (options = {}) => {
   let gridHeight = 24
   if(options.hasOwnProperty('algorithm')) {
     algorithmType = options.algorithm
+  }
+  if(options.hasOwnProperty('heuristic')) {
+    heuristic = options.heuristic
   }
   if(options.hasOwnProperty('gridWidth')) {
     gridWidth = options.gridWidth
@@ -38,13 +42,20 @@ const algorithmDemo = (options = {}) => {
   container.appendChild(grid.generateGridFromMatrix(matrix))
   const startAndFinish = helper.findStartAndFinish(matrix)
   const pfGrid = new pathFinding.Grid(helper.sanitizeMatrix(matrix))
-  const finder = new algorithmType({
-    allowDiagonal: options.allowDiagonal ? true : false,
-    heuristic: function(dx, dy) {
-      heuristics.push({x: dx, y: dy})
-      return pathFinding.Heuristic.chebyshev(dx, dy)
-    }
-  })
+  let finder = null
+  if(heuristic != 'keine') {
+    finder = new algorithmType({
+      allowDiagonal: options.allowDiagonal ? true : false,
+      heuristic: function(dx, dy) {
+        heuristics.push({x: dx, y: dy})
+        return pathFinding.Heuristic[heuristic](dx, dy)
+      }
+    })
+  } else {
+    finder = new algorithmType({
+      allowDiagonal: options.allowDiagonal ? true : false
+    })
+  }
   const t0 = performance.now() // Start measuring time for pathfinder calculations
   const path = finder.findPath(
     startAndFinish.start.x, startAndFinish.start.y,
@@ -60,7 +71,8 @@ const algorithmDemo = (options = {}) => {
     startAndFinish: startAndFinish,
     distance: (path.length - 1),
     elapsedTime: (t1 - t0),
-    heuristics: heuristics.length,
+    heuristicsCount: heuristics.length,
+    heuristics: heuristic,
     totalCells: (gridWidth * gridHeight)
   })
   ui.handleHeuristicsToggle(matrix, heuristics)
@@ -71,9 +83,10 @@ const algorithmDemo = (options = {}) => {
  * @param {String} algorithm - Selected pathfinding algorithm
  * @param {String} gridType - Selected grid / maze type
  */
-const initAlgorithmDemoInterface = (algorithm = 'AStarFinder', gridType = 'recbacktracker') => {
+const initAlgorithmDemoInterface = (algorithm = 'AStarFinder', gridType = 'recbacktracker', heuristicType = '') => {
   ui.addAlgorithmTypes(algorithm)
   ui.addPresetGrids(gridType)
+  ui.addHeuristics(heuristicType)
 }
 
 

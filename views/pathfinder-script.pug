@@ -5,10 +5,12 @@ script.
   var gridHeight = parseInt(!isNaN(!{query.gridHeight}) ? '!{query.gridHeight}' : 24);
   var gridType = '!{query.gridType}';
   var algorithm = '!{query.algorithm}'.length > 0 ? bma.pathFinding['!{query.algorithm}'] : bma.pathFinding.AStarFinder
+  var heuristic = '!{query.heuristic}' ? '!{query.heuristic}' : 'manhattan';
   // Start off with showing the aStarDemo
   addEventListener("DOMContentLoaded", function() {
     bma.algorithmDemo({
       algorithm: algorithm,
+      heuristic: heuristic,
       allowDiagonal: allowDiagonal,
       gridType: gridType,
       gridWidth: gridWidth,
@@ -16,5 +18,5 @@ script.
     });
     // Load preset grid / scenarios from src/preset-grids.js
     // Load available pathfinding algorithms
-    bma.initAlgorithmDemoInterface('!{query.algorithm}', '!{query.gridType}')
+    bma.initAlgorithmDemoInterface('!{query.algorithm}', '!{query.gridType}', heuristic)
   }, false);

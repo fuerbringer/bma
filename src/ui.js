@@ -1,5 +1,6 @@
 const presetGrids = require('./preset-grids.js')
 const grid = require('./grid.js')
+const pathFinding = require('./pathfinding.js')
 
 
 /**
@@ -24,6 +25,10 @@ const setStatus = options => {
   }
   if(options.hasOwnProperty('algorithm')) {
     document.getElementById('stat-algorithm').innerHTML = options.algorithm
+    if(options.hasOwnProperty('heuristics')) {
+      const heuristic = options.heuristics.charAt(0).toUpperCase() + options.heuristics.slice(1)
+      document.getElementById('stat-algorithm').innerHTML += ` (${heuristic} Heuristik)`
+    }
   }
   if(options.hasOwnProperty('elapsedTime')) {
     if(options.elapsedTime > 0) {
@@ -32,11 +37,11 @@ const setStatus = options => {
       document.getElementById('stat-elapsed-time').innerHTML = '`< 0 ms`'
     }
   }
-  if(options.hasOwnProperty('heuristics')) {
-    document.getElementById('stat-heuristics').innerHTML = `\`${options.heuristics}\` Zellen`
+  if(options.hasOwnProperty('heuristicsCount')) {
+    document.getElementById('stat-heuristics').innerHTML = `\`${options.heuristicsCount}\` Zellen`
     if(options.hasOwnProperty('totalCells')) {
       // How many % of the cells have been heuristically analyzed
-      const percentHeuristics = (options.heuristics / options.totalCells) * 100
+      const percentHeuristics = (options.heuristicsCount / options.totalCells) * 100
       document.getElementById('stat-heuristics').innerHTML += ` \`(${percentHeuristics.toFixed(2)}%)\``
     }
   }
@@ -56,10 +61,11 @@ const addPresetGrids = selected => {
   for(let [key, val] of options) {
     const option = document.createElement('option')
     option.setAttribute('value', key)
+    const keyTxt = key.charAt(0).toUpperCase() + key.slice(1)
     if(val != 'generator') {
-      option.appendChild(document.createTextNode(`${key} (Vorgefertigt *)`))
+      option.appendChild(document.createTextNode(`${keyTxt} (Vorgefertigt ²)`))
     } else {
-      option.appendChild(document.createTextNode(`${key} (Generator)`))
+      option.appendChild(document.createTextNode(`${keyTxt} (Generator)`))
     }
     if(selected == key) {
       option.setAttribute('selected', 'selected')
@@ -92,6 +98,28 @@ const addAlgorithmTypes = selected => {
   }
 }
 
+/**
+ * Append Heuristic methods provided by PathFinding.js as options to dropdown
+ */
+const addHeuristics = selected => {
+  let heuristics = [ 'keine' ]
+  for(let property in pathFinding.Heuristic) {
+    if(property && pathFinding.Heuristic.hasOwnProperty(property)) {
+      heuristics.push(property)
+    }
+  }
+  for(let i = 0; i < heuristics.length; i++) {
+    const heuristic = heuristics[i]
+    const option = document.createElement('option')
+    option.setAttribute('value', heuristic)
+    option.appendChild(document.createTextNode(heuristic.charAt(0).toUpperCase() + heuristic.slice(1)))
+    if(selected == heuristic) {
+      option.setAttribute('selected', 'selected')
+    }
+    document.getElementById('controls-heuristic').appendChild(option)
+  }
+}
+
 
 /**
  * Handle toggling of button for heuristically marked cells
@@ -115,5 +143,6 @@ module.exports = {
   setStatus,
   addPresetGrids,
   addAlgorithmTypes,
+  addHeuristics,
   handleHeuristicsToggle
 }

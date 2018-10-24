@@ -47,17 +47,23 @@ form(action="" method="get")
         .form-group
           select.form-control(name="algorithm" id="controls-algorithm")
   .row
+    .col-4: label(for="controls-heuristic") Heuristik:
+      sup 1
+    .col-sm
+        .form-group
+          select.form-control(name="heuristic" id="controls-heuristic")
+  .row
+    .col-4: label(for="controls-diagonal") Rastertyp:
+    .col-sm
+        .form-group
+          select.form-control(name="gridType" id="controls-type")
+  .row
     .col-4: label(for="controls-dimension") Rastergrösse:
     .col-sm
         .form-group
           .row
             .col-6: input.form-control(type="number" min="6" max="64" name="gridWidth" placeholder="Breite" value=(query.gridWidth ? query.gridWidth : 24))
             .col-6: input.form-control(type="number" min="6" max="64" name="gridHeight" placeholder="Höhe" value=(query.gridHeight ? query.gridHeight : 24))
-  .row
-    .col-4: label(for="controls-diagonal") Rastertyp:
-    .col-sm
-        .form-group
-          select.form-control(name="gridType" id="controls-type")
   .row
     .col-4: label(for="controls-diagonal") Diagonale zulassen:
     .col-sm
@@ -75,4 +81,10 @@ form(action="" method="get")
       .form-group
         input.btn.btn-primary(type="submit" value="Neu generieren")
   .row
-    .col-sm: p * bei vorgefertigten Rastern wird die Rastergrösse nicht beachtet.
+    .col-sm: p
+      sup 1
+      |  nicht jeder pathfinder verwendet die ausgewählte Heuristik.
+  .row
+    .col-sm: p
+      sup 2
+      |  bei vorgefertigten Rastern wird die Rastergrösse nicht beachtet.
