@@ -1,5 +1,8 @@
 const config = require('./config.js')
 
+/**
+ * Create SVG element to be used for grid / matrix
+ */
 document.createSvg = function(tagName) {
   const svgNS = 'http://www.w3.org/2000/svg'
   return this.createElementNS(svgNS, tagName)
@@ -11,10 +14,8 @@ document.createSvg = function(tagName) {
  * @param {String} color - SVG color
  * @param {String} id - HTML id of the polyLine
  */
-const drawVisualPath = (pathMatrix, polyId, color, id) => {
-  const svgId = id ? id : 'main-grid'
-  const svgColor = color ? color : config.grid.polyLineColor
-  const svg = document.getElementById(svgId)
+const drawVisualPath = (pathMatrix, polyId, color = config.grid.polyLineColor, id = 'main-grid') => {
+  const svg = document.getElementById(id)
   const polyLine = document.createSvg('polyline')
   let points = ''
   for (let i = 0; i < pathMatrix.length; i++){
@@ -27,7 +28,7 @@ const drawVisualPath = (pathMatrix, polyId, color, id) => {
   }
   polyLine.setAttribute('points', points)
   polyLine.setAttribute('fill', 'none')
-  polyLine.setAttribute('stroke', svgColor)
+  polyLine.setAttribute('stroke', color)
   polyLine.setAttribute('class', 'grid-path')
   if(polyId) {
     polyLine.setAttribute('id', 'grid-path')
@@ -67,16 +68,15 @@ const getSvgBoxCoord = id => {
  *  f(5) = x <=> getRealBoxCoords(5,5)
  *  Returns exact pixel coordinates for 5,5
  *
- * @param {Number} x - Point on the x axis (not pixel coordinate)
- * @param {Number} y - Point on the y axis (not pixel coordinate)
+ * @param {Number} x - Cartesian x coordinate
+ * @param {Number} y - Cartesian y coordinate
  */
-const getRealBoxCoords = (x, y, centeringOffset) => {
+const getRealBoxCoords = (x, y, centeringOffset = { x: 0, y: 0 }) => {
   const id = 'coord-' + x + '-' + y
-  const offset = centeringOffset ? centeringOffset : { x: 0, y: 0 }
   // Assuming base element with id `id` has a parent with an attribute `transform`
   const translate = document.getElementById(id).parentNode.getAttribute('transform')
   const parts = /translate\(\s*([^\s,)]+)[ , ]([^\s,)]+)/.exec(translate)
-  return [ parseInt(parts[1]) + offset.x, parseInt(parts[2]) + offset.y ]
+  return [ parseInt(parts[1]) + centeringOffset.x, parseInt(parts[2]) + centeringOffset.y ]
 }
 
 
@@ -84,6 +84,7 @@ const getRealBoxCoords = (x, y, centeringOffset) => {
  * Example:
  *  // Fills box at 1,1 with red color
  *  setRectAttribute(1, 1, "fill", "red");
+ *
  * @param {Number} x - Point on the x axis (not pixel coordinate)
  * @param {Number} y - Point on the y axis (not pixel coordinate)
  * @param {String} name - attribute name (key)
@@ -115,6 +116,8 @@ const resetAllCoordRects = () => {
 
 /**
  * Resets rect at x,y to its initial state
+ * @param {Number} x - Cartesian x coordinate
+ * @param {Number} y - Cartesian y coordinate
  */
 const resetCoordRect = (x, y) => {
   const rect = document.getElementById('coord-' + x + '-' + y)
@@ -129,22 +132,21 @@ const resetCoordRect = (x, y) => {
  * @param {Number} size - Height / width attribute for inner boxes
  * @param {String} id - HTML id
  */
-const generateGridFromMatrix = (matrix, size, id) => {
-  const innerSize = size ? size : 10
+const generateGridFromMatrix = (matrix, size = 10, id) => {
   const gridId = id ? id : 'main-grid'
   const svg = document.createSvg('svg')
   svg.setAttribute('id', gridId)
-  svg.setAttribute('viewBox', [0, 0, matrix[0].length * innerSize, matrix.length * innerSize].join(' '))
+  svg.setAttribute('viewBox', [0, 0, matrix[0].length * size, matrix.length * size].join(' '))
 
   for(let y = 0; y < matrix.length; y++) {
     for(let x = 0; x < matrix[y].length; x++) {
       const g = document.createSvg('g') // Group element we want to act as parent
-      g.setAttribute('transform', [ 'translate(', x * innerSize, ',', y * innerSize, ')' ].join(''))
+      g.setAttribute('transform', [ 'translate(', x * size, ',', y * size, ')' ].join(''))
 
       // Create individual cell so we can display it and modify it later
       const box = document.createSvg('rect') 
-      box.setAttribute('width', innerSize)
-      box.setAttribute('height', innerSize)
+      box.setAttribute('width', size)
+      box.setAttribute('height', size)
       if(matrix[y][x] == 1) {
         box.setAttribute('fill', config.grid.boxFillWall)
       } else if(matrix[y][x] == 's') {
@@ -162,7 +164,7 @@ const generateGridFromMatrix = (matrix, size, id) => {
       if(y == 0) {
         const txtForY = document.createSvg('text') 
         txtForY.setAttribute('x', 0)
-        txtForY.setAttribute('y', innerSize)
+        txtForY.setAttribute('y', size)
         txtForY.setAttribute('font-family', config.grid.textFontFamily)
         txtForY.setAttribute('font-size', config.grid.textFontSize)
         txtForY.setAttribute('fill', config.grid.textFontColor)
@@ -171,7 +173,7 @@ const generateGridFromMatrix = (matrix, size, id) => {
       } else if(x == 0) {
         const txtForX = document.createSvg('text') 
         txtForX.setAttribute('x', 0)
-        txtForX.setAttribute('y', innerSize)
+        txtForX.setAttribute('y', size)
         txtForX.setAttribute('font-family', config.grid.textFontFamily)
         txtForX.setAttribute('font-size', config.grid.textFontSize)
         txtForX.setAttribute('fill', config.grid.textFontColor)
@@ -195,7 +197,12 @@ const markCellHeuristics = (cells = []) => {
   }
 }
 
-const unmarkCellHeuristics = matrix => {
+/**
+ * Undo cells marked as heuristically analyzed
+ * See markCellHeuristics()
+ * @param {Array} matrix - 2d matrix
+ */
+const unmarkCellHeuristics = (matrix = []) => {
   for(let y = 0; y < matrix.length; y++) {
     for(let x = 0; x < matrix[y].length; x++) {
       setRectAttribute(x, y, 'filter', '')

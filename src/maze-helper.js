@@ -24,6 +24,7 @@ const generate = (nodes, adjacent, choose) => {
   return maze
 }
 
+
 const connect = (maze, world) => {
   for (const [node, neighbors] of maze) {
     world.tiles[locate(world, node)] = 'floor'
@@ -37,6 +38,7 @@ const connect = (maze, world) => {
   }
 }
 
+
 const cells = grid => {
   const { width, height } = grid
   const cells = new Array(width * height)
@@ -49,17 +51,21 @@ const cells = grid => {
   return cells
 }
 
+
 const locate = (grid, cell) => {
   return cell.y * grid.width + cell.x
 }
+
 
 const adjacent = (a, b) => {
   return Math.abs(b.x - a.x) + Math.abs(b.y - a.y) === 2
 }
 
+
 const choose = array => {
   return array[Math.floor(Math.random() * array.length)]
 }
+
 
 module.exports = {
   generate,

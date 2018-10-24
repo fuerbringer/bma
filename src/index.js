@@ -9,7 +9,7 @@ const ui = require('./ui.js')
  * Entry point for the individual pathfinder demonstration
  * @param {Object} options - Grid, Pathfinder, etc settings
  */
-const algorithmDemo = options => {
+const algorithmDemo = (options = {}) => {
   let algorithmType = pathFinding.AStarFinder
   let matrix = null
   let polyLine = []
@@ -66,10 +66,16 @@ const algorithmDemo = options => {
   ui.handleHeuristicsToggle(matrix, heuristics)
 }
 
-const initAlgorithmDemoInterface = (algorithm, gridType) => {
+/**
+ * Add dropdown options for algorithm types and grids
+ * @param {String} algorithm - Selected pathfinding algorithm
+ * @param {String} gridType - Selected grid / maze type
+ */
+const initAlgorithmDemoInterface = (algorithm = 'AStarFinder', gridType = 'recbacktracker') => {
   ui.addAlgorithmTypes(algorithm)
   ui.addPresetGrids(gridType)
 }
+
 
 module.exports = {
   pathFinding,

@@ -1,4 +1,7 @@
 module.exports = {
+  /**
+   * Visual settings used for SVGs and such
+   */
   grid: {
     polyLineColor: 'green',
     boxStroke: 'black',
