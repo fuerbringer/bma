@@ -5,6 +5,7 @@
   "scripts": {
     "start": "npm run build & node ./bin/www",
     "build": "webpack --mode none",
+    "preinstall": "npm run build",
     "watch": "webpack --watch --mode development",
     "test": "eslint src/{grid,helper,index,maze}.js ./bin/* ./routes/*"
   },
