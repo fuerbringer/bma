@@ -10,17 +10,15 @@ const pathFinding = require('./pathfinding.js')
 const setStatus = options => {
   if(options.hasOwnProperty('startAndFinish')) {
     document.getElementById('stat-start').innerHTML
-      = '`S(' + options.startAndFinish.start.x + ', ' + options.startAndFinish.start.y + ')`'
+      = 'S(' + options.startAndFinish.start.x + ', ' + options.startAndFinish.start.y + ')'
     document.getElementById('stat-end').innerHTML
-      = '`F(' + options.startAndFinish.finish.x + ', ' + options.startAndFinish.finish.y + ')`'
+      = 'F(' + options.startAndFinish.finish.x + ', ' + options.startAndFinish.finish.y + ')'
   }
   if(options.hasOwnProperty('distance')) {
     if(options.distance > 0) {
-      document.getElementById('stat-distance').innerHTML = '`'
-        + options.distance
-        + (options.distance == 1 ? '` Zelle' : '` Zellen')
+      document.getElementById('stat-distance').innerHTML = options.distance + (options.distance == 1 ? ' Zelle' : ' Zellen')
     } else {
-      document.getElementById('stat-distance').innerHTML = '`0` Zellen (Weg nicht möglich)'
+      document.getElementById('stat-distance').innerHTML = '0 Zellen (Weg nicht möglich)'
     }
   }
   if(options.hasOwnProperty('algorithm')) {
@@ -32,17 +30,17 @@ const setStatus = options => {
   }
   if(options.hasOwnProperty('elapsedTime')) {
     if(options.elapsedTime > 0) {
-      document.getElementById('stat-elapsed-time').innerHTML = `\`${options.elapsedTime} ms\``
+      document.getElementById('stat-elapsed-time').innerHTML = `${options.elapsedTime} ms`
     } else {
-      document.getElementById('stat-elapsed-time').innerHTML = '`< 0 ms`'
+      document.getElementById('stat-elapsed-time').innerHTML = '< 0 ms'
     }
   }
   if(options.hasOwnProperty('heuristicsCount')) {
-    document.getElementById('stat-heuristics').innerHTML = `\`${options.heuristicsCount}\` Zellen`
+    document.getElementById('stat-heuristics').innerHTML = `${options.heuristicsCount} Zellen`
     if(options.hasOwnProperty('totalCells')) {
       // How many % of the cells have been heuristically analyzed
       const percentHeuristics = (options.heuristicsCount / options.totalCells) * 100
-      document.getElementById('stat-heuristics').innerHTML += ` \`(${percentHeuristics.toFixed(2)}%)\``
+      document.getElementById('stat-heuristics').innerHTML += ` (${percentHeuristics.toFixed(2)}%)`
     }
   }
 }
