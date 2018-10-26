@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": false,
   "scripts": {
-    "start": "npm run build & node ./bin/www",
+    "start": "node ./bin/www",
+    "prestart": "npm run build",
     "build": "webpack --mode none",
-    "preinstall": "npm run build",
     "watch": "webpack --watch --mode development",
     "test": "eslint src/{grid,helper,index,maze}.js ./bin/* ./routes/*"
   },
