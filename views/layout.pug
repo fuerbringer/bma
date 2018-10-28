@@ -4,6 +4,7 @@ html
     title= title
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel="stylesheet" href="/fa/css/font-awesome.min.css")
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='/javascripts/jquery.min.js')
     script(src='/javascripts/popper.min.js')
@@ -12,11 +13,15 @@ html
   body
     nav.navbar.navbar-expand-sm.bg-dark.navbar-dark
       ul.navbar-nav
-        li.nav-item: a.navbar-brand.nav-link(href="/") BMA
-        li.nav-item: a.nav-link(href="/pathfinder") Pathfinder
-        li.nav-item: a.nav-link(href="/") Vergleiche
-        li.nav-item: a.nav-link(href="/credits") Autoren
-
+        li.nav-item: a.navbar-brand.nav-link(href="/" title="Berufsmaturitätsarbeit") BMA
+        li.nav-item: a.nav-link(href="/intro" title="Ein einfach verständlicher Text führt einen in das Thema der Pathfinding Algorithmen ein.")
+          | 1. Einführung in das Thema
+        li.nav-item: a.nav-link(href="/pathfinder" title="Die Visuelle Darstellung gewährt besseres Verständnis des Themas.")
+          | 2. Visualisierung der Pathfinder
+        li.nav-item: a.nav-link(href="/comparison" title="Der Vergleich zeigt die Eigenschaften verschiedener Pathfinder nebeneinander.")
+          | 3. Vergleich der Pathfinder
+        li.nav-item: a.nav-link(href="/credits")
+          | 4. Autoren
 
     .page-core: block content
 

@@ -2,16 +2,17 @@ extends layout
 
 block content
   .container
-    .row
-      .col-sm
-        h1 Willkommen!
-        h2 Um was geht es?
-        p Pathfinding Algorithmen! Sie finden in einer zweidimensionalen Matrix den passenden Weg von A nach B.
-        p Unsere Webapplikation veranschaulicht die verschiedenen Arten der Pathfinder, erklärt deren Funktionsweisen und vergleicht sie. Navigieren Sie die verschiedenen Szenarien und Demos mittels der Navigation.
-        pre: code#debug-out
-      .col-sm
-        h2 Pathfinding Algorithmen
-        img.img-fluid(src="/images/pathfinding_2d_illustration.svg")
-        p
-          a(href="https://commons.wikimedia.org/wiki/File:Pathfinding_2D_Illustration.svg" target="_blank") Quelle
-          |  (Public Domain)
+    .jumbotron
+      .row
+          .col-6
+              h1 Willkommen!
+              h2 Um was geht es?
+              p Pathfinding Algorithmen! Sie finden in einem zweidimensionalen Raum den passenden Weg vom Start- zum Endpunkt.
+              p Unsere Webapplikation veranschaulicht die verschiedenen Arten der Pathfinder, erklärt deren Funktionsweisen und vergleicht sie.
+              a(href="/intro").btn.btn-primary Zur Einführung
+              pre: code#debug-out
+          .col-6
+            img.img-fluid(src="/images/pathfinding_2d_illustration.svg")
+            p
+              a(href="https://commons.wikimedia.org/wiki/File:Pathfinding_2D_Illustration.svg" target="_blank") Quelle
+              |  (Public Domain)

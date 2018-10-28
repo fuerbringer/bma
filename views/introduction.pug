@@ -1,0 +1,109 @@
+extends layout
+
+block content
+  .container
+    .row
+      .col-sm
+        h1= title
+        .card
+          .card-body
+            h2#1 
+              |  Was sind Pathfinder Algorithmen?  
+              a(href="#1") #
+            .row
+              .col-sm
+                p Um diese Berufsmaturitätsarbeit adäquat verstehen zu können, benötigt man einen gewissen Wissensstand. Darum werden die Pathfinder als nächstes verständlich erklärt und im Anschluss das Ziel dieser Arbeit aufgelistet.
+                p 
+                  i.fa.fa-info-circle(aria-hidden="true")
+                  |  Ein 
+                  strong Pathfinder ist ein Programm
+                  | , welches in einem zweidimensionalen Raum mit Start- und Endpunkt 
+                  strong den Weg findet. 
+                    
+        br
+        .card
+          .card-body
+            h2#2 Nutzen
+            h3
+              |  Wozu kann man sie gebrauchen?  
+              a(href="#2") #
+            .row
+              .col-8
+                p
+                  i.fa.fa-info-circle(aria-hidden="true")
+                  |  Pathfinder findet man zum Beispiel bei Roboterstaubsaugern, die selbstständig Zimmer reinigen können.
+                h4 Beispiele
+                ol
+                  li: p Im Beispielbild hat ein Programmierer dem Roboter zwei Pathfinder ins Hirn gepflanzt und anschliessend ein Ziel im Raum gegeben. Nennen wir sie bzw. deren gefundene Wege A und B. Der mit Grün markierte Weg A ist scheinbar kürzer (schneller) und der mit Gelb markierte Weg B länger (längsämer).
+                  li: p Ein weiteres typisches Anwendungsbeispiel wären Videospiele. Hat man einen computergesteuerten Begleiter, dem man folgen muss, wird dieser einen Weg folgen, der von einem Pathfinder berechnet wurde, um "intelligent" zu wirken.
+                  li
+                    p Als drittes Beispiel stellen wir uns zwei Personen vor, die möglichst schnell vom Zürich HB nach Oerlikon gelangen müssen. Person A ist ein Einheimischer. Person B ist ein Tourist. Der Einheimische nimmt die S-Bahn und ist unter zehn Minuten in Oerlikon angekommen. Der Tourist hingegen befargt zuerst Leute und entscheidet sich mit dem Tram zu fahren. Beide Wege führen zum Ziel, jedoch hat die Person A den schnellsten Weg gefunden. Anders gesagt hat der Pathfinder der Person A einen kürzeren Weg erarbeitet.
+                    p Wie die beiden Vorgegangen sind hängt davon ab, wie sie denken (wie ihr Pathfinder "programmiert" ist).
+              .col-4
+                a(href="/images/intro1.png" target="_blank")
+                  img.img-fluid(src="/images/intro1.png")
+                p Bildlegende: Ein Roboterstaubsauger (orange) überlegt sich auf zwei Arten den Weg zum Ziel (blau).
+        br
+        .card
+          .card-body
+            h2#3 Arten
+            h3
+              |  Welche Pathfinder gibt es? 
+              a(href="#3") #
+            .row
+              .col-sm
+                p
+                  i.fa.fa-info-circle(aria-hidden="true")
+                  |  Es gibt viele verschiedene Pathfinder. In unserer Arbeit konzentrieren wir uns aber nur auf die folgenden:
+                ul
+                  li A* (sprich "a star")
+                  li Dijkstra
+        br
+        .card
+          .card-body
+            h2#4 Algorithmen
+            h3
+              |  Was sind Algorithmen? 
+              a(href="#4") #
+            .row
+              .col-8
+                p
+                  i.fa.fa-info-circle(aria-hidden="true")
+                  |  Ein Algorithmus ist einfach gesagt ein Programm, welches Daten in einer nützlichen Weise in Schritten verwandelt. Pathfinder sind auch eine Art von Algorithmus. Man gibt den Pathfindern als Parameter den Raum und den Start- und Endpunkt. Dieser liefert einem als Resultat einen passenden Weg.
+              .col-4
+                em Dijkstra(Raum, Startpunkt, Endpunkt) 
+                  i.fa.fa-long-arrow-right(aria-hidden="true")
+                  |  Weg
+
+            .row: .col-sm: hr
+
+            .row
+              .col-8
+                p Ein weiteres Beispiel, mit dem wir alle vertraut sind, wäre online Shopping. Möchte man sich zuerst die günstigsten Produktvarianten anschauen, so wählt man bei der Sortierung "günstigste zuerst" oder "Preise aufsteigend". Im Hintergrund ordnet dann ein Sortieralgoritmus alle Produkte nach ihrem Preis.
+              .col-4
+                .form-group
+                  .row
+                    .col-4: label(for="sort-example") Preissortierung
+                    .col-8
+                      select.form-control#sort-example
+                        option Günstigste zuerst
+                        option Teuerste zuerst
+        br
+        .card
+          .card-body
+            h2#5 Ziel
+            h3
+              |  Was möchten wir herausfinden? 
+              a(href="#5") #
+            .row
+              .col-sm
+                p Wir haben nun gelernt was Pathfinder Algorithmen sind und tun und dazu echte Beispiele entdeckt, damit man sich auch im echten Leben dazu etwas vorstellen kann. Aber was ist nun das Ziel unserer Berufsmaturitätsarbeit? Wie wir gesehen haben, kann es sein dass verschiedene Pathfinding Algorithmen andere Wege liefern können.
+                p 
+                  i.fa.fa-flag-checkered(aria-hidden="true")
+                  |  Im Zusammenhang dazu liefert unsere Arbeit Antworten auf die Folgenden Fragestellungen:
+                ol
+                  li In welchen Umständen entstehen mit den genannten Pathfindern (siehe 
+                    a(href="#3") Arten
+                    | ) Abweichungen vom Pfad?
+                  li Welche technischen Gründe gibt es dafür?
+                  li Daraus abgeleitet und gemessen kann auch erkannt werden, welcher Pathfinder in gewissen Situationen der schnellste bzw. langsamste ist.
