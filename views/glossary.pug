@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  .container
+    .row
+      .col-sm
+        h1= title
+        p In unserer Berufsmaturitätsarbeit werden andauernd Fachbegriffe genannt. Diese Seite soll dazu dienen Fachbegriffe einfach verständlich zu erklären.
+        table.table.table-striped
+          thead
+            tr
+              th Begriff
+              th Erklärung
+              th Beispiele und Sonstiges
+          tbody
+            tr
+              td A*
+              td Sprich "A Star". Ein Pathfinding Algorithmus (siehe Fachbegriff Algorithmus). Dieser nutzt zusätzlich heuristische Mittel, um den Weg zu berechnen (siehe Heuristik).
+              td 
+            tr
+              td Algorithmus
+              td Ein Ablauf, Prozess oder Programm, der eine Liste mit Anweisungen schrittweise befolgt, um Daten umzuwandeln.
+              td Pathfinder, Sortierverfahren (Produktpreis auf- und absteigend), Ihre Morgenroutine.
+            tr
+              td Dijkstra
+              td Ein Pathfinding Algorithmus (siehe Fachbegriff Algorithmus). Dieser nutzt keine heuristische Mittel.
+              td -
+            tr
+              td Heuristik
+              td Hilfsalgorithmus, unter Anderem für Pathfinder, der zusätzlich hilft zwischen einzelnen Schritten die Kosten für eine mögliche Operation einzuschätzen.
+              td Chebyshev, Euklidisch, Manhattan, Oktil.
+            tr
+              td Pathfinder
+              td Eine Art Algorithmus, der in einem gegebenen Raum mit eingezeichnetem Start- und Endpunkt den schnellsten weg Findet.
+              td A*, Dijkstra.
+            tr
+              td Matrix
+              td Anordnung von Elementen. In unserem Fall ein zweidimensionales Raster, in dem Wände, Korridore und Wege platziert sind.
+              td Man kann sich in unserem Fall eine Matrix als eine Art Koordinatensystem mit eingezeichneten Blöcken vorstellen, in dem Wege gefunden werden.

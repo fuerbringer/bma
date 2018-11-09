@@ -18,6 +18,10 @@ router.get('/comparison', function(req, res) {
   res.render('comparison', { title: 'Vergleich der pathfinder', query: req.query })
 })
 
+router.get('/glossary', function(req, res) {
+  res.render('glossary', { title: 'Fachwörterglossar' })
+})
+
 router.get('/credits', function(req, res) {
   res.render('credits', { title: 'Autoren' })
 })
