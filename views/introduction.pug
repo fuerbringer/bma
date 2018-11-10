@@ -21,7 +21,6 @@ block content
                   strong Pathfinder ist ein Programm
                   | , welches in einem zweidimensionalen Raum mit Start- und Endpunkt 
                   strong den Weg findet. 
-                    
         br
         .card
           .card-body
@@ -101,9 +100,34 @@ block content
                 p 
                   i.fa.fa-flag-checkered(aria-hidden="true")
                   |  Im Zusammenhang dazu liefert unsere Arbeit Antworten auf die Folgenden Fragestellungen:
-                ol
-                  li In welchen Umständen entstehen mit den genannten Pathfindern (siehe 
+                ul
+                  li
+                    strong Ziel 1: 
+                    | In welchen Umständen entstehen mit den genannten Pathfindern (siehe 
                     a(href="#3") Arten
                     | ) Abweichungen vom Pfad?
-                  li Welche technischen Gründe gibt es dafür?
-                  li Daraus abgeleitet und gemessen kann auch erkannt werden, welcher Pathfinder in gewissen Situationen der schnellste bzw. langsamste ist.
+                  li
+                    strong Ziel 2: 
+                    | Welche technischen Gründe gibt es dafür?
+                  li 
+                    strong Ziel 3: 
+                    | Daraus abgeleitet und gemessen kann auch erkannt werden, welcher Pathfinder in gewissen Situationen der schnellste bzw. langsamste ist.
+        hr
+        .card
+          .card-body
+            h2#6 Ziele im Detail (optional)
+            h3
+              |  Ausführliche Erörterung der Ziele 
+              a(href="#6") #
+            .row
+              .col-sm
+                p Dieses optionale Panel dient dazu die Ziele genauer in der technischen Umsetzung zu erklären. Die Methodik zum Erreichen der 
+                  a(href="#5") Ziele
+                  |  sieht folgend aus.
+                h4 Ziel 1
+                p Es ist bekannt, dass Pathfinder unter Umständen verschiedene Wege in einem gleichen gegebenen Raum berechnen. Nun geht es darum herauszufinden, in welchen Arten von Räumen solche Abweichungen zwischen zwei oder mehr Pathfinder vorkommen. Unter "Arten von Räumen" verstehen wir die Anordnung der Wände, welche Pathfinder dazu bewegen verschiedene Wege zu finden.
+                p Unsere Webapplikation generiert in Serie dazu zufällige Räume und lässt zwei oder mehr Pathfinder den Weg vom Start zum Ziel berechnen. Sollte ein Unterschied in der Form vom Weg vorkommen, wird dieser zur Auswertung vom Nutzer zwischengespeichert und angezeigt.
+                h4 Ziel 2
+                p Durch die generierten Resultate im Ziel 1 und allfälligen eigenen Erkenntnissen analysieren wir anhand des Quellcodes der Pathfinder von PathFinding.js die algorithmischen Gründe für die Abweichungen.
+                h4 Ziel 3
+                p Schlussendlich folgern wir aus den Erkenntnissen der Ziele 1 und 2 die Stärken der Pathfinder. Wir versuchen somit Regeln zu finden, in denen ein Pathfinder am optimalsten seinen Weg findet und umgekehrt in welchen Situationen er weniger geeignet ist.
