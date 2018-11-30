@@ -1,0 +1,21 @@
+script.
+
+  addEventListener("DOMContentLoaded", function() {
+    var runs = parseInt(!isNaN(!{query.runs}) ? '!{query.runs}' : 10);
+    var gridWidth = parseInt(!isNaN(!{query.gridWidth}) ? '!{query.gridWidth}' : 24);
+    var gridHeight = parseInt(!isNaN(!{query.gridHeight}) ? '!{query.gridHeight}' : 24);
+    var gridType = '!{query.gridType}';
+    var allowDiagonal = '!{query.diagonal}' == 'true';
+    
+    if('!{query.submit}') {
+      bma.comparisonDemo({
+        unveil: true,
+        runs: runs,
+        gridType: gridType,
+        gridWidth: gridWidth,
+        gridHeight: gridHeight,
+        diagonals: allowDiagonal
+      });
+      bma.initComparisonDemoInterface()
+    }
+  }, false);

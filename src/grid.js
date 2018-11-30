@@ -1,4 +1,6 @@
 const config = require('./config.js')
+const helper = require('./helper.js')
+const pathFinding = require('./pathfinding.js')
 
 /**
  * Create SVG element to be used for grid / matrix
@@ -14,7 +16,7 @@ document.createSvg = function(tagName) {
  * @param {String} color - SVG color
  * @param {String} id - HTML id of the polyLine
  */
-const drawVisualPath = (pathMatrix, polyId, color = config.grid.polyLineColor, id = 'main-grid') => {
+const drawVisualPath = (pathMatrix, polyId, color = config.grid.polyLineColor, id = 'main-grid', strokeWidth = 1) => {
   const svg = document.getElementById(id)
   const polyLine = document.createSvg('polyline')
   let points = ''
@@ -29,9 +31,10 @@ const drawVisualPath = (pathMatrix, polyId, color = config.grid.polyLineColor, i
   polyLine.setAttribute('points', points)
   polyLine.setAttribute('fill', 'none')
   polyLine.setAttribute('stroke', color)
+  polyLine.setAttribute('stroke-width', strokeWidth)
   polyLine.setAttribute('class', 'grid-path')
   if(polyId) {
-    polyLine.setAttribute('id', 'grid-path')
+    polyLine.setAttribute('id', polyId)
   }
   svg.appendChild(polyLine)
 }
@@ -211,6 +214,16 @@ const unmarkCellHeuristics = (matrix = []) => {
   }
 }
 
+const isGridSolvable = grid => {
+  const startAndFinish = helper.findStartAndFinish(grid)
+  const pfGrid = new pathFinding.Grid(helper.sanitizeMatrix(grid))
+  const finder = new pathFinding.AStarFinder()
+  const path = finder.findPath(
+    startAndFinish.start.x, startAndFinish.start.y,
+    startAndFinish.finish.x, startAndFinish.finish.y, pfGrid)
+  return (path.length !== 0)
+}
+
 module.exports = {
   drawVisualPath,
   clearVisualPaths,
@@ -221,5 +234,6 @@ module.exports = {
   resetCoordRect,
   generateGridFromMatrix,
   markCellHeuristics,
-  unmarkCellHeuristics
+  unmarkCellHeuristics,
+  isGridSolvable
 }

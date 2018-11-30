@@ -90,8 +90,106 @@ const initAlgorithmDemoInterface = (algorithm = 'AStarFinder', gridType = 'recba
 }
 
 
+const comparisonDemo = (options = {}) => {
+  const pathfinders = [
+    pathFinding.AStarFinder,
+    pathFinding.BestFirstFinder,
+    /*pathFinding.DijkstraFinder,
+    pathFinding.BreadthFirstFinder,
+    pathFinding.IDAStarFinder,
+    pathFinding.JumpPointFinder,
+    pathFinding.OrthogonalJumpPointFinder,
+    pathFinding.BiAStarFinder,
+    pathFinding.BiBestFirstFinder,
+    pathFinding.BiBreadthFirstFinder,
+    pathFinding.BiDijkstraFinder
+    */
+  ]
+  let runs = 5
+  let gridWidth = 24
+  let gridHeight = 24
+  let gridType = 'random'
+  let distAstar = 0 // Distance traversed by A*
+  let distDijkstra = 0 // Distance traversed by Dijkstra
+  let diagonals = false
+  let runResults = []
+  if(options.hasOwnProperty('runs')) {
+    runs = options.runs
+  }
+  if(options.hasOwnProperty('gridWidth')) {
+    gridWidth = options.gridWidth
+  }
+  if(options.hasOwnProperty('gridHeight')) {
+    gridHeight = options.gridHeight
+  }
+  if(options.hasOwnProperty('gridType')) {
+    if(options.gridType == 'maze') {
+      gridType = 'recbacktracker'
+    } else {
+      gridType = options.gridType
+    }
+  }
+  if(options.hasOwnProperty('diagonals')) {
+    diagonals = options.diagonals
+  }
+
+  if(options.unveil === true) {
+    document.getElementById('comparison-status').classList.remove('d-none')
+  }
+
+
+  for(let run = 0 /* run nr. */; run < runs; run++) {
+    let runMaze = null
+    const runResult = {
+      maze: undefined,
+      gridType: gridType,
+      paths: []
+    }
+    if(gridType == 'recbacktracker') {
+      runMaze = maze.generateRecBacktrackerMaze(gridWidth, gridHeight, false)
+    } else {
+      runMaze = maze.generatePseudoRandomMaze(gridWidth, gridHeight)
+    }
+
+    runResult.maze = runMaze
+
+    const startAndFinish = helper.findStartAndFinish(runMaze)
+
+    let results = []
+    if(grid.isGridSolvable(runMaze)) {
+      for(let pfi = 0; pfi < pathfinders.length; pfi++) {
+        const pfGrid = new pathFinding.Grid(helper.sanitizeMatrix(runMaze))
+        const finder = new pathfinders[pfi]({allowDiagonal: diagonals })
+        const path = finder.findPath(
+          startAndFinish.start.x, startAndFinish.start.y,
+          startAndFinish.finish.x, startAndFinish.finish.y, pfGrid)
+
+        runResult.paths.push({
+          pathFinder: pathfinders[pfi],
+          path: path
+        })
+      }
+    }
+    
+    runResults.push(runResult)
+  }
+
+  // Pass results over to the interface
+  ui.setComparisonResults({
+    results: runResults,
+    pathFinders: pathfinders,
+    gridType: gridType
+  })
+}
+
+const initComparisonDemoInterface = () => {
+}
+
+
 module.exports = {
   pathFinding,
   algorithmDemo,
-  initAlgorithmDemoInterface
+  initAlgorithmDemoInterface,
+  comparisonDemo,
+  initComparisonDemoInterface
 }

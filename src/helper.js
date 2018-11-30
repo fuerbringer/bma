@@ -15,12 +15,10 @@ const randomIntFromInterval = (min, max) => {
 const findStartAndFinish = (matrix = []) => {
   let startAndFinish = {
     start: {
-      x: undefined,
-      y: undefined
+      x: undefined, y: undefined
     },
     finish: {
-      x: undefined,
-      y: undefined
+      x: undefined, y: undefined
     }
   }
   for(let y = 0; y < matrix.length; y++) {

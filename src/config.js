@@ -3,6 +3,15 @@ module.exports = {
    * Visual settings used for SVGs and such
    */
   grid: {
+    pathFinderColors: [
+      'teal',
+      'darkviolet',
+      'yellow',
+      'firebrick',
+      'deepskyblue',
+      'violet',
+      'forestgreen',
+    ],
     polyLineColor: 'green',
     boxStroke: 'black',
     boxFill: 'white',

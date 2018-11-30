@@ -1,6 +1,7 @@
-const presetGrids = require('./preset-grids.js')
+const config = require('./config.js')
 const grid = require('./grid.js')
 const pathFinding = require('./pathfinding.js')
+const presetGrids = require('./preset-grids.js')
 
 
 /**
@@ -137,10 +138,61 @@ const handleHeuristicsToggle = (matrix, heuristics, buttonId = 'toggle-heuristic
 }
 
 
+const setComparisonResults = (options = {}) => {
+  let pfPaths = []
+  let pfPathsStr = ''
+  //let pfStr = ''
+  for(let i = 0; i < options.pathFinders.length; i++) {
+    const pfStr = options.pathFinders[i].name
+    const pfTextParent = document.createElement('span')
+    pfTextParent.style.color = config.grid.pathFinderColors[i]
+    const pfText = document.createTextNode(pfStr)
+    pfTextParent.appendChild(pfText)
+    document.getElementById('stat-pathfinders').appendChild(pfTextParent)
+    document.getElementById('stat-pathfinders').appendChild(document.createElement('br'))
+  }
+  for(let i = 0; i < options.results.length; i++) {
+    const paths = options.results[i].paths
+    for(let ip = 0; ip < paths.length; ip++) {
+      const path = options.results[i].paths[ip]
+      if(pfPaths[path.pathFinder.name]) {
+        pfPaths[path.pathFinder.name] += path.path.length
+      } else {
+        pfPaths[path.pathFinder.name] = path.path.length
+      }
+    }
+  }
+  for(let key in pfPaths) {
+    let keyStr = key + ':'
+    pfPathsStr += `${keyStr.padEnd(16, ' ')}\t${pfPaths[key]} Zellen\n`
+  }
+
+  document.getElementById('stat-count-runs').innerHTML = options.results.length
+  document.getElementById('stat-grid-type').innerHTML = options.gridType
+  document.getElementById('stat-total-distance').innerHTML = pfPathsStr
+
+  for(let ri = 0; ri < options.results.length; ri++) {
+    const svgId = `comparison-${ri}`
+    const container = document.getElementById('container')
+    container.appendChild(grid.generateGridFromMatrix(options.results[ri].maze, 10, svgId))
+
+    for(let pi = 0 /* pathIndex */; pi < options.results[ri].paths.length; pi++) {
+      const path = options.results[ri].paths[pi].path
+      let polyLine = []
+      for(let i = 0; i < path.length; i++) {
+        polyLine.push(grid.getRealBoxCoords(path[i][0], path[i][1], { x: 2 + pi, y: 2 + pi }))
+      }
+      grid.drawVisualPath(polyLine, `comparison-poly-${ri}`, config.grid.pathFinderColors[pi], svgId)
+    }
+  }
+}
+
+
 module.exports = {
   setStatus,
   addPresetGrids,
   addAlgorithmTypes,
   addHeuristics,
-  handleHeuristicsToggle
+  handleHeuristicsToggle,
+  setComparisonResults
 }
