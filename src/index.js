@@ -182,7 +182,10 @@ const comparisonDemo = (options = {}) => {
   })
 }
 
-const initComparisonDemoInterface = () => {
+const initComparisonDemoInterface = (leftButton = 'grid-left', rightButton = 'grid-right') => {
+  // TODO only display one result by default, onLoad the 1st one
+  // create two buttons to display the next/previous one 
+  ui.handleGridSlider(leftButton, rightButton)
 }
 
 

@@ -3,6 +3,8 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
   body .page-core {
     min-height: 85vh; }
+    body .page-core .grid-slider {
+      text-align: center; }
 
 a {
   color: #00B7FF; }

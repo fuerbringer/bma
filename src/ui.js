@@ -188,11 +188,72 @@ const setComparisonResults = (options = {}) => {
 }
 
 
+/**
+ * UI code for the slider buttons on the comparison page
+ * @param {String} leftButton - id of the left button
+ * @param {String} rightButton - id of the right button
+ */
+const handleGridSlider = (leftButton, rightButton) => {
+  const containerSlideNrId = 'data-slide'
+  const containerId = 'container'
+  const container = document.getElementById(containerId)
+  const containerChildren = Array.from(container.children)
+  const statusCurrent = document.getElementById('grid-status-current')
+  const statusTotal = document.getElementById('grid-status-total')
+  const getCurrentSlide = (leftButton, rightButton) => {
+    const currentSlide = container.getAttribute(containerSlideNrId) ? container.getAttribute(containerSlideNrId) : 0
+    if(!container.getAttribute(containerSlideNrId)) {
+      container.setAttribute(containerSlideNrId, currentSlide)
+    }
+    return parseInt(currentSlide)
+  }
+
+  const changeSlides = (currentSlide, nextSlide) => {
+    const current = document.getElementById(`comparison-${currentSlide}`)
+    const next = document.getElementById(`comparison-${nextSlide}`)
+    current.style.display = 'none'
+    next.style.display = '' // unhide
+  }
+
+  // Inits
+  for(let i = 1; i < containerChildren.length; i++) {
+    containerChildren[i].style.display = 'none'
+  }
+  statusTotal.innerHTML = (containerChildren.length - 1)
+  statusCurrent.innerHTML = 1
+
+  changeSlides(0, 0)
+
+  // TODO Logic for +(total/10) elems arrows
+  
+  // Callbacks
+  document.getElementById(leftButton).addEventListener('click', function() {
+    const currentSlide = getCurrentSlide(leftButton, rightButton)
+    const nextSlide = currentSlide - 1
+    if(nextSlide >= 0) {
+      container.setAttribute(containerSlideNrId, nextSlide)
+      changeSlides(currentSlide, nextSlide)
+      statusCurrent.innerHTML = (nextSlide + 1) 
+    }
+  })
+  document.getElementById(rightButton).addEventListener('click', function() {
+    const currentSlide = getCurrentSlide(leftButton, rightButton)
+    const nextSlide = currentSlide + 1
+    if(nextSlide < container.childElementCount - 1) {
+      container.setAttribute(containerSlideNrId, nextSlide)
+      changeSlides(currentSlide, nextSlide)
+      statusCurrent.innerHTML = (nextSlide + 1) 
+    }
+  })
+}
+
+
 module.exports = {
   setStatus,
   addPresetGrids,
   addAlgorithmTypes,
   addHeuristics,
   handleHeuristicsToggle,
-  setComparisonResults
+  setComparisonResults,
+  handleGridSlider
 }
