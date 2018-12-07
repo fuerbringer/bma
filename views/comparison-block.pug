@@ -6,22 +6,22 @@ h2 Raster
 
 // Horizontal line
 .row: .col-sm: hr
-
-.row
-  .col-sm.grid-slider
-    // TODO -(total/10) elems button (double arrow left)
-    button.btn.btn-info#grid-left: i.fa.fa-arrow-left
-    button.btn.btn-info#grid-right: i.fa.fa-arrow-right
-    // TODO +(total/10) elems button (double arrow right)
-
-.row
-  .col-sm.grid-slider
-    span#grid-status-current
-    span#grid-status-divider.hidden /
-    span#grid-status-total
-
-// Horizontal line
-.row: .col-sm: hr
+  
+#grid-slider-control.d-none
+  .row
+    .col-sm.grid-slider
+      // TODO -(total/10) elems button (double arrow left)
+      button.btn.btn-info#grid-left(title="Vorheriges Vergleichsresultat anzeigen"): i.fa.fa-arrow-left
+      button.btn.btn-info#grid-right: i.fa.fa-arrow-right
+      // TODO +(total/10) elems button (double arrow right)
+  .row
+    .col-sm.grid-slider
+      span#grid-status-current
+      span#grid-status-divider.hidden /
+      span#grid-status-total
+  
+  // Horizontal line
+  .row: .col-sm: hr
 
 #comparison-status.d-none
   // Status

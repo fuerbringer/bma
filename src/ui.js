@@ -207,7 +207,6 @@ const handleGridSlider = (leftButton, rightButton) => {
     }
     return parseInt(currentSlide)
   }
-
   const changeSlides = (currentSlide, nextSlide) => {
     const current = document.getElementById(`comparison-${currentSlide}`)
     const next = document.getElementById(`comparison-${nextSlide}`)
@@ -215,7 +214,9 @@ const handleGridSlider = (leftButton, rightButton) => {
     next.style.display = '' // unhide
   }
 
-  // Inits
+  // Inits ////////////////////////////////////////////////////////////
+  document.getElementById('grid-slider-control').classList.toggle('d-none')
+
   for(let i = 1; i < containerChildren.length; i++) {
     containerChildren[i].style.display = 'none'
   }
@@ -226,7 +227,7 @@ const handleGridSlider = (leftButton, rightButton) => {
 
   // TODO Logic for +(total/10) elems arrows
   
-  // Callbacks
+  // Callbacks ////////////////////////////////////////////////////////////
   document.getElementById(leftButton).addEventListener('click', function() {
     const currentSlide = getCurrentSlide(leftButton, rightButton)
     const nextSlide = currentSlide - 1
