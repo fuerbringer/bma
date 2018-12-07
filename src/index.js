@@ -151,7 +151,7 @@ const comparisonDemo = (options = {}) => {
       runMaze = maze.generatePseudoRandomMaze(gridWidth, gridHeight)
     }
 
-    runResult.maze = runMaze
+    runResult.maze = JSON.parse(JSON.stringify(runMaze)) // <- extremely nasty deepCopy
 
     const startAndFinish = helper.findStartAndFinish(runMaze)
 
