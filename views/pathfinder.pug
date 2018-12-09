@@ -5,6 +5,7 @@ block content
     .row
       .col-sm
         h1= title
+        p Auf der rechten Seite sieht man einzelne Pathfinder &laquo;in action&raquo;. 
         if query.algorithm == 'AStarFinder' || !query.algorithm
           include descriptions/astar
         if query.algorithm == 'DijkstraFinder'
