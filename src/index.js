@@ -94,8 +94,9 @@ const comparisonDemo = (options = {}) => {
   const pathfinders = [
     pathFinding.AStarFinder,
     pathFinding.BestFirstFinder,
-    /*pathFinding.DijkstraFinder,
     pathFinding.BreadthFirstFinder,
+    /*
+    pathFinding.DijkstraFinder,
     pathFinding.IDAStarFinder,
     pathFinding.JumpPointFinder,
     pathFinding.OrthogonalJumpPointFinder,

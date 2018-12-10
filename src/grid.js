@@ -138,6 +138,7 @@ const resetCoordRect = (x, y) => {
 const generateGridFromMatrix = (matrix, size = 10, id) => {
   const gridId = id ? id : 'main-grid'
   const svg = document.createSvg('svg')
+  svg.setAttribute('class', 'grid-generated')
   svg.setAttribute('id', gridId)
   svg.setAttribute('viewBox', [0, 0, matrix[0].length * size, matrix.length * size].join(' '))
 

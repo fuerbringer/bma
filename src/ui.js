@@ -83,7 +83,8 @@ const addPresetGrids = selected => {
 const addAlgorithmTypes = selected => {
   const available = [
     'AStarFinder',
-    'DijkstraFinder'
+    'BestFirstFinder',
+    'BreadthFirstFinder'
   ]
   for(let i = 0; i < available.length; i++) {
     const algo = available[i]
