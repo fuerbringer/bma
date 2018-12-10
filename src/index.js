@@ -75,11 +75,9 @@ const algorithmDemo = (options = {}) => {
     distance: (path.length - 1),
     operations: finderRes.performance.operations,
     elapsedTime: (t1 - t0),
-    heuristicsCount: heuristics.length,
     heuristics: heuristic,
     totalCells: (gridWidth * gridHeight)
   })
-  ui.handleHeuristicsToggle(matrix, heuristics)
 }
 
 /**

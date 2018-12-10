@@ -22,11 +22,8 @@ module.exports = {
     boxFillFinish: '#2BCE48',
     boxFillWall: 'grey',
     boxStrokeWidth: '0.075',
-    textFontSize: '8',
+    textFontSize: '6',
     textFontFamily: 'sans-serif',
-    textFontColor: 'black',
-    heuristicFilter: 'blur(1px) sepia(100%)',
-    heuristicStroke: 'black',
-    heuristicStrokeWidth: '1'
+    textFontColor: 'black'
   }
 }

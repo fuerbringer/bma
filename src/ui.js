@@ -39,14 +39,6 @@ const setStatus = options => {
       document.getElementById('stat-elapsed-time').innerHTML = '< 0 ms'
     }
   }
-  if(options.hasOwnProperty('heuristicsCount')) {
-    document.getElementById('stat-heuristics').innerHTML = `${options.heuristicsCount} Zellen`
-    if(options.hasOwnProperty('totalCells')) {
-      // How many % of the cells have been heuristically analyzed
-      const percentHeuristics = (options.heuristicsCount / options.totalCells) * 100
-      document.getElementById('stat-heuristics').innerHTML += ` (${percentHeuristics.toFixed(2)}%)`
-    }
-  }
 }
 
 
@@ -121,24 +113,6 @@ const addHeuristics = selected => {
     }
     document.getElementById('controls-heuristic').appendChild(option)
   }
-}
-
-
-/**
- * Handle toggling of button for heuristically marked cells
- * @param {Array} matrix - 2d array
- * @param {Array} heuristics - Array of objects in the form of {x: x, y: y}
- */
-const handleHeuristicsToggle = (matrix, heuristics, buttonId = 'toggle-heuristics') => {
-  document.getElementById(buttonId).addEventListener('click', function() {
-    const toggledClass = 'toggled'
-    if (this.classList.contains(toggledClass)) {
-      grid.unmarkCellHeuristics(matrix)
-    } else {
-      grid.markCellHeuristics(heuristics)
-    }
-    this.classList.toggle(toggledClass);
-  }, false);
 }
 
 
@@ -258,7 +232,6 @@ module.exports = {
   addPresetGrids,
   addAlgorithmTypes,
   addHeuristics,
-  handleHeuristicsToggle,
   setComparisonResults,
   handleGridSlider
 }
