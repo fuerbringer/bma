@@ -118,7 +118,9 @@ const addHeuristics = selected => {
 
 const setComparisonResults = (options = {}) => {
   let pfPaths = []
+  let pfOperations = []
   let pfPathsStr = ''
+  let pfOperationsStr = ''
   //let pfStr = ''
   for(let i = 0; i < options.pathFinders.length; i++) {
     const pfStr = options.pathFinders[i].name
@@ -138,16 +140,27 @@ const setComparisonResults = (options = {}) => {
       } else {
         pfPaths[path.pathFinder.name] = path.path.length
       }
+      if(pfOperations[path.pathFinder.name]) {
+        pfOperations[path.pathFinder.name] += path.performance.operations
+      } else {
+        pfOperations[path.pathFinder.name] = path.performance.operations
+      }
     }
   }
+  
   for(let key in pfPaths) {
     let keyStr = key + ':'
     pfPathsStr += `${keyStr.padEnd(16, ' ')}\t${pfPaths[key]} Zellen\n`
+  }
+  for(let key in pfOperations) {
+    let keyStr = key + ':'
+    pfOperationsStr += `${keyStr.padEnd(16, ' ')}\t${pfOperations[key]} Operationen\n`
   }
 
   document.getElementById('stat-count-runs').innerHTML = options.results.length
   document.getElementById('stat-grid-type').innerHTML = options.gridType
   document.getElementById('stat-total-distance').innerHTML = pfPathsStr
+  document.getElementById('stat-total-operations').innerHTML = pfOperationsStr
 
   for(let ri = 0; ri < options.results.length; ri++) {
     const svgId = `comparison-${ri}`

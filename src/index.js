@@ -163,13 +163,17 @@ const comparisonDemo = (options = {}) => {
       for(let pfi = 0; pfi < pathfinders.length; pfi++) {
         const pfGrid = new pathFinding.Grid(helper.sanitizeMatrix(runMaze))
         const finder = new pathfinders[pfi]({allowDiagonal: diagonals })
-        const path = finder.findPath(
+        const finderRes = finder.findPath(
           startAndFinish.start.x, startAndFinish.start.y,
-          startAndFinish.finish.x, startAndFinish.finish.y, pfGrid)
+          startAndFinish.finish.x, startAndFinish.finish.y,
+          pfGrid,
+          true /* <-- performance */)
 
+        const path = finderRes.path
         runResult.paths.push({
           pathFinder: pathfinders[pfi],
-          path: path
+          path: path,
+          performance: finderRes.performance,
         })
       }
     }
