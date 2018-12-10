@@ -59,7 +59,7 @@ form(action="" method="get")
         .form-group
           .row
             // Include a slider (usefful for lotsa mazes)
-            .col-12: input.form-control(type="number" min="1" max="10" id="runs" name="runs" placeholder="5" value=(query.runs ? query.runs : 5))
+            .col-12: input.form-control(type="number" min="1" max="100" id="runs" name="runs" placeholder="5" value=(query.runs ? query.runs : 10))
   .row
     .col-4: label(for="gridType") Rasterart:
     .col-sm
@@ -78,8 +78,8 @@ form(action="" method="get")
     .col-sm
         .form-group
           .row
-            .col-6: input.form-control(type="number" min="6" max="24" name="gridWidth" placeholder="Breite" value=(query.gridWidth ? query.gridWidth : 24))
-            .col-6: input.form-control(type="number" min="6" max="24" name="gridHeight" placeholder="Höhe" value=(query.gridHeight ? query.gridHeight : 24))
+            .col-6: input.form-control(type="number" min="6" max="32" name="gridWidth" placeholder="Breite" value=(query.gridWidth ? query.gridWidth : 32))
+            .col-6: input.form-control(type="number" min="6" max="32" name="gridHeight" placeholder="Höhe" value=(query.gridHeight ? query.gridHeight : 32))
   .row
     .col-4: label(for="controls-diagonal") Diagonale zulassen:
     .col-sm

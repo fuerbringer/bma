@@ -109,8 +109,8 @@ const comparisonDemo = (options = {}) => {
     */
   ]
   let runs = 5
-  let gridWidth = 24
-  let gridHeight = 24
+  let gridWidth = 32
+  let gridHeight = 32
   let gridType = 'random'
   let distAstar = 0 // Distance traversed by A*
   let distDijkstra = 0 // Distance traversed by Dijkstra
