@@ -29,6 +29,9 @@ const setStatus = options => {
       document.getElementById('stat-algorithm').innerHTML += ` (${heuristic} Heuristik)`
     }
   }
+  if(options.hasOwnProperty('operations')) {
+    document.getElementById('stat-operations').innerHTML = options.operations >= 0 ? options.operations : '?'
+  }
   if(options.hasOwnProperty('elapsedTime')) {
     if(options.elapsedTime > 0) {
       document.getElementById('stat-elapsed-time').innerHTML = `${options.elapsedTime} ms`

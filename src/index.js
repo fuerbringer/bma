@@ -57,9 +57,12 @@ const algorithmDemo = (options = {}) => {
     })
   }
   const t0 = performance.now() // Start measuring time for pathfinder calculations
-  const path = finder.findPath(
+  const finderRes = finder.findPath(
     startAndFinish.start.x, startAndFinish.start.y,
-    startAndFinish.finish.x, startAndFinish.finish.y, pfGrid)
+    startAndFinish.finish.x, startAndFinish.finish.y,
+    pfGrid,
+    true /* <- performance */)
+  const path = finderRes.path
   const t1 = performance.now() // End measuring time
   for(let i = 0; i < path.length; i++) {
     polyLine.push(grid.getRealBoxCoords(path[i][0], path[i][1], { x: 4, y: 4 }))
@@ -70,6 +73,7 @@ const algorithmDemo = (options = {}) => {
     algorithm: algorithmType.name,
     startAndFinish: startAndFinish,
     distance: (path.length - 1),
+    operations: finderRes.performance.operations,
     elapsedTime: (t1 - t0),
     heuristicsCount: heuristics.length,
     heuristics: heuristic,
