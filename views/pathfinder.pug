@@ -5,11 +5,13 @@ block content
     .row
       .col-sm
         h1= title
-        p Auf der rechten Seite sieht man einzelne Pathfinder &laquo;in action&raquo;. 
+        p Auf der rechten Seite sieht man einzelne Pathfinder &laquo;in action&raquo;. Der grüne Block repräsentiert jeweils den Endpunkt und der blaue den Startpunkt.
         if query.algorithm == 'AStarFinder' || !query.algorithm
           include descriptions/astar
-        if query.algorithm == 'DijkstraFinder'
-          include descriptions/dijkstra
+        if query.algorithm == 'BestFirstFinder' 
+          include descriptions/bestfirst
+        if query.algorithm == 'BreadthFirstFinder' 
+          include descriptions/breadthfirst
 
       .col-sm
         include pathfinder-block
