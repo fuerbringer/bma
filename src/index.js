@@ -38,6 +38,9 @@ const algorithmDemo = (options = {}) => {
   } else {
     matrix = maze.generateRecBacktrackerMaze(gridWidth, gridHeight, false)
   }
+
+  const b64matrix = btoa(JSON.stringify(matrix))
+
   const container = document.getElementById('container')
   container.appendChild(grid.generateGridFromMatrix(matrix))
   const startAndFinish = helper.findStartAndFinish(matrix)
@@ -67,9 +70,19 @@ const algorithmDemo = (options = {}) => {
   for(let i = 0; i < path.length; i++) {
     polyLine.push(grid.getRealBoxCoords(path[i][0], path[i][1], { x: 4, y: 4 }))
   }
+
+  ui.handleCustomAlgoDemo(
+    {width: gridWidth, height: gridHeight},
+    {
+      algorithmType: (algorithmType == pathFinding.AStarFinder ? 'AStarFinder' : algorithmType),
+      heuristic: heuristic,
+      diagonals: options.allowDiagonal ? true : false
+    },
+    startAndFinish, b64matrix)
+
   grid.drawVisualPath(polyLine)
 
-  ui.setStatus({
+    ui.setStatus({
     algorithm: algorithmType.name,
     startAndFinish: startAndFinish,
     distance: (path.length - 1),

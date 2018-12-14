@@ -22,6 +22,7 @@ module.exports = {
     boxFillFinish: '#2BCE48',
     boxFillWall: 'grey',
     boxStrokeWidth: '0.075',
+    boxCustomWaypoint: 'red',
     textFontSize: '6',
     textFontFamily: 'sans-serif',
     textFontColor: 'black'

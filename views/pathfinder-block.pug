@@ -2,6 +2,24 @@ h2 Raster
 .row
   .col-sm
     #container
+#custom-selected-waypoints-form.d-none
+  // Horizontal line
+  .row: .col-sm: hr
+  
+  form(action="" method="get")
+    input(type="hidden" name="custom-selected-waypoints" id="custom-selected-waypoints")
+    input(type="hidden" name="matrix-data-b64" id="matrix-data-b64")
+    input(type="hidden" name="matrix-data-original-waypoints" id="matrix-data-original-waypoints")
+    input(type="hidden" name="custom-waypoints" id="custom-waypoints" value="true")
+    // Copied input fields from below
+    input(type="hidden" name="heuristic" id="custom-controls-heuristic")
+    input(type="hidden" name="algorithm" id="custom-controls-algorithm")
+    input(type="hidden" name="diagonal" id="custom-controls-diagonal")
+    .row
+      .col-sm
+        .form-group
+          input.btn.btn-secondary(type="submit" value="Mit eigenen Wegpunkten neu generieren")
+  
 // Horizontal line
 .row: .col-sm: hr
 

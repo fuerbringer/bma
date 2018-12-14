@@ -239,6 +239,65 @@ const handleGridSlider = (leftButton, rightButton) => {
   })
 }
 
+const handleCustomAlgoDemo = (dimensions, originalOptions, originalWaypoints, rawMatrixData) => {
+  const submitFormDataNewWaypointsId = 'custom-selected-waypoints'
+  const submitFormDataMatrixId = 'matrix-data-b64'
+  const submitFormDataWaypointsId = 'matrix-data-original-waypoints'
+  const submitFormId = 'custom-selected-waypoints-form'
+  const selectedId = 'custom-selected-waypoint'
+
+  if(originalOptions.algorithmType) {
+    document.getElementById('custom-controls-algorithm').value = originalOptions.algorithmType
+  }
+  if(originalOptions.heuristic) {
+    document.getElementById('custom-controls-heuristic').value = originalOptions.heuristic
+  }
+  if(originalOptions.diagonals) {
+    document.getElementById('custom-controls-diagonal').value = originalOptions.diagonals
+  }
+
+  for(let y = 0; y < dimensions.height; y++) {
+    for(let x = 0; x < dimensions.width; x++) {
+      const gridBoxId = `coord-${y}-${x}`
+      const gridBox = document.getElementById(gridBoxId)
+      gridBox.addEventListener('click', function(e){
+        const target = e.target
+        if(target.getAttribute('data-type') === 'corridor') {
+          const id = target.id
+          const selected = document.getElementsByClassName(selectedId)
+          if(id) {
+            const submitForm = document.getElementById(submitFormId)
+            submitForm.classList.add('d-none')
+            if(target.getAttribute('fill') == config.grid.boxCustomWaypoint) {
+              target.classList.toggle(selectedId)
+              target.setAttribute('fill', config.grid.boxFill)
+            } else {
+              if(selected.length < 2) {
+                // Keep amount of waypoints <= 2 (start and finish)
+                target.setAttribute('fill', config.grid.boxCustomWaypoint)
+                target.classList.toggle(selectedId)
+              }
+            }
+          }
+          if(selected.length === 2) {
+            const currentlySelected = document.getElementsByClassName(selectedId)
+            const submitForm = document.getElementById(submitFormId)
+            submitForm.classList.remove('d-none')
+
+            document.getElementById(submitFormDataMatrixId).value = rawMatrixData
+            document.getElementById(submitFormDataWaypointsId).value = `${originalWaypoints.start.x}-${originalWaypoints.start.y}-${originalWaypoints.finish.x}-${originalWaypoints.finish.y}`
+
+            for(let i = 0; i < currentlySelected.length && i < 2; i++) {
+              const curr = currentlySelected[i]
+              if(i) document.getElementById(submitFormDataNewWaypointsId).value += '-' + curr.getAttribute('data-x') + '-' + curr.getAttribute('data-y')
+              else document.getElementById(submitFormDataNewWaypointsId).value += curr.getAttribute('data-x') + '-' + curr.getAttribute('data-y')
+            }
+          }
+        }
+      }, false );
+    }
+  }
+}
 
 module.exports = {
   setStatus,
@@ -246,5 +305,6 @@ module.exports = {
   addAlgorithmTypes,
   addHeuristics,
   setComparisonResults,
-  handleGridSlider
+  handleGridSlider,
+  handleCustomAlgoDemo
 }

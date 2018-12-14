@@ -144,6 +144,7 @@ const generateGridFromMatrix = (matrix, size = 10, id) => {
 
   for(let y = 0; y < matrix.length; y++) {
     for(let x = 0; x < matrix[y].length; x++) {
+      const boxId = 'coord-' + x + '-' + y
       const g = document.createSvg('g') // Group element we want to act as parent
       g.setAttribute('transform', [ 'translate(', x * size, ',', y * size, ')' ].join(''))
 
@@ -153,17 +154,23 @@ const generateGridFromMatrix = (matrix, size = 10, id) => {
       box.setAttribute('height', size)
       if(matrix[y][x] == 1) {
         box.setAttribute('fill', config.grid.boxFillWall)
+        box.setAttribute('data-type', 'wall')
       } else if(matrix[y][x] == 's') {
         box.setAttribute('fill', config.grid.boxFillStart)
+        box.setAttribute('data-type', 'start')
       } else if(matrix[y][x] == 'f') {
         box.setAttribute('fill', config.grid.boxFillFinish)
+        box.setAttribute('data-type', 'finish')
       } else {
         box.setAttribute('fill', config.grid.boxFill)
+        box.setAttribute('data-type', 'corridor')
       }
-      box.setAttribute('id', 'coord-' + x + '-' + y) 
+      box.setAttribute('id', boxId) 
       box.setAttribute('class', 'coord-rect')
       box.setAttribute('stroke', config.grid.boxStroke) 
       box.setAttribute('stroke-width', config.grid.boxStrokeWidth)
+      box.setAttribute('data-x', x)
+      box.setAttribute('data-y', y)
       g.appendChild(box)
       if(y == 0) {
         const txtForY = document.createSvg('text') 
