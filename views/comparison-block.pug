@@ -1,103 +1,84 @@
-h2 Raster
-.row
-  .col-sm
-    // Result visualization
-    #container: p Bestimmen Sie zuerst die Vergleichsparameter.
-
-// Horizontal line
 .row: .col-sm: hr
-  
-#grid-slider-control.d-none
-  .row
-    .col-sm.grid-slider
-      button.btn.btn-info#grid-left(title="Vorheriges Vergleichsresultat anzeigen"): i.fa.fa-arrow-left
-      button.btn.btn-info#grid-right: i.fa.fa-arrow-right
-  .row
-    .col-sm.grid-slider
-      span#grid-status-current
-      span#grid-status-divider.hidden /
-      span#grid-status-total
-  
-  // Horizontal line
-  .row: .col-sm: hr
-
-#comparison-status.d-none
-  // Status
-  .row
-    .col-sm
-      h3 Status
-  .row
-    .col-4: p(title="") Pathfinder:
-    .col-8: div#stat-pathfinders
-  .row
-    .col-4: p(title="Wie viel Durchläufe und Vergleiche der jeweiligen Pathfinder es gab") Anzahl Durchläufe:
-    .col-8: p#stat-count-runs: i Wird berechnet...
-  .row
-    .col-4: p(title="") Raster/Labyrint Art:
-    .col-8: p#stat-grid-type: i Wird berechnet...
-  .row
-    .col-sm
-      h4 Benchmark
-      p Für die Auswertung relevante Daten.
-  .row
-    .col-4: p(title="") Anzahl Operationen:
-    .col-8: pre#stat-total-operations: i Wird berechnet...
-  .row
-    .col-4: p(title="") Zurückgelegter Weg:
-    .col-8: pre#stat-total-distance: i Wird berechnet...
-  .row
-    .col-4: p(title="") Vergangene Rechenzeit:
-    .col-8: pre#stat-elapsed-times: i Wird berechnet...
-            
-  
-  // Horizontal line
-  .row: .col-sm: hr
-  
 .row
-  .col-sm
-    h3 Parameter
-// Controls
-form(action="" method="get")
-  .row
-    .col-4: label(for="runs") Anzahl Durchläufe:
-    .col-sm
-        .form-group
-          .row
-            // Include a slider (usefful for lotsa mazes)
-            .col-12: input.form-control(type="number" min="1" max="100" id="runs" name="runs" placeholder="5" value=(query.runs ? query.runs : 10))
-  .row
-    .col-4: label(for="gridType") Rasterart:
-    .col-sm
-        .form-group
-          select.form-control(name="gridType" id="gridType")
-            option(value="random") Zufallsraster (Wände "verstreut")
-            // Labyrinth disabled until there's more than one way to solve them
-            //if query.gridType == "random"
-            //  option(value="random" "selected") Zufallsraster (Wände "verstreut")
-            //  option(value="maze") Labyrinth
-            //else
-            //  option(value="random") Zufallsraster (Wände "verstreut")
-            //  option(value="maze" "selected") Labyrinth
-  .row
-    .col-4: label(for="controls-dimension") Rastergrösse:
-    .col-sm
-        .form-group
-          .row
-            .col-6: input.form-control(type="number" min="6" max="32" name="gridWidth" placeholder="Breite" value=(query.gridWidth ? query.gridWidth : 32))
-            .col-6: input.form-control(type="number" min="6" max="32" name="gridHeight" placeholder="Höhe" value=(query.gridHeight ? query.gridHeight : 32))
-  .row
-    .col-4: label(for="controls-diagonal") Diagonale zulassen:
-    .col-sm
-        .form-group
-          select.form-control(name="diagonal" id="controls-diagonal")
-            if query.diagonal == "true"
-              option(value="true" "selected") Ja
-              option(value="false") Nein
-            else
-              option(value="true") Ja
-              option(value="false" "selected") Nein
-  .row
-    .col-4: p
-    .col-sm
-      .form-group
-        input.btn.btn-primary(name="submit" type="submit" value="Pathfinder vergleichen")
+  .col-6
+    #comparison-status.d-none
+      // Status
+      .row
+        .col-sm
+          h3 Status
+      .row
+        .col-4: p(title="") Pathfinder:
+        .col-8: div#stat-pathfinders
+      .row
+        .col-4: p(title="Wie viel Durchläufe und Vergleiche der jeweiligen Pathfinder es gab") Anzahl Durchläufe:
+        .col-8: p#stat-count-runs: i Wird berechnet...
+      .row
+        .col-4: p(title="") Raster/Labyrint Art:
+        .col-8: p#stat-grid-type: i Wird berechnet...
+      .row
+        .col-sm
+          h4 Messungen
+          p Für die Auswertung relevante Daten.
+      .row
+        .col-4: p(title="") Anzahl Operationen:
+        .col-8: pre#stat-total-operations: i Wird berechnet...
+      .row
+        .col-4: p(title="") Zurückgelegter Weg:
+        .col-8: pre#stat-total-distance: i Wird berechnet...
+      .row
+        .col-4: p(title="") Vergangene Rechenzeit:
+        .col-8: pre#stat-elapsed-times: i Wird berechnet...
+                
+      
+      // Horizontal line
+      .row: .col-sm: hr
+      
+  .col-6
+    .row
+      .col-sm
+        h3 Parameter
+    // Controls
+    form(action="" method="get")
+      .row
+        .col-4: label(for="runs") Anzahl Durchläufe:
+        .col-sm
+            .form-group
+              .row
+                // Include a slider (usefful for lotsa mazes)
+                .col-12: input.form-control(type="number" min="1" max="100" id="runs" name="runs" placeholder="5" value=(query.runs ? query.runs : 10))
+      .row
+        .col-4: label(for="gridType") Rasterart:
+        .col-sm
+            .form-group
+              select.form-control(name="gridType" id="gridType")
+                option(value="random") Zufallsraster (Wände "verstreut")
+                // Labyrinth disabled until there's more than one way to solve them
+                //if query.gridType == "random"
+                //  option(value="random" "selected") Zufallsraster (Wände "verstreut")
+                //  option(value="maze") Labyrinth
+                //else
+                //  option(value="random") Zufallsraster (Wände "verstreut")
+                //  option(value="maze" "selected") Labyrinth
+      .row
+        .col-4: label(for="controls-dimension") Rastergrösse:
+        .col-sm
+            .form-group
+              .row
+                .col-6: input.form-control(type="number" min="6" max="32" name="gridWidth" placeholder="Breite" value=(query.gridWidth ? query.gridWidth : 32))
+                .col-6: input.form-control(type="number" min="6" max="32" name="gridHeight" placeholder="Höhe" value=(query.gridHeight ? query.gridHeight : 32))
+      .row
+        .col-4: label(for="controls-diagonal") Diagonale zulassen:
+        .col-sm
+            .form-group
+              select.form-control(name="diagonal" id="controls-diagonal")
+                if query.diagonal == "true"
+                  option(value="true" "selected") Ja
+                  option(value="false") Nein
+                else
+                  option(value="true") Ja
+                  option(value="false" "selected") Nein
+      .row
+        .col-4: p
+        .col-sm
+          .form-group
+            input.btn.btn-primary(name="submit" type="submit" value="Pathfinder vergleichen")
