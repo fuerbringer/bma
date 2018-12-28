@@ -15,7 +15,7 @@ router.get('/pathfinder', function(req, res) {
 })
 
 router.get('/comparison', function(req, res) {
-  res.render('comparison', { title: 'Vergleich der pathfinder', query: req.query })
+  res.render('comparison', { title: 'Vergleich der Pathfinder', query: req.query })
 })
 
 router.get('/glossary', function(req, res) {
