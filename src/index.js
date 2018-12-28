@@ -167,7 +167,7 @@ const comparisonDemo = (options = {}) => {
       runMaze = maze.generatePseudoRandomMaze(gridWidth, gridHeight)
     }
 
-    runResult.maze = JSON.parse(JSON.stringify(runMaze)) // <- extremely nasty deepCopy
+    runResult.maze = JSON.parse(JSON.stringify(runMaze)) // <-- extremely nasty deep-copy
 
     const startAndFinish = helper.findStartAndFinish(runMaze)
 
@@ -176,17 +176,20 @@ const comparisonDemo = (options = {}) => {
       for(let pfi = 0; pfi < pathfinders.length; pfi++) {
         const pfGrid = new pathFinding.Grid(helper.sanitizeMatrix(runMaze))
         const finder = new pathfinders[pfi]({allowDiagonal: diagonals })
+        const t0 = performance.now() // Start measuring time for pathfinder calculations
         const finderRes = finder.findPath(
           startAndFinish.start.x, startAndFinish.start.y,
           startAndFinish.finish.x, startAndFinish.finish.y,
           pfGrid,
           true /* <-- performance */)
+        const t1 = performance.now() // End measuring time for pathfinder calculations
 
         const path = finderRes.path
         runResult.paths.push({
           pathFinder: pathfinders[pfi],
           path: path,
           performance: finderRes.performance,
+          elapsedTime: (t1 - t0)
         })
       }
     }
@@ -203,8 +206,6 @@ const comparisonDemo = (options = {}) => {
 }
 
 const initComparisonDemoInterface = (leftButton = 'grid-left', rightButton = 'grid-right') => {
-  // TODO only display one result by default, onLoad the 1st one
-  // create two buttons to display the next/previous one 
   ui.handleGridSlider(leftButton, rightButton)
 }
 

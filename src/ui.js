@@ -119,9 +119,11 @@ const addHeuristics = selected => {
 const setComparisonResults = (options = {}) => {
   let pfPaths = []
   let pfOperations = []
+  let pfElapsedTimes = []
   let pfPathsStr = ''
   let pfOperationsStr = ''
-  //let pfStr = ''
+  let pfElapsedTimesStr = ''
+
   for(let i = 0; i < options.pathFinders.length; i++) {
     const pfStr = options.pathFinders[i].name
     const pfTextParent = document.createElement('span')
@@ -145,6 +147,11 @@ const setComparisonResults = (options = {}) => {
       } else {
         pfOperations[path.pathFinder.name] = path.performance.operations
       }
+      if(pfElapsedTimes[path.pathFinder.name]) {
+        pfElapsedTimes[path.pathFinder.name] += path.elapsedTime
+      } else {
+        pfElapsedTimes[path.pathFinder.name] = path.elapsedTime
+      }
     }
   }
   
@@ -156,11 +163,16 @@ const setComparisonResults = (options = {}) => {
     let keyStr = key + ':'
     pfOperationsStr += `${keyStr.padEnd(16, ' ')}\t${pfOperations[key]} Operationen\n`
   }
+  for(let key in pfElapsedTimes) {
+    let keyStr = key + ':'
+    pfElapsedTimesStr += `${keyStr.padEnd(16, ' ')}\t${pfElapsedTimes[key]} ms\n`
+  }
 
   document.getElementById('stat-count-runs').innerHTML = options.results.length
   document.getElementById('stat-grid-type').innerHTML = options.gridType
   document.getElementById('stat-total-distance').innerHTML = pfPathsStr
   document.getElementById('stat-total-operations').innerHTML = pfOperationsStr
+  document.getElementById('stat-elapsed-times').innerHTML = pfElapsedTimesStr
 
   for(let ri = 0; ri < options.results.length; ri++) {
     const svgId = `comparison-${ri}`
