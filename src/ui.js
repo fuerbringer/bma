@@ -278,7 +278,7 @@ const handleGridSlider = (leftButton, rightButton) => {
   // TODO Logic for +(total/10) elems arrows
   
   // Callbacks ////////////////////////////////////////////////////////////
-  document.getElementById(leftButton).addEventListener('click', function() {
+  const callbackLeftClick = function() {
     const currentSlide = getCurrentSlide(leftButton, rightButton)
     const nextSlide = currentSlide - 1
     if(nextSlide >= 0) {
@@ -286,14 +286,22 @@ const handleGridSlider = (leftButton, rightButton) => {
       changeSlides(currentSlide, nextSlide)
       statusCurrent.innerHTML = (nextSlide + 1) 
     }
-  })
-  document.getElementById(rightButton).addEventListener('click', function() {
+  }
+  const callbackRightClick = function() {
     const currentSlide = getCurrentSlide(leftButton, rightButton)
     const nextSlide = currentSlide + 1
     if(nextSlide < container.childElementCount) {
       container.setAttribute(containerSlideNrId, nextSlide)
       changeSlides(currentSlide, nextSlide)
       statusCurrent.innerHTML = (nextSlide + 1) 
+    }
+  }
+  document.getElementById(leftButton).addEventListener('click', callbackLeftClick)
+  document.getElementById(rightButton).addEventListener('click', callbackRightClick)
+  document.addEventListener("keypress", function(event) {
+    switch(event.keyCode) {
+      case 37: callbackLeftClick(); break;
+      case 39: callbackRightClick(); break;
     }
   })
 }
