@@ -174,15 +174,15 @@ const setComparisonResults = (options = {}) => {
     pfElapsedTimesStr += `${keyStr.padEnd(16, ' ')}\t${pfElapsedTimes[key]} ms\n`
   }
   for(let i = 0; i < individualResults.length; i++) {
-    let resultStr = ''
+    let resultStr = []
     for(let p = 0; p < config.selectedPathfinders.length; p++) {
       if(individualResults[i].length) {
         const line = individualResults[i][p]
-        resultStr += `${line.pathFinder}: ${line.pathLength} Zellen, ${line.operations} Operationen\n`
+        resultStr.push({name:`${line.pathFinder}`, result: `${line.pathLength} Zellen, ${line.operations} Operationen`})
       } 
     }
     if(resultStr.length == 0) {
-      resultStr = 'Leerlauf'
+      resultStr = []
     }
     individualResultsStrArr.push(resultStr)
   }
@@ -191,7 +191,17 @@ const setComparisonResults = (options = {}) => {
     const wrapper = document.createElement('div')
     wrapper.setAttribute('id', `grid-result-${i}`)
     const inner = document.createElement('pre')
-    inner.innerHTML = line
+    //inner.innerHTML = line.name + line.result
+    for(let pf = 0; pf < line.length; pf++) {
+      const span = document.createElement('span')
+      span.style.color = config.grid.pathFinderColors[pf]
+      span.innerHTML = `${line[pf].name}`
+      const result = document.createElement('span')
+      result.innerHTML = `: ${line[pf].result}`
+      inner.appendChild(span)
+      inner.appendChild(result)
+      inner.appendChild(document.createElement('br'))
+    }
     wrapper.appendChild(inner)
     if(i) {
       // Only display the first one, leave the rest to the ui buttons
