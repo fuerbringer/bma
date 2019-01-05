@@ -76,11 +76,7 @@ const addPresetGrids = selected => {
  * @param {String} selected - name of the already selected option
  */
 const addAlgorithmTypes = selected => {
-  const available = [
-    'AStarFinder',
-    'BestFirstFinder',
-    'BreadthFirstFinder'
-  ]
+  const available = config.selectedPathfinderNames
   for(let i = 0; i < available.length; i++) {
     const algo = available[i]
     const option = document.createElement('option')
@@ -123,6 +119,8 @@ const setComparisonResults = (options = {}) => {
   let pfPathsStr = ''
   let pfOperationsStr = ''
   let pfElapsedTimesStr = ''
+  let individualResults = []
+  let individualResultsStrArr = []
 
   for(let i = 0; i < options.pathFinders.length; i++) {
     const pfStr = options.pathFinders[i].name
@@ -135,8 +133,15 @@ const setComparisonResults = (options = {}) => {
   }
   for(let i = 0; i < options.results.length; i++) {
     const paths = options.results[i].paths
+    let runs = []
     for(let ip = 0; ip < paths.length; ip++) {
       const path = options.results[i].paths[ip]
+      runs.push({
+        pathFinder: path.pathFinder.name,
+        pathLength: path.path.length,
+        operations: path.performance.operations,
+        elapsedTime: path.elapsedTime
+      })
       if(pfPaths[path.pathFinder.name]) {
         pfPaths[path.pathFinder.name] += path.path.length
       } else {
@@ -153,8 +158,9 @@ const setComparisonResults = (options = {}) => {
         pfElapsedTimes[path.pathFinder.name] = path.elapsedTime
       }
     }
+    individualResults.push(runs)
   }
-  
+
   for(let key in pfPaths) {
     let keyStr = key + ':'
     pfPathsStr += `${keyStr.padEnd(16, ' ')}\t${pfPaths[key]} Zellen\n`
@@ -166,6 +172,32 @@ const setComparisonResults = (options = {}) => {
   for(let key in pfElapsedTimes) {
     let keyStr = key + ':'
     pfElapsedTimesStr += `${keyStr.padEnd(16, ' ')}\t${pfElapsedTimes[key]} ms\n`
+  }
+  for(let i = 0; i < individualResults.length; i++) {
+    let resultStr = ''
+    for(let p = 0; p < config.selectedPathfinders.length; p++) {
+      if(individualResults[i].length) {
+        const line = individualResults[i][p]
+        resultStr += `${line.pathFinder}: ${line.pathLength} Zellen, ${line.operations} Operationen\n`
+      } 
+    }
+    if(resultStr.length == 0) {
+      resultStr = 'Leerlauf'
+    }
+    individualResultsStrArr.push(resultStr)
+  }
+  for(let i = 0; i < individualResultsStrArr.length; i++) {
+    const line = individualResultsStrArr[i]
+    const wrapper = document.createElement('div')
+    wrapper.setAttribute('id', `grid-result-${i}`)
+    const inner = document.createElement('pre')
+    inner.innerHTML = line
+    wrapper.appendChild(inner)
+    if(i) {
+      // Only display the first one, leave the rest to the ui buttons
+      wrapper.style.display = 'none'
+    }
+    document.getElementById('grid-results').appendChild(wrapper)
   }
 
   document.getElementById('stat-count-runs').innerHTML = options.results.length
@@ -188,6 +220,7 @@ const setComparisonResults = (options = {}) => {
       grid.drawVisualPath(polyLine, `comparison-poly-${ri}`, config.grid.pathFinderColors[pi], svgId)
     }
   }
+
 }
 
 
@@ -215,6 +248,10 @@ const handleGridSlider = (leftButton, rightButton) => {
     const next = document.getElementById(`comparison-${nextSlide}`)
     current.style.display = 'none'
     next.style.display = '' // unhide
+    const currentResultStr = document.getElementById(`grid-result-${currentSlide}`)
+    const nextResultStr = document.getElementById(`grid-result-${nextSlide}`)
+    currentResultStr.style.display = 'none'
+    nextResultStr.style.display = '' // unhide
   }
 
   // Inits ////////////////////////////////////////////////////////////
@@ -223,7 +260,7 @@ const handleGridSlider = (leftButton, rightButton) => {
   for(let i = 1; i < containerChildren.length; i++) {
     containerChildren[i].style.display = 'none'
   }
-  statusTotal.innerHTML = (containerChildren.length - 1)
+  statusTotal.innerHTML = (containerChildren.length)
   statusCurrent.innerHTML = 1
 
   changeSlides(0, 0)
@@ -243,7 +280,7 @@ const handleGridSlider = (leftButton, rightButton) => {
   document.getElementById(rightButton).addEventListener('click', function() {
     const currentSlide = getCurrentSlide(leftButton, rightButton)
     const nextSlide = currentSlide + 1
-    if(nextSlide < container.childElementCount - 1) {
+    if(nextSlide < container.childElementCount) {
       container.setAttribute(containerSlideNrId, nextSlide)
       changeSlides(currentSlide, nextSlide)
       statusCurrent.innerHTML = (nextSlide + 1) 

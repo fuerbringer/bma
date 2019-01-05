@@ -1,3 +1,4 @@
+const config = require('./config')
 const helper = require('./helper')
 const grid = require('./grid')
 const maze = require('./maze')
@@ -106,21 +107,7 @@ const initAlgorithmDemoInterface = (algorithm = 'AStarFinder', gridType = 'recba
 
 
 const comparisonDemo = (options = {}) => {
-  const pathfinders = [
-    pathFinding.AStarFinder,
-    pathFinding.BestFirstFinder,
-    pathFinding.BreadthFirstFinder,
-    /*
-    pathFinding.DijkstraFinder,
-    pathFinding.IDAStarFinder,
-    pathFinding.JumpPointFinder,
-    pathFinding.OrthogonalJumpPointFinder,
-    pathFinding.BiAStarFinder,
-    pathFinding.BiBestFirstFinder,
-    pathFinding.BiBreadthFirstFinder,
-    pathFinding.BiDijkstraFinder
-    */
-  ]
+  const pathfinders = config.selectedPathfinders
   let runs = 5
   let gridWidth = 32
   let gridHeight = 32

@@ -18,7 +18,12 @@
       .row
         .col-sm
           h4 Messungen
-          p Für die Auswertung relevante Daten.
+          if(query.submit && query.runs > 1)
+            p Für die Auswertung relevante Daten. Die Werte beziehen sich auf alle der  
+              span=query.runs
+              |  Durchläufe.
+          else
+            p Für die Auswertung relevante Daten.
       .row
         .col-4: p(title="") Anzahl Operationen:
         .col-8: pre#stat-total-operations: i Wird berechnet...

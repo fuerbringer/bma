@@ -1,4 +1,16 @@
+const pathFinding = require('./pathfinding.js')
+
 module.exports = {
+  selectedPathfinders: [
+    pathFinding.AStarFinder,
+    pathFinding.BestFirstFinder,
+    pathFinding.BreadthFirstFinder
+  ],
+  selectedPathfinderNames: [
+    'AStarFinder',
+    'BestFirstFinder',
+    'BreadthFirstFinder'
+  ],
   /**
    * Visual settings used for SVGs and such
    */
