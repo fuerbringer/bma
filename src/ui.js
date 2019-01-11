@@ -178,7 +178,7 @@ const setComparisonResults = (options = {}) => {
     for(let p = 0; p < config.selectedPathfinders.length; p++) {
       if(individualResults[i].length) {
         const line = individualResults[i][p]
-        resultStr.push({name:`${line.pathFinder}`, result: `${line.pathLength} Zellen, ${line.operations} Operationen`})
+        resultStr.push({name:`${line.pathFinder}`, result: `${line.pathLength} Zellen, ${line.operations} Operationen, ${line.elapsedTime} ms`})
       } 
     }
     if(resultStr.length == 0) {

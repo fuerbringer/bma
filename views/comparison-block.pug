@@ -31,8 +31,11 @@
         .col-4: p(title="") Zurückgelegter Weg:
         .col-8: pre#stat-total-distance: i Wird berechnet...
       .row
-        .col-4: p(title="") Vergangene Rechenzeit:
+        .col-4: p(title="") Vergangene Rechenzeit*:
         .col-8: pre#stat-elapsed-times: i Wird berechnet...
+      .row
+        .col-sm
+          p: small * Bei Rechenzeiten unter 1 ms rundet Javascript den Wert auf 0 ab.
                 
 
   if query.submit
