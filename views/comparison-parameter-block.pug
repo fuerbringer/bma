@@ -1,0 +1,48 @@
+.row
+  .col-sm
+    h3 Parameter
+// Controls
+form(action="" method="get")
+  .row
+    .col-4: label(for="runs") Anzahl Durchläufe:
+    .col-sm
+        .form-group
+          .row
+            // Include a slider (usefful for lotsa mazes)
+            .col-12: input.form-control(type="number" min="1" max="1000" id="runs" name="runs" placeholder="5" value=(query.runs ? query.runs : 10))
+  .row
+    .col-4: label(for="gridType") Rasterart:
+    .col-sm
+        .form-group
+          select.form-control(name="gridType" id="gridType")
+            option(value="random") Zufallsraster (Wände "verstreut")
+            // Labyrinth disabled until there's more than one way to solve them
+            //if query.gridType == "random"
+            //  option(value="random" "selected") Zufallsraster (Wände "verstreut")
+            //  option(value="maze") Labyrinth
+            //else
+            //  option(value="random") Zufallsraster (Wände "verstreut")
+            //  option(value="maze" "selected") Labyrinth
+  .row
+    .col-4: label(for="controls-dimension") Rastergrösse:
+    .col-sm
+        .form-group
+          .row
+            .col-6: input.form-control(type="number" min="6" max="64" name="gridWidth" placeholder="Breite" value=(query.gridWidth ? query.gridWidth : 32))
+            .col-6: input.form-control(type="number" min="6" max="64" name="gridHeight" placeholder="Höhe" value=(query.gridHeight ? query.gridHeight : 32))
+  .row
+    .col-4: label(for="controls-diagonal") Diagonale zulassen:
+    .col-sm
+        .form-group
+          select.form-control(name="diagonal" id="controls-diagonal")
+            if query.diagonal == "true"
+              option(value="true" "selected") Ja
+              option(value="false") Nein
+            else
+              option(value="true") Ja
+              option(value="false" "selected") Nein
+  .row
+    .col-4: p
+    .col-sm
+      .form-group
+        input.btn.btn-primary(name="submit" type="submit" value="Pathfinder vergleichen")

@@ -12,7 +12,9 @@ h2 Raster
     if(query.submit)
       p Messung für diesen Einzelversuch:
     else
-      p ...
+      if !query.submit
+        .row: .col-sm
+          include comparison-parameter-block
     #grid-results
   .col-3
     if(query.runs > 1)
@@ -26,3 +28,4 @@ h2 Raster
             span#grid-status-current
             span#grid-status-divider.hidden /
             span#grid-status-total
+            p: small Navigation: Pfeiltasten
