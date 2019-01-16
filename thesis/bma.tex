@@ -1,0 +1,68 @@
+\documentclass[12pt,a4paper,german]{report}
+\usepackage{geometry}
+\geometry{a4paper, top=25mm, left=25mm, right=25mm, bottom=30mm, headsep=10mm, footskip=12mm}
+\usepackage[utf8]{inputenc}
+\usepackage{titlesec}
+\usepackage{blindtext}
+\usepackage{hyperref}
+\usepackage{babel}
+\usepackage{titlepic}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{amsmath}
+\usepackage{mathptmx}
+\usepackage[onehalfspacing]{setspace}
+\usepackage[noend]{algpseudocode}
+\graphicspath{ {./images/} }
+
+\titleformat{\chapter}{\normalfont\huge\bfseries}{\thechapter.}{20pt}{\huge\bfseries}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\input{titlepage}
+
+\input{abstract}
+
+\tableofcontents{}
+
+% START THESIS CONTENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Einleitung}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Realisierung}
+\section{Konzept}
+Die Konzipierung dieser Webapplikation verlangte einige technische und gestalterische Entscheidungen. 
+Einerseits musste die Programmiersprache und Struktur der Applikation geplant werden und andererseits auch das eigentliche Aussehen der Benutzeroberfläche der Webapplikation. 
+Auf diese zwei wesentlichen Aspekte wird in diesem Abschnitt eingegangen.
+\subsection{Pathfinding.js}
+Eine korrekte Implementation der ausgewählten Pathfinder sind Voraussetzung für das Projekt. 
+Daher wurde, um diese Voraussetzung zu erfüllen, eine frei verfügbare Implementation PathFinding.js \cite{pfjs} verschiedener Pathfinder ausgewählt.
+\subsection{Programmierung}
+Die vorhandenen Fachkenntnisse und Erfahrungen schlugen für die Implementierung entweder PHP oder JavaScript als mögliche Programmiersprachen vor. 
+Zum Entscheid massgebend war, dass die Programmbibliothek PathFinding.js \cite{pfjs}, welche in unserer Arbeit eine wichtige Rolle spielt, in JavaScript implementiert wurde. 
+Durch den Einsatz von JavaScript im Front-End und im Back-End, wäre es möglich die Pathfinder Berechnungen beliebig auf dem Rechner des Nutzers und auch auf dem Rechner des Servers auszuführen. 
+Folgend werden die wichtigsten Technologien unserer Webapplikation aufgelistet\footnote{Eine komplette Auflistung inklusive der abhängenden Programmbibliotheken macht wenig Sinn, vor allem da unser Quellcode frei ersichtlich ist.}.
+
+\begin{description}
+  \item [Programmiersprache] JavaScript mit Einbindung von PathFinding.js \cite{pfjs}
+  \item [Webserver-Software] Express\footnote{Express Webserver für Node Webapplikationen, \url{https://expressjs.com/}, Stand: \today}
+  \item [Webhosting] Vultr\footnote{Vultr - The Infrastructure Cloud™, \url{https://vultr.com/}, Stand: \today}
+  \item [Quellcode-Hosting] GitHub\footnote{GitHub, \url{https://github.com/}, Stand: \today}. Der Quellcode unser Webapplikation ist frei unter \url{https://github.com/fuerbringer/bma} zugänglich.
+\end{description}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Schluss}
+\blindtext
+
+% END THESIS CONTENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\input{bibliography}
+
+\end{document}
