@@ -11,6 +11,7 @@
 \usepackage{algorithm}
 \usepackage{amsmath}
 \usepackage{mathptmx}
+\usepackage{wrapfig}
 \usepackage[onehalfspacing]{setspace}
 \usepackage[noend]{algpseudocode}
 \graphicspath{ {./images/} }
@@ -95,12 +96,50 @@ Nach der Einführung erhält der Benutzer die Möglichkeit mit einzelnen Pathfin
 
 \subsubsection{Vergleich der Pathfinder}
 Als Herzstück der Arbeit ermöglicht der Pathfinder-Vergleicher dem Nutzer die ausgewählten Pathfinder zu vergleichen. Hier werden, gleich wie beim Visualisierer, zuerst vom Benutzer die Parameter gewählt. Die parallel ausgeführten Resultate mit Informationen über die Rechenzeit, zurückgelegten Weg und Operationen, sind dann interaktiv anwählbar. Gleichzeitig wird auch unter ``Resultate'' unten links das Total aller Vergleiche akkumuliert, damit ein Gesamteindruck verschaffen werden kann.
+
 \begin{figure}[h]
   \centering
   \includegraphics[width=16cm]{konzept1}
   \caption[Benutzeroberflächenkonzept des Pathfinder-Vergleichers.]{Benutzeroberflächenkonzept Vergleicher. Quelle: Eigenleistung}
   \label{fig:gui_konzept_comparator}
 \end{figure}
+
+\section{Implementierung des Vergleichers}
+Vor allem für die statistischen Auswertungen ist es von Bedeutung zu wissen, wie der Vergleicher zu den Resultaten kommt und die Berechnungen durchführt. Um an die statistischen Merkmale zu gelangen, musste je nach Merkmal die Webapplikation oder PathFinding.js erweitert werden.
+
+\subsection{Zurückgelegter Weg}
+Der zurückgelegte Weg ist aus praktischer Sicht gesehen ein bedeutendes Merkmal, da man möchte, dass der resultierende Weg möglichst kurz ausfällt. 
+Die Programmbibliothek PathFinding.js liefert den Weg in einer Liste mit einer Koordinate pro Element. 
+Daraus folgt, dass der Weg $s$ der Anzahl der Elemente der Liste entsprechen muss, wenn man nach PathFinding.js Sprünge oder Luftlinien ausschliest\footnote{Ein von PathFinding.js berechneter Weg: \url{https://pathfindingjs.readthedocs.io/en/latest/user-guide/getting-started/}}. 
+Es gibt demnach keine Geraden, ausser zwischen zwei Benachbarten Pünkten.
+Diagonalen würden nach dieser Logik bei einem diagonalen Sprung als eine Wegeinheit gelten.
+\[ s = n
+\begin{cases}
+  P_1(0,0)\\
+  P_2(1,0)\\
+  ...\\
+  P_n(11,4)
+\end{cases}
+\]
+\subsection{Operationen}
+Ein Algorithmus, der für das gleiche Resultat weniger Schritte tätigen muss, ist grundsätzlich besser als ein Anderer, solange die Rechenzeit ebenfalls kleiner ausfällt. Für das wichtige Komerkmal zur Rechenzeit mussten die internen Routinen der Programmbibliothek PathFinding.js angepasst werden, da diese solche Messungsmerkmale nicht standardmässig liefert.
+% TODO somehow explain this shiet
+\subsection{Rechenzeit}
+Ein bedeutendes Merkmal ist die Rechenzeit, also die Zeit, in der der Pathfinder seine Arbeit verrichtet hat. 
+Um diese zu berechnen, wird unmittelbar vor der Ausführung der Wegfindungsroutine des Pathfinders der Zeitstempel $t_0$ der jetzigen Zeit zwischengespeichert und danach vom Pathfinder die Arbeit verrichtet. 
+Direkt nach dem Beenden der Wegfindung wird ein zweites Mal ein Zeitstempel $t_1$ zwischengespeichert. Die Differenz ergibt die Zeit $t$ in Millisekunden\footnote{Die Einheit Millisekunden ergibt sich aus der Schnittstelle \texttt{Performance.now()} von JavaScript}, die für die Berechnung benötigt wurde.
+\begin{equation}
+  t = t_1 - t_0
+\end{equation}
+Die Werte $t$ sind pro Pathfinder in der Webapplikation unter ``Messung für diesen Einzelversuch:'' unter dem Raster ersichtlich. Diese Berechnung demnach pro Durchlauf dreimal getätigt.
+% Where to put this, lel, vvv
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=10cm]{measurements_single}
+  \caption[Ausschnitt aus dem Pathfinding-Vergleicher für einzelne Vergleiche.]{Vergleicherausschnitt. Quelle: Eigenleistung}
+  \label{fig:gui_konzept_comparator}
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Schluss}
@@ -109,30 +148,20 @@ Als Herzstück der Arbeit ermöglicht der Pathfinder-Vergleicher dem Nutzer die 
 \chapter{Glossar}
 \section*{Fachwörter- und Begriffsverzeichnis}
 In diesem Kapitel werden wichtige Wörter aus der Fachsprache erklärt, die in unserer Arbeit oftmals vorkommen.
-\paragraph{A*}
-Sprich ``A Star''. Ein Pathfinding Algorithmus (siehe Fachbegriff Algorithmus). Dieser nutzt zusätzlich heuristische Mittel, um den Weg zu berechnen (siehe Heuristik).
-\paragraph{Algorithmus}
-Ein Ablauf, Prozess oder Programm, der eine Liste mit Anweisungen schrittweise befolgt, um Daten umzuwandeln.
-\paragraph{BestFirstFinder}
-Ein Pathfinding-Algorithmus. Nicht zu verwechseln mit dem BreadthFirstFinder.
-\paragraph{BreadthFirstFinder}
-Ein Pathfinding-Algorithmus. Nicht zu verwechseln mit dem BreadthFirstFinder.
-\paragraph{Dijkstra}
-Ein Pathfinding Algorithmus (siehe Fachbegriff Algorithmus). Dieser nutzt keine heuristische Mittel und kommt in unserer Arbeit nicht direkt vor.
-\paragraph{Heuristik}
-Hilfsalgorithmus, unter Anderem für Pathfinder, der zusätzlich hilft zwischen einzelnen Schritten die Kosten für eine mögliche Operation einzuschätzen.
-\paragraph{Operationen}
-Eine ``Operation'' beschreibt in unserem Fall einen Zyklus eines Pathfinders. Je mehr Zyklen ein Pathfinder in Relation zu einem anderen benötigt, desto weniger effizient ist er.
-\paragraph{Parameter}
-Die Randbedingungen für einen Durchlauf bzw. ein Experiment.
-\paragraph{Pathfinder}
-Eine Art Algorithmus, der in einem gegebenen Raum mit eingezeichnetem Start- und Endpunkt den schnellsten weg Findet.
-\paragraph{PathFinding.js}
-Die Zentrale Programmbibliothek, deren Pathfinder Implementationen wir in unserer Webapplikation nutzen.
-\paragraph{Matrix}
-Anordnung von Elementen. In unserem Fall ein zweidimensionales Raster, in dem Wände, Korridore und Wege platziert sind.
-\paragraph{recbacktracker}
-``Recursive Backtracker, ein Labyrinthalgorithmus, den wir in unserer Webapplikation zur Generierung von perfekten (immer lösbaren) Labyrinthen verwenden. Dieser Algorithmus kommt im Vergleicher nicht zum Zug.
+\paragraph{A*} Sprich ``A Star''. Ein Pathfinding Algorithmus (siehe Fachbegriff Algorithmus). Dieser nutzt zusätzlich heuristische Mittel, um den Weg zu berechnen (siehe Heuristik).
+\paragraph{Algorithmus} Ein Ablauf, Prozess oder Programm, der eine Liste mit Anweisungen schrittweise befolgt, um Daten umzuwandeln.
+\paragraph{Back-End} Der Server---mit guten Systemtechnikern rund um die Uhr stellt das Back-End die Website unter einer URL, wie \texttt{bma.fuerbringer.info} zur Verfügung.
+\paragraph{BestFirstFinder} Ein Pathfinding-Algorithmus. Nicht zu verwechseln mit dem BreadthFirstFinder.
+\paragraph{BreadthFirstFinder} Ein Pathfinding-Algorithmus. Nicht zu verwechseln mit dem BreadthFirstFinder.
+\paragraph{Dijkstra} Ein Pathfinding Algorithmus (siehe Fachbegriff Algorithmus). Dieser nutzt keine heuristische Mittel und kommt in unserer Arbeit nicht direkt vor.
+\paragraph{Front-End} Der Browser---der Teil einer Website oder Webapplikation, den der Benutzer sieht und mit dem er interagiert. In unserem Fall werden die wichtigsten Berechnungen im Front-End verrichtet.
+\paragraph{Heuristik} Hilfsalgorithmus, unter Anderem für Pathfinder, der zusätzlich hilft zwischen einzelnen Schritten die Kosten für eine mögliche Operation einzuschätzen.
+\paragraph{Matrix} Anordnung von Elementen. In unserem Fall ein zweidimensionales Raster, in dem Wände, Korridore und Wege platziert sind.
+\paragraph{Operationen} Eine ``Operation'' beschreibt in unserem Fall einen Zyklus eines Pathfinders. Je mehr Zyklen ein Pathfinder in Relation zu einem anderen benötigt, desto weniger effizient ist er.
+\paragraph{Parameter} Die Randbedingungen für einen Durchlauf bzw. ein Experiment.
+\paragraph{PathFinding.js} Die Zentrale Programmbibliothek, deren Pathfinder Implementationen wir in unserer Webapplikation nutzen.
+\paragraph{Pathfinder} Eine Art Algorithmus, der in einem gegebenen Raum mit eingezeichnetem Start- und Endpunkt den schnellsten weg Findet.
+\paragraph{recbacktracker} ``Recursive Backtracker, ein Labyrinthalgorithmus, den wir in unserer Webapplikation zur Generierung von perfekten (immer lösbaren) Labyrinthen verwenden. Dieser Algorithmus kommt im Vergleicher nicht zum Zug.
 
 
 % TODO
