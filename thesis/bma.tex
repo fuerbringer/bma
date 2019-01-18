@@ -41,7 +41,7 @@ Auf diese zwei wesentlichen Aspekte wird in diesem Abschnitt eingegangen.
 \subsection{Pathfinding.js}
 Eine korrekte Implementation der ausgewählten Pathfinder sind Voraussetzung für das Projekt. 
 Daher wurde, um diese Voraussetzung zu erfüllen, eine frei verfügbare Implementation PathFinding.js \cite{pfjs} verschiedener Pathfinder ausgewählt.
-\subsection{Programmierung}
+\subsection{Programmierwerkzeuge}
 Die vorhandenen Fachkenntnisse und Erfahrungen schlugen für die Implementierung entweder PHP oder JavaScript als mögliche Programmiersprachen vor. 
 Zum Entscheid massgebend war, dass die Programmbibliothek PathFinding.js \cite{pfjs}, welche in unserer Arbeit eine wichtige Rolle spielt, in JavaScript implementiert wurde. 
 Durch den Einsatz von JavaScript im Front-End und im Back-End, wäre es möglich die Pathfinder Berechnungen beliebig auf dem Rechner des Nutzers und auch auf dem Rechner des Servers auszuführen. 
@@ -50,21 +50,93 @@ Folgend werden die wichtigsten Technologien unserer Webapplikation aufgelistet\f
 \begin{description}
   \item [Programmiersprache] JavaScript mit Einbindung von PathFinding.js \cite{pfjs}
   \item [Webserver-Software] Express\footnote{Express Webserver für Node Webapplikationen, \url{https://expressjs.com/}, Stand: \today}
+  \item [Quellcode-Hosting] GitHub\footnote{GitHub, \url{https://github.com/}, Stand: \today}. Der Quellcode unser Webapplikation ist frei unter\\ \url{https://github.com/fuerbringer/bma} zugänglich.
   \item [Webhosting] Vultr\footnote{Vultr - The Infrastructure Cloud™, \url{https://vultr.com/}, Stand: \today}
-  \item [Quellcode-Hosting] GitHub\footnote{GitHub, \url{https://github.com/}, Stand: \today}. Der Quellcode unser Webapplikation ist frei unter \url{https://github.com/fuerbringer/bma} zugänglich.
 \end{description}
 
 \subsection{Konzipierung der Benutzeroberfläche}
-\begin{figure}
+Als Webapplikation muss unsere Arbeit deren Nutzen dem Benutzer ausreichend klar machen. 
+Umsomehr ist dies von Bedeutung, da die Webapplikation frei zugänglich ist und daher auch Besucher den Sinn verstehen sollten. 
+Aus diesem Grund wurde unsere Webapplikation für den Nutzer einführend gestaltet. 
+Das heisst, dass der Benutzer beim Aufruf der Webapplikation zunächst auf einer Willkommensseite landet, die ihn wiederum zu einer Einführung in das Thema und Ziel der Arbeit führt. 
+Nach der Einführung kann der Benutzer in der Visualisierung mit einzelnen Pathfindern erste Erfahrungen machen. 
+Im Abschluss kommt der Benutzer zum Hauptteil der Arbeit, dem Pathfinding-Vergleicher. 
+Ziel dieser Struktur ist, dass jede Person wenigstens einen Einblick in die Welt der Pathfinding-Algorithmen erhält.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=16cm]{uiflow}
+  \caption[Struktur der Webapplikation.]{Webapplikationsstruktur. Quelle: Eigenleistung}
+  \label{fig:uiflow}
+\end{figure}
+
+\clearpage
+
+\subsubsection{Einführungs- und Willkommensseite}
+Die Einführungsseite erklärt dem Benutzer was Algorithmen sind und führt ihn anschliessend mit einfachen Beispielen in das Thema Pathfinder ein. Zuletzt werden die Ziele der Arbeit aufgelistet.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=16cm]{einfuehrung1}
+  \caption[Konzept der Einführungsseite.]{Einführungsseite. Quelle: Eigenleistung}
+  \label{fig:einfuehrung1}
+\end{figure}
+
+\clearpage
+
+\subsubsection{Visualisierung der Pathfinder}
+Nach der Einführung erhält der Benutzer die Möglichkeit mit einzelnen Pathfindern zu experimentieren. Dazu kann er auch verschiedene Parameter anpassen. Dies ist die Vorstufe zum Pathfinder-Vergleicher, da hier nochmals die einzelnen Pathfinder auf ihre Eigenschaften beschrieben werden.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=16cm]{visualisierung1}
+  \caption[Benutzeroberflächenkonzept des Pathfinding-Visualisierers.]{Benutzeroberflächenkonzept Visualisierer. Quelle: Eigenleistung}
+  \label{fig:gui_konzept_visualizer}
+\end{figure}
+
+\clearpage
+
+\subsubsection{Vergleich der Pathfinder}
+Als Herzstück der Arbeit ermöglicht der Pathfinder-Vergleicher dem Nutzer die ausgewählten Pathfinder zu vergleichen. Hier werden, gleich wie beim Visualisierer, zuerst vom Benutzer die Parameter gewählt. Die parallel ausgeführten Resultate mit Informationen über die Rechenzeit, zurückgelegten Weg und Operationen, sind dann interaktiv anwählbar. Gleichzeitig wird auch unter ``Resultate'' unten links das Total aller Vergleiche akkumuliert, damit ein Gesamteindruck verschaffen werden kann.
+\begin{figure}[h]
   \centering
   \includegraphics[width=16cm]{konzept1}
-  \caption[Benutzeroberflächenkonzept des Pathfinder-Vergleichers.]{Benutzeroberflächenkonzept. Quelle: Eigenleistung}
-  \label{fig:gui_konzept}
+  \caption[Benutzeroberflächenkonzept des Pathfinder-Vergleichers.]{Benutzeroberflächenkonzept Vergleicher. Quelle: Eigenleistung}
+  \label{fig:gui_konzept_comparator}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Schluss}
 \blindtext
+
+\chapter{Glossar}
+\section*{Fachwörter- und Begriffsverzeichnis}
+In diesem Kapitel werden wichtige Wörter aus der Fachsprache erklärt, die in unserer Arbeit oftmals vorkommen.
+\paragraph{A*}
+Sprich ``A Star''. Ein Pathfinding Algorithmus (siehe Fachbegriff Algorithmus). Dieser nutzt zusätzlich heuristische Mittel, um den Weg zu berechnen (siehe Heuristik).
+\paragraph{Algorithmus}
+Ein Ablauf, Prozess oder Programm, der eine Liste mit Anweisungen schrittweise befolgt, um Daten umzuwandeln.
+\paragraph{BestFirstFinder}
+Ein Pathfinding-Algorithmus. Nicht zu verwechseln mit dem BreadthFirstFinder.
+\paragraph{BreadthFirstFinder}
+Ein Pathfinding-Algorithmus. Nicht zu verwechseln mit dem BreadthFirstFinder.
+\paragraph{Dijkstra}
+Ein Pathfinding Algorithmus (siehe Fachbegriff Algorithmus). Dieser nutzt keine heuristische Mittel und kommt in unserer Arbeit nicht direkt vor.
+\paragraph{Heuristik}
+Hilfsalgorithmus, unter Anderem für Pathfinder, der zusätzlich hilft zwischen einzelnen Schritten die Kosten für eine mögliche Operation einzuschätzen.
+\paragraph{Operationen}
+Eine ``Operation'' beschreibt in unserem Fall einen Zyklus eines Pathfinders. Je mehr Zyklen ein Pathfinder in Relation zu einem anderen benötigt, desto weniger effizient ist er.
+\paragraph{Parameter}
+Die Randbedingungen für einen Durchlauf bzw. ein Experiment.
+\paragraph{Pathfinder}
+Eine Art Algorithmus, der in einem gegebenen Raum mit eingezeichnetem Start- und Endpunkt den schnellsten weg Findet.
+\paragraph{PathFinding.js}
+Die Zentrale Programmbibliothek, deren Pathfinder Implementationen wir in unserer Webapplikation nutzen.
+\paragraph{Matrix}
+Anordnung von Elementen. In unserem Fall ein zweidimensionales Raster, in dem Wände, Korridore und Wege platziert sind.
+\paragraph{recbacktracker}
+``Recursive Backtracker, ein Labyrinthalgorithmus, den wir in unserer Webapplikation zur Generierung von perfekten (immer lösbaren) Labyrinthen verwenden. Dieser Algorithmus kommt im Vergleicher nicht zum Zug.
+
+
+% TODO
+% Danksagung
 
 % END THESIS CONTENT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
