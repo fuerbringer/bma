@@ -122,8 +122,14 @@ Diagonalen würden nach dieser Logik bei einem diagonalen Sprung als eine Wegein
 \end{cases}
 \]
 \subsection{Operationen}
-Ein Algorithmus, der für das gleiche Resultat weniger Schritte tätigen muss, ist grundsätzlich besser als ein Anderer, solange die Rechenzeit ebenfalls kleiner ausfällt. Für das wichtige Komerkmal zur Rechenzeit mussten die internen Routinen der Programmbibliothek PathFinding.js angepasst werden, da diese solche Messungsmerkmale nicht standardmässig liefert.
-% TODO somehow explain this shiet
+Ein Algorithmus, der für das gleiche Resultat weniger Schritte (Operationen) tätigen muss, ist grundsätzlich besser als ein anderer, solange die Rechenzeit ebenfalls kleiner ausfällt. Für das wichtige Nebenmerkmal zur Rechenzeit mussten die internen Routinen der Programmbibliothek PathFinding.js angepasst werden, da sie solche Messungsmerkmale nicht standardmässig liefert. Dazu wurde das PathFinding.js kopiert und in die Routinen der drei ausgewählten Pathfinder im äusseren und inneren Loop eingefügt. Folgende Dateien\footnote{Die genauen Anpassungen sind unter dem folgenden Link verfügbar: \url{https://github.com/fuerbringer/PathFinding.js/commit/51034158638ad7aaa9c5142a827bd4d3de2b8786\#diff-22360b18a43ac33ae398e44b998101c7}} wurden dafür angepasst:
+{Rechenzeit}
+\begin{itemize}
+\item{src/finders/AStarFinder.js}
+\item{src/finders/BreadthFirstFinder.js}
+\end{itemize}
+Zu beachten ist, dass die Datei des BestFirstFinders nicht angepasst werden musste, da dieser auf dem A*-Finder basiert und somit alle Änderungen vom A*-Finder vererbt.
+
 \subsection{Rechenzeit}
 Ein bedeutendes Merkmal ist die Rechenzeit, also die Zeit, in der der Pathfinder seine Arbeit verrichtet hat. 
 Um diese zu berechnen, wird unmittelbar vor der Ausführung der Wegfindungsroutine des Pathfinders der Zeitstempel $t_0$ der jetzigen Zeit zwischengespeichert und danach vom Pathfinder die Arbeit verrichtet. 
@@ -132,7 +138,8 @@ Direkt nach dem Beenden der Wegfindung wird ein zweites Mal ein Zeitstempel $t_1
   t = t_1 - t_0
 \end{equation}
 Die Werte $t$ sind pro Pathfinder in der Webapplikation unter ``Messung für diesen Einzelversuch:'' unter dem Raster ersichtlich. Diese Berechnung demnach pro Durchlauf dreimal getätigt.
-% Where to put this, lel, vvv
+\\\\
+Aus diesen drei Merkmalen folgen zusammengefasst die in unserer Webapplikation vermessenen Werte der Pathfinding-Algorithmen.
 \begin{figure}[h]
   \centering
   \includegraphics[width=10cm]{measurements_single}
