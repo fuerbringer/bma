@@ -35,6 +35,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Realisierung}
+Dieser Abschnitt soll dazu verhelfen, die technischen Entscheidungen und Schritte zu erläutern und es möglich zu machen, die Kernfunktionen des Projekts zu reproduzieren. Programmierer, die diese Applikation, oder Teile davon, anderweitig einsetzen möchten, beziehen sich zusätzlich auf den frei verfügbaren Quellcode\cite{bma} des gesamten Projekts.
 \section{Konzept}
 Die Konzipierung dieser Webapplikation verlangte einige technische und gestalterische Entscheidungen. 
 Einerseits musste die Programmiersprache und Struktur der Applikation geplant werden und andererseits auch das eigentliche Aussehen der Benutzeroberfläche der Webapplikation. 
@@ -123,7 +124,7 @@ Diagonalen würden nach dieser Logik bei einem diagonalen Sprung als eine Wegein
 \]
 \subsection{Operationen}
 Ein Algorithmus, der für das gleiche Resultat weniger Schritte (Operationen) tätigen muss, ist grundsätzlich besser als ein anderer, solange die Rechenzeit ebenfalls kleiner ausfällt. Für das wichtige Nebenmerkmal zur Rechenzeit mussten die internen Routinen der Programmbibliothek PathFinding.js angepasst werden, da sie solche Messungsmerkmale nicht standardmässig liefert. Dazu wurde das PathFinding.js kopiert und in die Routinen der drei ausgewählten Pathfinder im äusseren und inneren Loop eingefügt. Folgende Dateien\footnote{Die genauen Anpassungen sind unter dem folgenden Link verfügbar: \url{https://github.com/fuerbringer/PathFinding.js/commit/51034158638ad7aaa9c5142a827bd4d3de2b8786\#diff-22360b18a43ac33ae398e44b998101c7}} wurden dafür angepasst:
-{Rechenzeit}
+\subsection{Rechenzeit}
 \begin{itemize}
 \item{src/finders/AStarFinder.js}
 \item{src/finders/BreadthFirstFinder.js}
@@ -151,6 +152,8 @@ Aus diesen drei Merkmalen folgen zusammengefasst die in unserer Webapplikation v
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Schluss}
 \blindtext
+
+\chapter{Anhang}
 
 \chapter{Glossar}
 \section*{Fachwörter- und Begriffsverzeichnis}
