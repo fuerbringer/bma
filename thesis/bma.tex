@@ -108,6 +108,9 @@ Als Herzstück der Arbeit ermöglicht der Pathfinder-Vergleicher dem Nutzer die 
 \section{Implementierung des Vergleichers}
 Vor allem für die statistischen Auswertungen ist es von Bedeutung zu wissen, wie der Vergleicher zu den Resultaten kommt und die Berechnungen durchführt. Um an die statistischen Merkmale zu gelangen, musste je nach Merkmal die Webapplikation oder PathFinding.js erweitert werden.
 
+\subsection{Raster}
+%TODO
+
 \subsection{Zurückgelegter Weg}
 Der zurückgelegte Weg ist aus praktischer Sicht gesehen ein bedeutendes Merkmal, da man möchte, dass der resultierende Weg möglichst kurz ausfällt. 
 Die Programmbibliothek PathFinding.js liefert den Weg in einer Liste mit einer Koordinate pro Element. 
@@ -116,15 +119,14 @@ Es gibt demnach keine Geraden, ausser zwischen zwei Benachbarten Pünkten.
 Diagonalen würden nach dieser Logik bei einem diagonalen Sprung als eine Wegeinheit gelten.
 \[ s = n
 \begin{cases}
-  P_1(0,0)\\
-  P_2(1,0)\\
-  ...\\
+  P_1(0,0),\\
+  P_2(1,0),\\
+  ...,\\
   P_n(11,4)
 \end{cases}
 \]
 \subsection{Operationen}
 Ein Algorithmus, der für das gleiche Resultat weniger Schritte (Operationen) tätigen muss, ist grundsätzlich besser als ein anderer, solange die Rechenzeit ebenfalls kleiner ausfällt. Für das wichtige Nebenmerkmal zur Rechenzeit mussten die internen Routinen der Programmbibliothek PathFinding.js angepasst werden, da sie solche Messungsmerkmale nicht standardmässig liefert. Dazu wurde das PathFinding.js kopiert und in die Routinen der drei ausgewählten Pathfinder im äusseren und inneren Loop eingefügt. Folgende Dateien\footnote{Die genauen Anpassungen sind unter dem folgenden Link verfügbar: \url{https://github.com/fuerbringer/PathFinding.js/commit/51034158638ad7aaa9c5142a827bd4d3de2b8786\#diff-22360b18a43ac33ae398e44b998101c7}} wurden dafür angepasst:
-\subsection{Rechenzeit}
 \begin{itemize}
 \item{src/finders/AStarFinder.js}
 \item{src/finders/BreadthFirstFinder.js}
@@ -151,9 +153,21 @@ Aus diesen drei Merkmalen folgen zusammengefasst die in unserer Webapplikation v
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Schluss}
-\blindtext
+%...
+
 
 \chapter{Anhang}
+\section{Screenshots der Webapplikation}
+\subsection{Pathfinder-Vergleicher}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=14cm]{3_full}
+  \caption[Ein vollständiger Screenshot des Pathfinder-Vergleichers.]{Pathfinder-Vergleicher-Page. Quelle: Eigenleistung}
+  \label{fig:comparator_screenshot}
+\end{figure}
+
+\section{Danksagung}
+\blindtext
 
 \chapter{Glossar}
 \section*{Fachwörter- und Begriffsverzeichnis}
@@ -173,9 +187,6 @@ In diesem Kapitel werden wichtige Wörter aus der Fachsprache erklärt, die in u
 \paragraph{Pathfinder} Eine Art Algorithmus, der in einem gegebenen Raum mit eingezeichnetem Start- und Endpunkt den schnellsten weg Findet.
 \paragraph{recbacktracker} ``Recursive Backtracker, ein Labyrinthalgorithmus, den wir in unserer Webapplikation zur Generierung von perfekten (immer lösbaren) Labyrinthen verwenden. Dieser Algorithmus kommt im Vergleicher nicht zum Zug.
 
-
-% TODO
-% Danksagung
 
 % END THESIS CONTENT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
