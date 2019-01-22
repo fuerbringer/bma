@@ -110,7 +110,8 @@ Als Herzstück der Arbeit ermöglicht der Pathfinder-Vergleicher dem Nutzer die 
 Vor allem für die statistischen Auswertungen ist es von Bedeutung zu wissen, wie der Vergleicher zu den Resultaten kommt und die Berechnungen durchführt. Um an die statistischen Merkmale zu gelangen, musste je nach Merkmal die Webapplikation oder PathFinding.js erweitert werden.
 
 \subsection{Raster}
-Pathfinder benötigen einen Raum, um ihre Arbeit zu verrichten. Die Implementation der Pathfinding-Algorithmen von PathFinding.js erwartet als Raum eine zweidimensionale Liste:\\
+Pathfinder benötigen einen Raum, um ihre Arbeit zu verrichten. 
+Die Implementation der Pathfinding-Algorithmen von PathFinding.js erwartet als Raum eine zweidimensionale Liste mit $4\times4$ Zellen: \\
 \begin{center}
 \texttt{[(0,0),(1,0),(2,0),(3,0)]}\\
 \texttt{[(0,1),(1,1),(2,1),(3,1)]}\\
@@ -121,11 +122,11 @@ Diese Art von Raster ist bei der Darstellung von Pixelmatrizen und sonstigen com
 Man kann sich diese Anordnung auch als den vierten Quadranten eines kartesischen Koordinatensystems vorstellen, dessen $y$-Koordinate dessen Absolutwert annimmt. 
 Des Weiteren gilt $x \in \mathbb{N}$ und $y \in \mathbb{N}$. 
 Daraus folgt, dass es auch keine Zwischenschritte geben kann, beispielsweise das Ziel nicht die Koordinate $(\frac{1}{2},\frac{42}{7})$ annehmen kann. 
-Benötigt man diese Präzision, erhöht man am besten die Auflösung des Raums.
+Benötigt man eine derartige Präzision, erhöht man dazu am besten die Auflösung des Raums.
 \begin{figure}[h]
   \centering
   \includegraphics[width=8cm]{grid1}
-  \caption[Ein von unserer Webapplikation generiertes 8x8 Raster ohne Wände.]{Ein von unserer Webapplikation generiertes 8x8 Raster ohne Wände. Quelle: Eigenleistung}
+  \caption[Ein von unserer Webapplikation generiertes $8\times8$ Raster ohne Wände.]{Ein von unserer Webapplikation generiertes $8\times8$ Raster ohne Wände. Quelle: Eigenleistung}
   \label{fig:grid1}
 \end{figure}
 
@@ -133,14 +134,14 @@ Benötigt man diese Präzision, erhöht man am besten die Auflösung des Raums.
 Damit die Eigenschaften der Pathfinder besser zum Vorschein kommen, wurde im nächsten Schritt für den Rastergenerator die Logik zum Verstreuen von Wänden implementiert. 
 Die Rastermatrix erhält dann pro Zelle die Eigenschaft, ob sie passierbar ist. 
 Analog dazu versteht die Programmbibliothek PathFinding.js dies genau gleich, indem man zu einer gegebenen Koordinate definiert, ob sie eine Wand ist. 
-Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benutzte Routine\footnote{Die genaue Codestelle ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/maze.js\#L8}}, um Raster mit Korridoren zu versehren.
+Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benutzte Routine\footnote{Die genaue Codestelle ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/maze.js\#L8}}, um Raster mit Wänden zu versehren.
 \begin{algorithmic}[1]
   \Procedure{Wandgenerator}{$raster$}
   \State $freq \gets 4$ \Comment Frequenzparameter
   \ForAll{$zeile \in raster$}
     \ForAll{$zelle \in zeile$}
     \State $r \gets rand(0, 100)$ \Comment Zufallszahl $[0,100]$
-    \State $b \gets r\ mod\ freq$ \Comment Rest der Division $\frac{r}{freq}$
+    \State $b \gets |r\ mod\ freq|$ \Comment Rest der Division $\frac{r}{freq}$
     \If{$b = 0$}
       $wand(zelle)$ \Comment Die Zelle ist eine Wand
     \ElsIf{$b > 0$}
@@ -150,6 +151,22 @@ Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benu
   \EndFor
   \EndProcedure
 \end{algorithmic}
+Vom Frequenzparameter hängt schlussendlich ab, wie oft Wände im Raster vorkommen. Er kann frei gewählt werden. Nähert sich der Wert $freq$ jedoch $1$ mit $freq > 1$, erhöht sich auch die Anzahl unlösbarer Raster, da immer weniger mögliche Wege zwischen den verbliebenen Zellen besteht.\\
+Wendet man den Wandgenerator in unserem Raster der Abbildung \ref{fig:grid1} an, so erhält man ein Raster mit Wänden. Wählt man dann noch zwei zufällige passierbare Zellen als Start- und Endpunkt aus, erhält man ein Raster, mit dem man Pathfinding-Algorithmen anwenden kann. In unserer Webapplikation werden diese zwei Zellen farbig differenziert.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=8cm]{grid2}
+  \caption[Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden.]{Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden. Quelle: Eigenleistung}
+  \label{fig:grid2}
+\end{figure}
+
+Lässt man die drei ausgewälten Pathfinder von PathFinding.js im generierten Raster mit Wänden Weg finden, erhält man das Resultat, welches auch in unserer Webapplikation schlussendlich massgebend ist.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=8cm]{grid3}
+  \caption[Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden und gelöstem Weg.]{Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden und gelöstem Weg. Quelle: Eigenleistung}
+  \label{fig:grid3}
+\end{figure}
 
 \subsection{Zurückgelegter Weg}
 Der zurückgelegte Weg ist aus praktischer Sicht gesehen ein bedeutendes Merkmal, da man möchte, dass der resultierende Weg möglichst kurz ausfällt. 
