@@ -10,6 +10,7 @@
 \usepackage{graphicx}
 \usepackage{algorithm}
 \usepackage{amsmath}
+\usepackage{amsfonts}
 \usepackage{mathptmx}
 \usepackage{wrapfig}
 \usepackage[onehalfspacing]{setspace}
@@ -109,7 +110,46 @@ Als Herzstück der Arbeit ermöglicht der Pathfinder-Vergleicher dem Nutzer die 
 Vor allem für die statistischen Auswertungen ist es von Bedeutung zu wissen, wie der Vergleicher zu den Resultaten kommt und die Berechnungen durchführt. Um an die statistischen Merkmale zu gelangen, musste je nach Merkmal die Webapplikation oder PathFinding.js erweitert werden.
 
 \subsection{Raster}
-%TODO
+Pathfinder benötigen einen Raum, um ihre Arbeit zu verrichten. Die Implementation der Pathfinding-Algorithmen von PathFinding.js erwartet als Raum eine zweidimensionale Liste:\\
+\begin{center}
+\texttt{[(0,0),(1,0),(2,0),(3,0)]}\\
+\texttt{[(0,1),(1,1),(2,1),(3,1)]}\\
+\texttt{[(0,2),(1,2),(2,2),(3,2)]}\\
+\texttt{[(0,3),(1,3),(2,3),(3,3)]}
+\end{center}
+Diese Art von Raster ist bei der Darstellung von Pixelmatrizen und sonstigen computerorientierten Anwendungen üblich. 
+Man kann sich diese Anordnung auch als den vierten Quadranten eines kartesischen Koordinatensystems vorstellen, dessen $y$-Koordinate dessen Absolutwert annimmt. 
+Des Weiteren gilt $x \in \mathbb{N}$ und $y \in \mathbb{N}$. 
+Daraus folgt, dass es auch keine Zwischenschritte geben kann, beispielsweise das Ziel nicht die Koordinate $(\frac{1}{2},\frac{42}{7})$ annehmen kann. 
+Benötigt man diese Präzision, erhöht man am besten die Auflösung des Raums.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=8cm]{grid1}
+  \caption[Ein von unserer Webapplikation generiertes 8x8 Raster ohne Wände.]{Ein von unserer Webapplikation generiertes 8x8 Raster ohne Wände. Quelle: Eigenleistung}
+  \label{fig:grid1}
+\end{figure}
+
+\subsubsection{Generierung der Wände und Gänge}
+Damit die Eigenschaften der Pathfinder besser zum Vorschein kommen, wurde im nächsten Schritt für den Rastergenerator die Logik zum Verstreuen von Wänden implementiert. 
+Die Rastermatrix erhält dann pro Zelle die Eigenschaft, ob sie passierbar ist. 
+Analog dazu versteht die Programmbibliothek PathFinding.js dies genau gleich, indem man zu einer gegebenen Koordinate definiert, ob sie eine Wand ist. 
+Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benutzte Routine\footnote{Die genaue Codestelle ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/maze.js\#L8}}, um Raster mit Korridoren zu versehren.
+\begin{algorithmic}[1]
+  \Procedure{Wandgenerator}{$raster$}
+  \State $freq \gets 4$ \Comment Frequenzparameter
+  \ForAll{$zeile \in raster$}
+    \ForAll{$zelle \in zeile$}
+    \State $r \gets rand(0, 100)$ \Comment Zufallszahl $[0,100]$
+    \State $b \gets r\ mod\ freq$ \Comment Rest der Division $\frac{r}{freq}$
+    \If{$b = 0$}
+      $wand(zelle)$ \Comment Die Zelle ist eine Wand
+    \ElsIf{$b > 0$}
+      $gang(zelle)$ \Comment Die Zelle ist passierbar
+    \EndIf
+    \EndFor
+  \EndFor
+  \EndProcedure
+\end{algorithmic}
 
 \subsection{Zurückgelegter Weg}
 Der zurückgelegte Weg ist aus praktischer Sicht gesehen ein bedeutendes Merkmal, da man möchte, dass der resultierende Weg möglichst kurz ausfällt. 
@@ -132,7 +172,6 @@ Ein Algorithmus, der für das gleiche Resultat weniger Schritte (Operationen) t�
 \item{src/finders/BreadthFirstFinder.js}
 \end{itemize}
 Zu beachten ist, dass die Datei des BestFirstFinders nicht angepasst werden musste, da dieser auf dem A*-Finder basiert und somit alle Änderungen vom A*-Finder vererbt.
-
 \subsection{Rechenzeit}
 Ein bedeutendes Merkmal ist die Rechenzeit, also die Zeit, in der der Pathfinder seine Arbeit verrichtet hat. 
 Um diese zu berechnen, wird unmittelbar vor der Ausführung der Wegfindungsroutine des Pathfinders der Zeitstempel $t_0$ der jetzigen Zeit zwischengespeichert und danach vom Pathfinder die Arbeit verrichtet. 
@@ -153,11 +192,13 @@ Aus diesen drei Merkmalen folgen zusammengefasst die in unserer Webapplikation v
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Schluss}
-%...
-
+%TODO
 
 \chapter{Anhang}
 \section{Screenshots der Webapplikation}
+%TODO Willkommen Scrot
+%TODO Einleitung Scrot
+%TODO Visualisierer Scrot
 \subsection{Pathfinder-Vergleicher}
 \begin{figure}[h]
   \centering
@@ -168,6 +209,9 @@ Aus diesen drei Merkmalen folgen zusammengefasst die in unserer Webapplikation v
 
 \section{Danksagung}
 \blindtext
+
+\subsection{Schriftsetzung}
+Die Schriftsetzung wurde durch die freie Software \LaTeX\  und deren Autoren Leslie Lamport et. al. ermöglicht.
 
 \chapter{Glossar}
 \section*{Fachwörter- und Begriffsverzeichnis}
@@ -186,6 +230,7 @@ In diesem Kapitel werden wichtige Wörter aus der Fachsprache erklärt, die in u
 \paragraph{PathFinding.js} Die Zentrale Programmbibliothek, deren Pathfinder Implementationen wir in unserer Webapplikation nutzen.
 \paragraph{Pathfinder} Eine Art Algorithmus, der in einem gegebenen Raum mit eingezeichnetem Start- und Endpunkt den schnellsten weg Findet.
 \paragraph{recbacktracker} ``Recursive Backtracker, ein Labyrinthalgorithmus, den wir in unserer Webapplikation zur Generierung von perfekten (immer lösbaren) Labyrinthen verwenden. Dieser Algorithmus kommt im Vergleicher nicht zum Zug.
+\paragraph{Pseudocode} Definiert einen Algorithmus schriftlich in einer allgemein verständlichen Sprache, damit dieser in beliebigen Programmiersprachen umgesetzt werden kann.
 
 
 % END THESIS CONTENT
