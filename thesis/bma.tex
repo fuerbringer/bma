@@ -125,7 +125,7 @@ $[(0,5),(1,5),(2,5),(3,5),(4,5),(5,5),(6,5),(7,5)]$\\
 $[(0,6),(1,6),(2,6),(3,6),(4,6),(5,6),(6,6),(7,6)]$\\
 $[(0,7),(1,7),(2,7),(3,7),(4,7),(5,7),(6,7),(7,7)]$
 \end{center}
-Zu beachten ist, dass die obige Liste pro Element lediglich die Koordinate $(x_i,y_i)$ als Eigenschaft enthält. Weitere Eigenschaften pro Zelle, wie die Wandeigenschaft, werden in späteren Abschnitten erwähnt.
+Zu beachten ist, dass die obige Liste pro Element lediglich die Koordinate $(x,y)\textsubscript{$y$,$x$}$ als Eigenschaft enthält. Weitere Eigenschaften pro Zelle, wie die Wandeigenschaft, werden in späteren Abschnitten erwähnt.
 Diese Art von Raster ist bei der Darstellung von Pixelmatrizen und sonstigen computerorientierten Anwendungen üblich. 
 Man kann sich diese Anordnung auch als den vierten Quadranten eines kartesischen Koordinatensystems vorstellen, dessen $y$-Koordinate ihren Absolutwert annimmt. 
 Des Weiteren gilt $x \in \mathbb{N}$ und $y \in \mathbb{N}$. 
@@ -144,22 +144,21 @@ Die Rastermatrix erhält dann pro Zelle die Eigenschaft, ob sie passierbar ist.
 Analog dazu versteht die Programmbibliothek PathFinding.js dies genau gleich, indem man zu einer gegebenen Koordinate definiert, ob sie eine Wand ist. 
 Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benutzte Routine\footnote{Die genaue Codestelle ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/maze.js\#L8}}, um Raster mit Wänden zu füllen.
 \begin{algorithmic}[1]
-  \Procedure{Wandgenerator}{$raster$}
-  \State $freq \gets 4$ \Comment Frequenzparameter
-  \ForAll{$zeile \in raster$}
-    \ForAll{$zelle \in zeile$}
+  \Procedure{Wandgenerator}{$raster$, $freq$}
+  %\State $freq \gets 4$ \Comment Frequenzparameter
+  \For{$y \gets 0\ \textbf{to}\ count(raster)$}
+    \For{$x \gets 0\ \textbf{to}\ count(raster_y)$}
     \State $rand \gets random(0, 100)$ \Comment Zufallszahl $[0,100]$
     \State $x \gets \floor{rand \mod freq}$ \Comment Rest von $\frac{rand}{freq}$
     \If{$x = 0$}
-      $wand(zelle)$ \Comment Die Zelle ist eine Wand
-    \ElsIf{$x > 0$}
-      $gang(zelle)$ \Comment Die Zelle ist passierbar
+      \State $raster\textsubscript{y,x} \gets wand()$ \Comment Zelle im Raster wird zu einer Wand
     \EndIf
     \EndFor
   \EndFor
+  \State \textbf{return} $raster$
   \EndProcedure
 \end{algorithmic}
-Vom Frequenzparameter hängt schlussendlich ab, wie oft Wände im Raster vorkommen. Er kann frei gewählt werden. Nähert sich der Wert $freq$ jedoch $1$ mit $freq > 1$, erhöht sich auch die Anzahl unlösbarer Raster, da immer weniger mögliche Wege zwischen den verbliebenen Zellen besteht.\\
+Vom Frequenzparameter hängt schlussendlich ab, wie oft Wände im Raster vorkommen. Er kann frei gewählt werden. Nähert sich der Wert $freq$ jedoch $1$ mit $freq > 1$, erhöht sich auch die Anzahl unlösbarer Raster, da immer weniger mögliche Wege zwischen den verbliebenen Zellen besteht.
 Wendet man den Wandgenerator in unserem Raster der Abbildung \ref{fig:grid1} an, so erhält man ein Raster mit Wänden.
 \begin{figure}[H]
   \centering
@@ -168,10 +167,32 @@ Wendet man den Wandgenerator in unserem Raster der Abbildung \ref{fig:grid1} an,
   \includegraphics[width=.3\linewidth]{freq_for_4}
   \quad
   \includegraphics[width=.3\linewidth]{freq_for_16}\\
-  \caption[Raster mit Frequenzparametern $2$, $4$ und $16$ im Wandgenerator.]{Raster mit Frequenzparametern $2$, $4$ und $16$ im Wandgenerator. Quelle: Eigenleistung}
+  \caption[Raster mit Frequenzparametern $freq = 2$, $freq = 4$ und $freq = 16$ im Wandgenerator.]{Raster mit Frequenzparametern $freq = 2$, $freq = 4$ und $freq = 16$ im Wandgenerator. Quelle: Eigenleistung}
   \label{fig:freq_param}
 \end{figure}
-Wählt man dann noch zwei zufällige passierbare Zellen als Start- und Endpunkt aus, erhält man ein Raster, mit dem man Pathfinding-Algorithmen anwenden kann. In unserer Webapplikation werden diese zwei Zellen farbig differenziert.
+Wir sehen also, dass mit dem Frequenzparameter die Häufigkeit der unpassierbaren Wände geändert werden kann. In unserer Webapplikation haben wir für den Frequenzparameter $freq = 4$ ausgewählt, da dieser Wert ein gutes Gleichgewicht zwischen nicht zu viel unlösbaren Rastern und genügend Wänden ergibt.
+\subsubsection{Generierung des Start-und Endpunkts}
+Wählt man zwei zufällige passierbare Zellen als Start- und Endpunkt aus, erhält man ein Raster, mit dem man Pathfinding-Algorithmen anwenden kann. In unserer Webapplikation werden diese zwei Zellen farbig differenziert. Programmatikalisch handelt es sich um Zellen, die Wände sind und in Ziel- resp. Endpünkte umgewandelt werden.
+\begin{algorithmic}[1]
+  \Procedure{Startundendpunktgenerator}{$raster$}
+  \State $frei \gets leere\ Liste$ \Comment mögliche Zellen für den Start- und Endpunkt
+  \ForAll{$zeile \in raster$}
+    \ForAll{$zelle \in zeile$}
+      \If{$\neg$$istWand(zelle)$}
+        \State $frei \gets frei + zelle$ \Comment Freie Zelle wird $frei$ hinzugefügt
+      \EndIf
+    \EndFor
+  \EndFor
+  \State $startIndex \gets \floor{random(0, count(frei))}$
+  \State $raster \gets markiereStart(raster\textsubscript{startIndex})$
+  \State $frei\textsubscript{startIndex} \gets \emptyset$
+  \State $endIndex \gets \floor{random(0, count(frei))}$
+  \State $raster \gets markiereStart(raster\textsubscript{endIndex})$
+  \State $frei\textsubscript{endIndex} \gets \emptyset$
+  \State \textbf{return} $raster$
+  \EndProcedure
+\end{algorithmic}
+% TODO text...
 \begin{figure}[H]
   \centering
   \includegraphics[width=8cm]{grid2}
