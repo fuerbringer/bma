@@ -160,7 +160,18 @@ Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benu
   \EndProcedure
 \end{algorithmic}
 Vom Frequenzparameter hängt schlussendlich ab, wie oft Wände im Raster vorkommen. Er kann frei gewählt werden. Nähert sich der Wert $freq$ jedoch $1$ mit $freq > 1$, erhöht sich auch die Anzahl unlösbarer Raster, da immer weniger mögliche Wege zwischen den verbliebenen Zellen besteht.\\
-Wendet man den Wandgenerator in unserem Raster der Abbildung \ref{fig:grid1} an, so erhält man ein Raster mit Wänden. Wählt man dann noch zwei zufällige passierbare Zellen als Start- und Endpunkt aus, erhält man ein Raster, mit dem man Pathfinding-Algorithmen anwenden kann. In unserer Webapplikation werden diese zwei Zellen farbig differenziert.
+Wendet man den Wandgenerator in unserem Raster der Abbildung \ref{fig:grid1} an, so erhält man ein Raster mit Wänden.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.3\linewidth]{freq_for_2}
+  \quad
+  \includegraphics[width=.3\linewidth]{freq_for_4}
+  \quad
+  \includegraphics[width=.3\linewidth]{freq_for_16}\\
+  \caption[Raster mit Frequenzparametern $2$, $4$ und $16$ im Wandgenerator.]{Raster mit Frequenzparametern $2$, $4$ und $16$ im Wandgenerator. Quelle: Eigenleistung}
+  \label{fig:freq_param}
+\end{figure}
+Wählt man dann noch zwei zufällige passierbare Zellen als Start- und Endpunkt aus, erhält man ein Raster, mit dem man Pathfinding-Algorithmen anwenden kann. In unserer Webapplikation werden diese zwei Zellen farbig differenziert.
 \begin{figure}[H]
   \centering
   \includegraphics[width=8cm]{grid2}
