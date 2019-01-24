@@ -19,6 +19,9 @@
 
 \titleformat{\chapter}{\normalfont\huge\bfseries}{\thechapter.}{20pt}{\huge\bfseries}
 
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
@@ -65,7 +68,7 @@ Das heisst, dass der Benutzer beim Aufruf der Webapplikation zunächst auf einer
 Nach der Einführung kann der Benutzer in der Visualisierung mit einzelnen Pathfindern erste Erfahrungen machen. 
 Im Abschluss kommt der Benutzer zum Hauptteil der Arbeit, dem Pathfinding-Vergleicher. 
 Ziel dieser Struktur ist, dass jede Person wenigstens einen Einblick in die Welt der Pathfinding-Algorithmen erhält.
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=16cm]{uiflow}
   \caption[Struktur der Webapplikation.]{Webapplikationsstruktur. Quelle: Eigenleistung}
@@ -76,7 +79,7 @@ Ziel dieser Struktur ist, dass jede Person wenigstens einen Einblick in die Welt
 
 \subsubsection{Einführungs- und Willkommensseite}
 Die Einführungsseite erklärt dem Benutzer was Algorithmen sind und führt ihn anschliessend mit einfachen Beispielen in das Thema Pathfinder ein. Zuletzt werden die Ziele der Arbeit aufgelistet.
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=16cm]{einfuehrung1}
   \caption[Konzept der Einführungsseite.]{Einführungsseite. Quelle: Eigenleistung}
@@ -87,7 +90,7 @@ Die Einführungsseite erklärt dem Benutzer was Algorithmen sind und führt ihn 
 
 \subsubsection{Visualisierung der Pathfinder}
 Nach der Einführung erhält der Benutzer die Möglichkeit mit einzelnen Pathfindern zu experimentieren. Dazu kann er auch verschiedene Parameter anpassen. Dies ist die Vorstufe zum Pathfinder-Vergleicher, da hier nochmals die einzelnen Pathfinder auf ihre Eigenschaften beschrieben werden.
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=16cm]{visualisierung1}
   \caption[Benutzeroberflächenkonzept des Pathfinding-Visualisierers.]{Benutzeroberflächenkonzept Visualisierer. Quelle: Eigenleistung}
@@ -97,9 +100,9 @@ Nach der Einführung erhält der Benutzer die Möglichkeit mit einzelnen Pathfin
 \clearpage
 
 \subsubsection{Vergleich der Pathfinder}
-Als Herzstück der Arbeit ermöglicht der Pathfinder-Vergleicher dem Nutzer die ausgewählten Pathfinder zu vergleichen. Hier werden, gleich wie beim Visualisierer, zuerst vom Benutzer die Parameter gewählt. Die parallel ausgeführten Resultate mit Informationen über die Rechenzeit, zurückgelegten Weg und Operationen, sind dann interaktiv anwählbar. Gleichzeitig wird auch unter ``Resultate'' unten links das Total aller Vergleiche akkumuliert, damit ein Gesamteindruck verschaffen werden kann.
+Als Herzstück der Arbeit ermöglicht der Pathfinder-Vergleicher dem Nutzer die in unserer Arbeit ausgewählten Pathfinder zu vergleichen. Hier werden, gleich wie beim Visualisierer, zuerst vom Benutzer die Parameter gewählt. Die parallel ausgeführten Resultate mit Informationen über die Rechenzeit, zurückgelegten Weg und Operationen, sind dann interaktiv anwählbar. Gleichzeitig wird auch unter ``Resultate'' unten links das Total aller Vergleiche akkumuliert, damit ein Gesamteindruck verschaffen werden kann.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=16cm]{konzept1}
   \caption[Benutzeroberflächenkonzept des Pathfinder-Vergleichers.]{Benutzeroberflächenkonzept Vergleicher. Quelle: Eigenleistung}
@@ -110,8 +113,8 @@ Als Herzstück der Arbeit ermöglicht der Pathfinder-Vergleicher dem Nutzer die 
 Vor allem für die statistischen Auswertungen ist es von Bedeutung zu wissen, wie der Vergleicher zu den Resultaten kommt und die Berechnungen durchführt. Um an die statistischen Merkmale zu gelangen, musste je nach Merkmal die Webapplikation oder PathFinding.js erweitert werden.
 
 \subsection{Raster}
-Pathfinder benötigen einen Raum, um ihre Arbeit zu verrichten. 
-Die Implementation der Pathfinding-Algorithmen von PathFinding.js erwartet als Raum eine zweidimensionale Liste mit $8\times8$ Zellen: \\
+Pathfinder benötigen einen Raum, um ihre Arbeit zu verrichten. Folglich wird erläutert, wie diese Räume im Quellcode der Arbeit implementiert wurden.
+Die Implementation der Pathfinding-Algorithmen von PathFinding.js erwartet als Raum eine Liste mit beispielsweise $8\times8$ Zellen: \\
 \begin{center}
 $[(0,0),(1,0),(2,0),(3,0),(4,0),(5,0),(6,0),(7,0)]$\\
 $[(0,1),(1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1)]$\\
@@ -122,15 +125,16 @@ $[(0,5),(1,5),(2,5),(3,5),(4,5),(5,5),(6,5),(7,5)]$\\
 $[(0,6),(1,6),(2,6),(3,6),(4,6),(5,6),(6,6),(7,6)]$\\
 $[(0,7),(1,7),(2,7),(3,7),(4,7),(5,7),(6,7),(7,7)]$
 \end{center}
+Zu beachten ist, dass die obige Liste pro Element lediglich die Koordinate $(x_i,y_i)$ als Eigenschaft enthält. Weitere Eigenschaften pro Zelle, wie die Wandeigenschaft, werden in späteren Abschnitten erwähnt.
 Diese Art von Raster ist bei der Darstellung von Pixelmatrizen und sonstigen computerorientierten Anwendungen üblich. 
 Man kann sich diese Anordnung auch als den vierten Quadranten eines kartesischen Koordinatensystems vorstellen, dessen $y$-Koordinate ihren Absolutwert annimmt. 
 Des Weiteren gilt $x \in \mathbb{N}$ und $y \in \mathbb{N}$. 
 Daraus folgt, dass es auch keine Zwischenschritte geben kann, beispielsweise das Ziel nicht die Koordinate $(\frac{1}{2},\frac{42}{11})$ annehmen kann. 
-Benötigt man eine derartige Präzision, erhöht man dazu am besten die Auflösung des Raums.
-\begin{figure}[h]
+Benötigt man eine derartige Präzision, erhöht man dazu am besten die Auflösung des Raums. Es folgt eine Abbildung eines zweidimensionalen leeren Raumes der oben gegebenen Liste.
+\begin{figure}[H]
   \centering
   \includegraphics[width=8cm]{grid1}
-  \caption[Ein von unserer Webapplikation generiertes $8\times8$ Raster ohne Wände.]{Ein von unserer Webapplikation generiertes $8\times8$ Raster ohne Wände. Quelle: Eigenleistung}
+  \caption[Ein von unserer Webapplikation generiertes $8\times8$ Raster.]{Ein von unserer Webapplikation generiertes $8\times8$ Raster. Quelle: Eigenleistung}
   \label{fig:grid1}
 \end{figure}
 
@@ -138,17 +142,17 @@ Benötigt man eine derartige Präzision, erhöht man dazu am besten die Auflösu
 Damit die Eigenschaften der Pathfinder besser zum Vorschein kommen, wurde im nächsten Schritt für den Rastergenerator die Logik zum Verstreuen von Wänden implementiert. 
 Die Rastermatrix erhält dann pro Zelle die Eigenschaft, ob sie passierbar ist. 
 Analog dazu versteht die Programmbibliothek PathFinding.js dies genau gleich, indem man zu einer gegebenen Koordinate definiert, ob sie eine Wand ist. 
-Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benutzte Routine\footnote{Die genaue Codestelle ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/maze.js\#L8}}, um Raster mit Wänden zu versehren.
+Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benutzte Routine\footnote{Die genaue Codestelle ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/maze.js\#L8}}, um Raster mit Wänden zu füllen.
 \begin{algorithmic}[1]
   \Procedure{Wandgenerator}{$raster$}
   \State $freq \gets 4$ \Comment Frequenzparameter
   \ForAll{$zeile \in raster$}
     \ForAll{$zelle \in zeile$}
-    \State $r \gets rand(0, 100)$ \Comment Zufallszahl $[0,100]$
-    \State $b \gets |r\ mod\ freq|$ \Comment Rest der Division $\frac{r}{freq}$
-    \If{$b = 0$}
+    \State $rand \gets random(0, 100)$ \Comment Zufallszahl $[0,100]$
+    \State $x \gets \floor{rand \mod freq}$ \Comment Rest von $\frac{rand}{freq}$
+    \If{$x = 0$}
       $wand(zelle)$ \Comment Die Zelle ist eine Wand
-    \ElsIf{$b > 0$}
+    \ElsIf{$x > 0$}
       $gang(zelle)$ \Comment Die Zelle ist passierbar
     \EndIf
     \EndFor
@@ -157,14 +161,14 @@ Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benu
 \end{algorithmic}
 Vom Frequenzparameter hängt schlussendlich ab, wie oft Wände im Raster vorkommen. Er kann frei gewählt werden. Nähert sich der Wert $freq$ jedoch $1$ mit $freq > 1$, erhöht sich auch die Anzahl unlösbarer Raster, da immer weniger mögliche Wege zwischen den verbliebenen Zellen besteht.\\
 Wendet man den Wandgenerator in unserem Raster der Abbildung \ref{fig:grid1} an, so erhält man ein Raster mit Wänden. Wählt man dann noch zwei zufällige passierbare Zellen als Start- und Endpunkt aus, erhält man ein Raster, mit dem man Pathfinding-Algorithmen anwenden kann. In unserer Webapplikation werden diese zwei Zellen farbig differenziert.
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=8cm]{grid2}
   \caption[Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden.]{Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden. Quelle: Eigenleistung}
   \label{fig:grid2}
 \end{figure}
 Lässt man die drei ausgewälten Pathfinder von PathFinding.js im generierten Raster mit Wänden Weg finden, erhält man das Resultat, welches auch in unserer Webapplikation schlussendlich massgebend ist.
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=8cm]{grid3}
   \caption[Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden und gelöstem Weg.]{Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden und gelöstem Weg. Quelle: Eigenleistung}
@@ -202,7 +206,7 @@ Direkt nach dem Beenden der Wegfindung wird ein zweites Mal ein Zeitstempel $t_1
 Die Werte $t$ sind pro Pathfinder in der Webapplikation unter ``Messung für diesen Einzelversuch:'' unter dem Raster ersichtlich. Diese Berechnung demnach pro Durchlauf dreimal getätigt.
 \\\\
 Aus diesen drei Merkmalen folgen zusammengefasst die in unserer Webapplikation vermessenen Werte der Pathfinding-Algorithmen.
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=10cm]{measurements_single}
   \caption[Ausschnitt aus dem Pathfinding-Vergleicher für einzelne Vergleiche.]{Vergleicherausschnitt. Quelle: Eigenleistung}
@@ -251,6 +255,11 @@ In diesem Kapitel werden wichtige Wörter aus der Fachsprache erklärt, die in u
 \paragraph{Pathfinder} Eine Art Algorithmus, der in einem gegebenen Raum mit eingezeichnetem Start- und Endpunkt den schnellsten weg Findet.
 \paragraph{recbacktracker} ``Recursive Backtracker, ein Labyrinthalgorithmus, den wir in unserer Webapplikation zur Generierung von perfekten (immer lösbaren) Labyrinthen verwenden. Dieser Algorithmus kommt im Vergleicher nicht zum Zug.
 \paragraph{Pseudocode} Definiert einen Algorithmus schriftlich in einer allgemein verständlichen Sprache, damit dieser in beliebigen Programmiersprachen umgesetzt werden kann.
+\paragraph{PHP} Eine freie serverseitige Programmiersprache, die seit über zwei Jahrzehnten einen hohen Marktanteil hat.
+\paragraph{JavaScript} Nicht zu verwechseln mit Java. Eine clientseitige Programmiersprache, die in jedem Browser integriert ist. Sie wird hauptsächlich zwecks der Interaktivität benutzt. 
+\paragraph{Implementieren/Implementation} Im Kontext der Software wird damit die Planung und Entwicklung des Quellcodes bezeichnet.
+\paragraph{Pixelmatrizen} Eine Liste mit Pixeldaten, die zum Beispiel bei Computergrafikapplikationen gebraucht wird. Der ``Inhalt'' des Bildschirm kann ganzheitlich in einer Pixelmatrix abgelegt werden.
+\paragraph{Prozedural} Beschreibt programme, die schrittartig ablaufen.
 
 
 % END THESIS CONTENT
