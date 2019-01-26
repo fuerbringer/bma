@@ -146,12 +146,12 @@ Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benu
 \begin{algorithmic}[1]
   \Procedure{Wandgenerator}{$raster$, $freq$}
   %\State $freq \gets 4$ \Comment Frequenzparameter
-  \For{$y \gets 0\ \textbf{to}\ count(raster)$}
-    \For{$x \gets 0\ \textbf{to}\ count(raster_y)$}
+  \For{$y \gets 0\ \textbf{to}\ count(raster)$} \Comment Zeilen ($y$-Achse)
+    \For{$x \gets 0\ \textbf{to}\ count(raster[y])$} \Comment Zellen ($x$-Achse)
     \State $rand \gets random(0, 100)$ \Comment Zufallszahl $[0,100]$
     \State $x \gets \floor{rand \mod freq}$ \Comment Rest von $\frac{rand}{freq}$
     \If{$x = 0$}
-      \State $raster\textsubscript{y,x} \gets wand()$ \Comment Zelle im Raster wird zu einer Wand
+      \State $raster[y][x] \gets wand()$ \Comment Zelle bei $y_i$ und $x_i$ wird zu einer Wand
     \EndIf
     \EndFor
   \EndFor
@@ -174,31 +174,52 @@ Wir sehen also, dass mit dem Frequenzparameter die Häufigkeit der unpassierbare
 \subsubsection{Generierung des Start-und Endpunkts}
 Wählt man zwei zufällige passierbare Zellen als Start- und Endpunkt aus, erhält man ein Raster, mit dem man Pathfinding-Algorithmen anwenden kann. In unserer Webapplikation werden diese zwei Zellen farbig differenziert. Programmatikalisch handelt es sich um Zellen, die Wände sind und in Ziel- resp. Endpünkte umgewandelt werden.
 \begin{algorithmic}[1]
+  \Procedure{Punktemarkieren}{$raster$, $frei$} \Comment Start- und Endpunkte markieren
+  \State $startIndex \gets \floor{random(0, count(frei))}$
+  \State $raster[frei[startIndex]\textsubscript{y}][frei[startIndex]\textsubscript{x}] \gets start()$ \Comment Startpunkt markieren
+  \State $frei[startIndex] \gets \emptyset$ \Comment Benutzen Punkt von den noch freien entfernen
+  \State $endIndex \gets \floor{random(0, count(frei))}$
+  \State $raster[frei[endIndex]\textsubscript{y}][frei[endIndex]\textsubscript{x}] \gets ende()$ \Comment Endpunkt markieren
+  \State $frei[endIndex] \gets \emptyset$ \Comment Benutzen Punkt von den noch freien entfernen
+  \State \textbf{return} $raster$
+  \EndProcedure
   \Procedure{Startundendpunktgenerator}{$raster$}
   \State $frei \gets leere\ Liste$ \Comment mögliche Zellen für den Start- und Endpunkt
-  \ForAll{$zeile \in raster$}
-    \ForAll{$zelle \in zeile$}
+  \For{$y \gets 0\ \textbf{to}\ count(raster)$} \Comment Zeilen ($y$-Achse)
+    \For{$x \gets 0\ \textbf{to}\ count(raster[y])$} \Comment Zellen ($x$-Achse)
       \If{$\neg$$istWand(zelle)$}
-        \State $frei \gets frei + zelle$ \Comment Freie Zelle wird $frei$ hinzugefügt
+        \State $frei \gets frei + raster[y][x]$ \Comment Freie Zelle aus $raster$ wird $frei$ hinzugefügt
       \EndIf
     \EndFor
   \EndFor
-  \State $startIndex \gets \floor{random(0, count(frei))}$
-  \State $raster \gets markiereStart(raster\textsubscript{startIndex})$
-  \State $frei\textsubscript{startIndex} \gets \emptyset$
-  \State $endIndex \gets \floor{random(0, count(frei))}$
-  \State $raster \gets markiereStart(raster\textsubscript{endIndex})$
-  \State $frei\textsubscript{endIndex} \gets \emptyset$
+  \State $raster \gets \textsc{Punktemarkieren}(raster, frei)$
   \State \textbf{return} $raster$
   \EndProcedure
 \end{algorithmic}
-% TODO text...
+Wendet man nun den Start- und Endpunktgenerator an Rastern mit Wänden (siehe Abbildung \ref{fig:freq_param}) an, so erhält man folgendes ein für den PathFinder brauchbares Raster mit Wänden und Start- und Endpunkt:
 \begin{figure}[H]
   \centering
   \includegraphics[width=8cm]{grid2}
   \caption[Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden.]{Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden. Quelle: Eigenleistung}
   \label{fig:grid2}
 \end{figure}
+Im letzten Schritt lässt man die PathFinder den Weg zwischen den markierten Start- und Enpunkten finden. Die Parameter, die man PathFinding.js dafür übergeben muss, sind grundsätzlich das Raster und die darin markierten Punkte, die als Start- und Ende dienen. Die markierten Punkte speichert man entweder im Start- und Endpunktgenerator zwischen oder man benutzt eine weitere Funktion, die die Start- und Endpunkte aus einem Raster extrahiert:
+\begin{algorithmic}[1]
+  \Procedure{Startundendpunktfinden}{$raster$}
+  \State $startPunkt \gets \emptyset$
+  \State $endPunkt \gets \emptyset$
+  \ForAll{$zeile \in raster$} \Comment $y$-Achse
+    \ForAll{$zelle \in zeile$} \Comment $x$-Achse
+    \If{$istStartPunkt(zelle)$}
+      \State $startPunk \gets zelle$
+    \ElsIf{$istEndPunkt(zelle)$}
+      \State $endPunk \gets zelle$
+    \EndIf
+    \EndFor
+  \EndFor
+  \State \textbf{return} $[startPunkt, endPunkt]$ \Comment Objekt mit dem Start- und Endpunkt
+  \EndProcedure
+\end{algorithmic}
 Lässt man die drei ausgewälten Pathfinder von PathFinding.js im generierten Raster mit Wänden Weg finden, erhält man das Resultat, welches auch in unserer Webapplikation schlussendlich massgebend ist.
 \begin{figure}[H]
   \centering
@@ -217,8 +238,8 @@ Diagonalen würden nach dieser Logik bei einem diagonalen Sprung als eine Wegein
 \begin{cases}
   P_1(0,0),\\
   P_2(1,0),\\
-  ...,\\
-  P_n(11,4)
+  ...\\
+  P_n(x,y)
 \end{cases}
 \]
 \subsection{Operationen}
