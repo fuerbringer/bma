@@ -200,7 +200,7 @@ Wendet man nun den Start- und Endpunktgenerator an Rastern mit Wänden (siehe Ab
 \begin{figure}[H]
   \centering
   \includegraphics[width=8cm]{grid2}
-  \caption[Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden.]{Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden. Quelle: Eigenleistung}
+  \caption[Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden und markierten Start- und Endpunkten.]{Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden und markierten Start- und Endpunkten. Quelle: Eigenleistung}
   \label{fig:grid2}
 \end{figure}
 Im letzten Schritt lässt man die PathFinder den Weg zwischen den markierten Start- und Enpunkten finden. Die Parameter, die man PathFinding.js dafür übergeben muss, sind grundsätzlich das Raster und die darin markierten Punkte, die als Start- und Ende dienen. Die markierten Punkte speichert man entweder im Start- und Endpunktgenerator zwischen oder man benutzt eine weitere Funktion, die die Start- und Endpunkte aus einem Raster extrahiert:
@@ -220,15 +220,16 @@ Im letzten Schritt lässt man die PathFinder den Weg zwischen den markierten Sta
   \State \textbf{return} $[startPunkt, endPunkt]$ \Comment Objekt mit dem Start- und Endpunkt
   \EndProcedure
 \end{algorithmic}
-Lässt man die drei ausgewälten Pathfinder von PathFinding.js im generierten Raster mit Wänden Weg finden, erhält man das Resultat, welches auch in unserer Webapplikation schlussendlich massgebend ist.
+Übergibt man PathFinding.js nun die nötigen Parameter des Rasters und dessen Start-und Endpunkte, so erhält man den Weg von Start bis Ende. Wiederholt man dies mehrere Male mit verschiedenen Pathfindern, so ermöglicht man den direkten Vergleich. Dies ist eine wichtige Kernfunktion dieser Berufsmaturitätsarbeit.
 \begin{figure}[H]
   \centering
   \includegraphics[width=8cm]{grid3}
   \caption[Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden und gelöstem Weg.]{Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden und gelöstem Weg. Quelle: Eigenleistung}
   \label{fig:grid3}
 \end{figure}
-
-\subsection{Zurückgelegter Weg}
+\subsection{Auswertung und Merkmale}
+Zur Auswertung werden Merkmale definiert, welche bei der Statistik relevant sind. Es folgen die drei wichtigsten Merkmale beim Vergleich der Pathfinder in der Webapplikation.
+\subsubsection{Zurückgelegter Weg}
 Der zurückgelegte Weg ist aus praktischer Sicht gesehen ein bedeutendes Merkmal, da man möchte, dass der resultierende Weg möglichst kurz ausfällt. 
 Die Programmbibliothek PathFinding.js liefert den Weg in einer Liste mit einer Koordinate pro Element. 
 Daraus folgt, dass der Weg $s$ der Anzahl der Elemente der Liste entsprechen muss, wenn man nach PathFinding.js Sprünge oder Luftlinien ausschliest\footnote{Ein von PathFinding.js berechneter Weg: \url{https://pathfindingjs.readthedocs.io/en/latest/user-guide/getting-started/}}. 
@@ -242,14 +243,14 @@ Diagonalen würden nach dieser Logik bei einem diagonalen Sprung als eine Wegein
   P_n(x,y)
 \end{cases}
 \]
-\subsection{Operationen}
-Ein Algorithmus, der für das gleiche Resultat weniger Schritte (Operationen) tätigen muss, ist grundsätzlich besser als ein anderer, solange die Rechenzeit ebenfalls kleiner ausfällt. Für das wichtige Nebenmerkmal zur Rechenzeit mussten die internen Routinen der Programmbibliothek PathFinding.js angepasst werden, da sie solche Messungsmerkmale nicht standardmässig liefert. Dazu wurde das PathFinding.js kopiert und in die Routinen der drei ausgewählten Pathfinder im äusseren und inneren Loop eingefügt. Folgende Dateien\footnote{Die genauen Anpassungen sind unter dem folgenden Link verfügbar: \url{https://github.com/fuerbringer/PathFinding.js/commit/51034158638ad7aaa9c5142a827bd4d3de2b8786\#diff-22360b18a43ac33ae398e44b998101c7}} wurden dafür angepasst:
+\subsubsection{Operationen}
+Ein Algorithmus, der für das gleiche Resultat weniger Schritte (Operationen) tätigen muss, ist grundsätzlich besser als ein anderer. Zur Erfassung der Anzahl Operationen mussten die internen Routinen der Programmbibliothek PathFinding.js angepasst werden, da sie solche Messungsmerkmale nicht standardmässig liefert. Dazu wurde der Quellcode von PathFinding.js kopiert\footnote{Diesen Prozess nennt man bei freier Software ``Forking''.} und in die Routinen der drei ausgewählten Pathfinder im äusseren und inneren Loop eingefügt. Folgende Dateien\footnote{Die genauen Anpassungen sind unter dem folgenden Link verfügbar: \url{https://github.com/fuerbringer/PathFinding.js/commit/51034158638ad7aaa9c5142a827bd4d3de2b8786\#diff-22360b18a43ac33ae398e44b998101c7}} wurden dafür angepasst:
 \begin{itemize}
 \item{src/finders/AStarFinder.js}
 \item{src/finders/BreadthFirstFinder.js}
 \end{itemize}
 Zu beachten ist, dass die Datei des BestFirstFinders nicht angepasst werden musste, da dieser auf dem A*-Finder basiert und somit alle Änderungen vom A*-Finder vererbt.
-\subsection{Rechenzeit}
+\subsubsection{Rechenzeit}
 Ein bedeutendes Merkmal ist die Rechenzeit, also die Zeit, in der der Pathfinder seine Arbeit verrichtet hat. 
 Um diese zu berechnen, wird unmittelbar vor der Ausführung der Wegfindungsroutine des Pathfinders der Zeitstempel $t_0$ der jetzigen Zeit zwischengespeichert und danach vom Pathfinder die Arbeit verrichtet. 
 Direkt nach dem Beenden der Wegfindung wird ein zweites Mal ein Zeitstempel $t_1$ zwischengespeichert. Die Differenz ergibt die Zeit $t$ in Millisekunden\footnote{Die Einheit Millisekunden ergibt sich aus der Schnittstelle \texttt{Performance.now()} von JavaScript}, die für die Berechnung benötigt wurde.
