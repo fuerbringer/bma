@@ -231,7 +231,7 @@ Im letzten Schritt lässt man die PathFinder den Weg zwischen den markierten Sta
 Zur Auswertung werden Merkmale definiert, welche bei der Statistik relevant sind. Es folgen die drei wichtigsten Merkmale beim Vergleich der Pathfinder in der Webapplikation.
 \subsubsection{Zurückgelegter Weg}
 Der zurückgelegte Weg ist aus praktischer Sicht gesehen ein bedeutendes Merkmal, da man natürlich möchte, dass der resultierende Weg möglichst kurz ausfällt. 
-Die Programmbibliothek PathFinding.js liefert den Weg in einer Liste mit einer Koordinate pro Element. 
+Die Programmbibliothek PathFinding.js liefert den Weg in einer Liste mit einer Koordinate pro Element.
 Daraus folgt, dass der Weg $s$ der Anzahl der Elemente der Liste entsprechen muss, wenn man nach PathFinding.js Sprünge oder Luftlinien ausschliest\footnote{Ein von PathFinding.js berechneter Weg: \url{https://pathfindingjs.readthedocs.io/en/latest/user-guide/getting-started/}}. 
 Es gibt demnach keine Geraden, ausser zwischen zwei Benachbarten Punkten.
 Diagonalen würden nach dieser Logik bei einem diagonalen Sprung als eine Wegeinheit gelten.

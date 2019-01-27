@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 function pdf() {
-  pdflatex bma.tex -halt-on-error
+  ls *.tex | entr pdflatex bma.tex -halt-on-error
 }
 
 function md() {
-  pandoc bma.tex --to markdown_github -o README.md
+  ls *.tex | entr pandoc bma.tex --to markdown_github -o README.md
 }
 
 case "$1" in
