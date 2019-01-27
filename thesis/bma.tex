@@ -39,35 +39,35 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Realisierung}
-Dieser Abschnitt soll dazu verhelfen, die technischen Entscheidungen und Schritte zu erläutern und es möglich zu machen, die Kernfunktionen des Projekts zu reproduzieren. Programmierer, die diese Applikation, oder Teile davon, anderweitig einsetzen möchten, beziehen sich zusätzlich auf den frei verfügbaren Quellcode\cite{bma} des gesamten Projekts.
+Dieser Abschnitt soll dazu verhelfen, die technischen Entscheidungen und Schritte zu erläutern und es möglich zu machen, die Kernfunktionen des Projekts zu reproduzieren. Leser, die diese Applikation, oder Teile davon, anderweitig einsetzen möchten, beziehen sich zusätzlich auf den frei verfügbaren Quellcode\cite{bma} des gesamten Projekts.
 \section{Konzept}
 Die Konzipierung dieser Webapplikation verlangte einige technische und gestalterische Entscheidungen. 
 Einerseits musste die Programmiersprache und Struktur der Applikation geplant werden und andererseits auch das eigentliche Aussehen der Benutzeroberfläche der Webapplikation. 
 Auf diese zwei wesentlichen Aspekte wird in diesem Abschnitt eingegangen.
 \subsection{Pathfinding.js}
 Eine korrekte Implementation der ausgewählten Pathfinder sind Voraussetzung für das Projekt. 
-Daher wurde, um diese Voraussetzung zu erfüllen, eine frei verfügbare Implementation PathFinding.js \cite{pfjs} verschiedener Pathfinder ausgewählt.
+Daher wurde, um diese Voraussetzung zu erfüllen, die frei verfügbare Implementation PathFinding.js \cite{pfjs} verschiedener Pathfinder ausgewählt.
 \subsection{Programmierwerkzeuge}
 Die vorhandenen Fachkenntnisse und Erfahrungen schlugen für die Implementierung entweder PHP oder JavaScript als mögliche Programmiersprachen vor. 
 Zum Entscheid massgebend war, dass die Programmbibliothek PathFinding.js \cite{pfjs}, welche in unserer Arbeit eine wichtige Rolle spielt, in JavaScript implementiert wurde. 
-Durch den Einsatz von JavaScript im Front-End und im Back-End, wäre es möglich die Pathfinder Berechnungen beliebig auf dem Rechner des Nutzers und auch auf dem Rechner des Servers auszuführen. 
+Durch den Einsatz von JavaScript im Front-End und im Back-End, wäre es möglich die Pathfinder Berechnungen beliebig auf dem Rechner des Nutzers und auch auf dem Rechner des Servers auszuführen. Aus diesen Gründen wurde für das Front- und Back-End JavaScript ausgewählt.
 Folgend werden die wichtigsten Technologien unserer Webapplikation aufgelistet\footnote{Eine komplette Auflistung inklusive der abhängenden Programmbibliotheken macht wenig Sinn, vor allem da unser Quellcode frei ersichtlich ist.}.
 
 \begin{description}
   \item [Programmiersprache] JavaScript mit Einbindung von PathFinding.js \cite{pfjs}
-  \item [Webserver-Software] Express\footnote{Express Webserver für Node Webapplikationen, \url{https://expressjs.com/}, Stand: \today}
+  \item [Webserver-Software] Express\footnote{Express Webserver für Node Webapplikationen, \url{https://expressjs.com/}, Stand: \today} übernimmt die Ausführung von JavaScript im Back-End.
   \item [Quellcode-Hosting] GitHub\footnote{GitHub, \url{https://github.com/}, Stand: \today}. Der Quellcode unser Webapplikation ist frei unter\\ \url{https://github.com/fuerbringer/bma} zugänglich.
-  \item [Webhosting] Vultr\footnote{Vultr - The Infrastructure Cloud™, \url{https://vultr.com/}, Stand: \today}
+  \item [Webhosting] Die Vultr\footnote{Vultr - The Infrastructure Cloud™, \url{https://vultr.com/}, Stand: \today}-Cloud dient als Hosting-Provider. Prinzipiell kann die Webapplikation jedoch auf beliebigen Unix und GNU/Linux Servern gehostet werden.
 \end{description}
 
 \subsection{Konzipierung der Benutzeroberfläche}
 Als Webapplikation muss unsere Arbeit deren Nutzen dem Benutzer ausreichend klar machen. 
-Umsomehr ist dies von Bedeutung, da die Webapplikation frei zugänglich ist und daher auch Besucher den Sinn verstehen sollten. 
+Umsomehr ist dies von Bedeutung, da die Webapplikation frei zugänglich ist und daher auch Besucher die Idee der Webapplikation verstehen sollten. 
 Aus diesem Grund wurde unsere Webapplikation für den Nutzer einführend gestaltet. 
 Das heisst, dass der Benutzer beim Aufruf der Webapplikation zunächst auf einer Willkommensseite landet, die ihn wiederum zu einer Einführung in das Thema und Ziel der Arbeit führt. 
 Nach der Einführung kann der Benutzer in der Visualisierung mit einzelnen Pathfindern erste Erfahrungen machen. 
 Im Abschluss kommt der Benutzer zum Hauptteil der Arbeit, dem Pathfinding-Vergleicher. 
-Ziel dieser Struktur ist, dass jede Person wenigstens einen Einblick in die Welt der Pathfinding-Algorithmen erhält.
+Ziel dieser Struktur ist, dass jede Person wenigstens einen Einblick in die Welt der Pathfinding-Algorithmen erhält und über das nötige Wissen verfügt, das Ziel des Pathfinding-Vergleichers zu verstehen.
 \begin{figure}[H]
   \centering
   \includegraphics[width=16cm]{uiflow}
@@ -78,7 +78,7 @@ Ziel dieser Struktur ist, dass jede Person wenigstens einen Einblick in die Welt
 \clearpage
 
 \subsubsection{Einführungs- und Willkommensseite}
-Die Einführungsseite erklärt dem Benutzer was Algorithmen sind und führt ihn anschliessend mit einfachen Beispielen in das Thema Pathfinder ein. Zuletzt werden die Ziele der Arbeit aufgelistet.
+Die Einführungsseite erklärt dem Benutzer was Algorithmen sind und führt ihn anschliessend mit einfachen Beispielen in das Thema der Pathfinder ein. Zuletzt werden die Ziele der Arbeit aufgelistet.
 \begin{figure}[H]
   \centering
   \includegraphics[width=16cm]{einfuehrung1}
@@ -100,7 +100,7 @@ Nach der Einführung erhält der Benutzer die Möglichkeit mit einzelnen Pathfin
 \clearpage
 
 \subsubsection{Vergleich der Pathfinder}
-Als Herzstück der Arbeit ermöglicht der Pathfinder-Vergleicher dem Nutzer die in unserer Arbeit ausgewählten Pathfinder zu vergleichen. Hier werden, gleich wie beim Visualisierer, zuerst vom Benutzer die Parameter gewählt. Die parallel ausgeführten Resultate mit Informationen über die Rechenzeit, zurückgelegten Weg und Operationen, sind dann interaktiv anwählbar. Gleichzeitig wird auch unter ``Resultate'' unten links das Total aller Vergleiche akkumuliert, damit ein Gesamteindruck verschaffen werden kann.
+Als Herzstück der Arbeit ermöglicht der Pathfinder-Vergleicher dem Nutzer die in unserer Arbeit ausgewählten Pathfinder zu vergleichen. Hier werden, gleich wie beim Visualisierer, zuerst vom Benutzer die Parameter gewählt. Die parallel ausgeführten Resultate mit Informationen über die Rechenzeit, zurückgelegten Weg und Operationen, sind dann interaktiv anwählbar. Gleichzeitig wird auch unter ``Resultate'' unten links das Total aller Vergleiche akkumuliert, damit ein Gesamteindruck verschaffen werden kann. Die Resultate dieser Seite dienen im Statistikteil als Datenquelle.
 
 \begin{figure}[H]
   \centering
@@ -125,11 +125,11 @@ $[(0,5),(1,5),(2,5),(3,5),(4,5),(5,5),(6,5),(7,5)]$\\
 $[(0,6),(1,6),(2,6),(3,6),(4,6),(5,6),(6,6),(7,6)]$\\
 $[(0,7),(1,7),(2,7),(3,7),(4,7),(5,7),(6,7),(7,7)]$
 \end{center}
-Zu beachten ist, dass die obige Liste pro Element lediglich die Koordinate $(x,y)\textsubscript{$y$,$x$}$ als Eigenschaft enthält. Weitere Eigenschaften pro Zelle, wie die Wandeigenschaft, werden in späteren Abschnitten erwähnt.
-Diese Art von Raster ist bei der Darstellung von Pixelmatrizen und sonstigen computerorientierten Anwendungen üblich. 
+Zu beachten ist, dass die obige Liste pro Element (Zelle) lediglich die Koordinate $(x,y)$ als Eigenschaft aufweist. Weitere Eigenschaften pro Zelle, wie die Wandeigenschaft, werden in späteren Abschnitten erwähnt.
+Diese Art von Raster ist bei der Darstellung von Pixelmatrizen und sonstigen computergrafikorientierten Anwendungen üblich. 
 Man kann sich diese Anordnung auch als den vierten Quadranten eines kartesischen Koordinatensystems vorstellen, dessen $y$-Koordinate ihren Absolutwert annimmt. 
 Des Weiteren gilt $x \in \mathbb{N}$ und $y \in \mathbb{N}$. 
-Daraus folgt, dass es auch keine Zwischenschritte geben kann, beispielsweise das Ziel nicht die Koordinate $(\frac{1}{2},\frac{42}{11})$ annehmen kann. 
+Daraus folgt, dass Zwischenschritte nicht möglich sind, beispielsweise das Ziel nicht die Koordinate $(\frac{1}{2},\frac{42}{11})$ annehmen kann. Ein weiteres Beispiel dafür wären die Pixel eines gewöhnlichen Monitors, denn einen Bruchteil eines Pixels anzusteuern ist ebenfalls nicht möglich.
 Benötigt man eine derartige Präzision, erhöht man dazu am besten die Auflösung des Raums. Es folgt eine Abbildung eines zweidimensionalen leeren Raumes der oben gegebenen Liste.
 \begin{figure}[H]
   \centering
@@ -139,10 +139,10 @@ Benötigt man eine derartige Präzision, erhöht man dazu am besten die Auflösu
 \end{figure}
 
 \subsubsection{Generierung der Wände und Gänge}
-Damit die Eigenschaften der Pathfinder besser zum Vorschein kommen, wurde im nächsten Schritt für den Rastergenerator die Logik zum Verstreuen von Wänden implementiert. 
-Die Rastermatrix erhält dann pro Zelle die Eigenschaft, ob sie passierbar ist. 
-Analog dazu versteht die Programmbibliothek PathFinding.js dies genau gleich, indem man zu einer gegebenen Koordinate definiert, ob sie eine Wand ist. 
-Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benutzte Routine\footnote{Die genaue Codestelle ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/maze.js\#L8}}, um Raster mit Wänden zu füllen.
+Damit die Eigenschaften der Pathfinder besser zum Vorschein kommen, sie also nicht nur im leeren Raum ausgeführt werden, wurde im nächsten Schritt für den Rastergenerator die Logik zum Verstreuen von Wänden implementiert. 
+Die Rastermatrix erhält dann pro Zelle die Eigenschaft, ob sie vom Pathfinder passierbar ist oder nicht. 
+Die Programmbibliothek PathFinding.js versteht diese Logik genauso, indem man zu einer gegebenen Koordinate definiert, ob sie eine Wand ist. 
+Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benutzte Routine\footnote{Die genaue Codestelle in der Webapplikation ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/maze.js\#L8}}, um Raster mit Wänden zu füllen.
 \begin{algorithmic}[1]
   \Procedure{Wandgenerator}{$raster$, $freq$}
   %\State $freq \gets 4$ \Comment Frequenzparameter
@@ -158,7 +158,7 @@ Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benu
   \State \textbf{return} $raster$
   \EndProcedure
 \end{algorithmic}
-Vom Frequenzparameter hängt schlussendlich ab, wie oft Wände im Raster vorkommen. Er kann frei gewählt werden. Nähert sich der Wert $freq$ jedoch $1$ mit $freq > 1$, erhöht sich auch die Anzahl unlösbarer Raster, da immer weniger mögliche Wege zwischen den verbliebenen Zellen besteht.
+Vom Frequenzparameter $freq$ hängt schlussendlich ab, wie oft Wände im Raster vorkommen. Er kann frei gewählt werden. Nähert sich der Wert $freq$ jedoch $1$ mit $freq > 1$, erhöht sich auch die Anzahl unlösbarer Raster, da immer weniger mögliche Wege zwischen den verbliebenen Zellen besteht.
 Wendet man den Wandgenerator in unserem Raster der Abbildung \ref{fig:grid1} an, so erhält man ein Raster mit Wänden.
 \begin{figure}[H]
   \centering
@@ -170,17 +170,17 @@ Wendet man den Wandgenerator in unserem Raster der Abbildung \ref{fig:grid1} an,
   \caption[Raster mit Frequenzparametern $freq = 2$, $freq = 4$ und $freq = 16$ im Wandgenerator.]{Raster mit Frequenzparametern $freq = 2$, $freq = 4$ und $freq = 16$ im Wandgenerator. Quelle: Eigenleistung}
   \label{fig:freq_param}
 \end{figure}
-Wir sehen also, dass mit dem Frequenzparameter die Häufigkeit der unpassierbaren Wände geändert werden kann. In unserer Webapplikation haben wir für den Frequenzparameter $freq = 4$ ausgewählt, da dieser Wert ein gutes Gleichgewicht zwischen nicht zu viel unlösbaren Rastern und genügend Wänden ergibt.
+Wir sehen also, dass mit dem Frequenzparameter $freq$ die Häufigkeit der unpassierbaren Wände geändert werden kann. In unserer Webapplikation haben wir für den Frequenzparameter $freq = 4$ ausgewählt, da dieser Wert ein gutes Gleichgewicht zwischen nicht zu viel unlösbaren Rastern und genügend Wänden ergibt.
 \subsubsection{Generierung des Start-und Endpunkts}
-Wählt man zwei zufällige passierbare Zellen als Start- und Endpunkt aus, erhält man ein Raster, mit dem man Pathfinding-Algorithmen anwenden kann. In unserer Webapplikation werden diese zwei Zellen farbig differenziert. Programmatikalisch handelt es sich um Zellen, die Wände sind und in Ziel- resp. Endpünkte umgewandelt werden.
+Wählt man zwei zufällige passierbare Zellen als Start- und Endpunkt aus, erhält man ein Raster, mit dem man Pathfinding-Algorithmen anwenden kann. In unserer Webapplikation werden diese zwei Zellen farbig differenziert. Programmatikalisch handelt es sich um Zellen, die Wände sind und in Ziel- resp. Endpünkte umgewandelt werden. Die folgenden zwei Routinen\footnote{Die genaue Codestelle in der Webapplikation ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/maze.js\#L27}} wählen in einem gegebenen Raster einen Start- und einen Endpunkt aus.
 \begin{algorithmic}[1]
   \Procedure{Punktemarkieren}{$raster$, $frei$} \Comment Start- und Endpunkte markieren
   \State $startIndex \gets \floor{random(0, count(frei))}$
   \State $raster[frei[startIndex]\textsubscript{y}][frei[startIndex]\textsubscript{x}] \gets start()$ \Comment Startpunkt markieren
-  \State $frei[startIndex] \gets \emptyset$ \Comment Benutzen Punkt von den noch freien entfernen
+  \State $frei[startIndex] \gets \emptyset$ \Comment Benutzten Punkt von den noch freien entfernen
   \State $endIndex \gets \floor{random(0, count(frei))}$
   \State $raster[frei[endIndex]\textsubscript{y}][frei[endIndex]\textsubscript{x}] \gets ende()$ \Comment Endpunkt markieren
-  \State $frei[endIndex] \gets \emptyset$ \Comment Benutzen Punkt von den noch freien entfernen
+  \State $frei[endIndex] \gets \emptyset$ \Comment Benutzten Punkt von den noch freien entfernen
   \State \textbf{return} $raster$
   \EndProcedure
   \Procedure{Startundendpunktgenerator}{$raster$}
@@ -196,14 +196,14 @@ Wählt man zwei zufällige passierbare Zellen als Start- und Endpunkt aus, erhä
   \State \textbf{return} $raster$
   \EndProcedure
 \end{algorithmic}
-Wendet man nun den Start- und Endpunktgenerator an Rastern mit Wänden (siehe Abbildung \ref{fig:freq_param}) an, so erhält man folgendes ein für den PathFinder brauchbares Raster mit Wänden und Start- und Endpunkt:
+Wendet man nun den Start- und Endpunktgenerator\footnote{Die genaue Codestelle in der Webapplikation ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/maze.js\#L27}} an Rastern mit Wänden (siehe Abbildung \ref{fig:freq_param}) an, so erhält man folgendes, ein für den PathFinder brauchbares, Raster mit Wänden und Start- und Endpunkt:
 \begin{figure}[H]
   \centering
   \includegraphics[width=8cm]{grid2}
   \caption[Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden und markierten Start- und Endpunkten.]{Ein von unserer Webapplikation generiertes $8\times8$ Raster mit Wänden und markierten Start- und Endpunkten. Quelle: Eigenleistung}
   \label{fig:grid2}
 \end{figure}
-Im letzten Schritt lässt man die PathFinder den Weg zwischen den markierten Start- und Enpunkten finden. Die Parameter, die man PathFinding.js dafür übergeben muss, sind grundsätzlich das Raster und die darin markierten Punkte, die als Start- und Ende dienen. Die markierten Punkte speichert man entweder im Start- und Endpunktgenerator zwischen oder man benutzt eine weitere Funktion, die die Start- und Endpunkte aus einem Raster extrahiert:
+Im letzten Schritt lässt man die PathFinder den Weg zwischen den markierten Start- und Enpunkten finden. Die Parameter, die man PathFinding.js dafür übergeben muss, sind grundsätzlich das Raster und die darin markierten Punkte, die als Start- und Ende dienen. Die markierten Punkte speichert man entweder im Start- und Endpunktgenerator zwischen oder man benutzt eine weitere Routine\footnote{Die genaue Codestelle in der Webapplikation ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/helper.js\#L15}}, die die Start- und Endpunkte aus einem Raster extrahiert:
 \begin{algorithmic}[1]
   \Procedure{Startundendpunktfinden}{$raster$}
   \State $startPunkt \gets \emptyset$
@@ -220,7 +220,7 @@ Im letzten Schritt lässt man die PathFinder den Weg zwischen den markierten Sta
   \State \textbf{return} $[startPunkt, endPunkt]$ \Comment Objekt mit dem Start- und Endpunkt
   \EndProcedure
 \end{algorithmic}
-Übergibt man PathFinding.js nun die nötigen Parameter des Rasters und dessen Start-und Endpunkte, so erhält man den Weg von Start bis Ende. Wiederholt man dies mehrere Male mit verschiedenen Pathfindern, so ermöglicht man den direkten Vergleich. Dies ist eine wichtige Kernfunktion dieser Berufsmaturitätsarbeit.
+Übergibt man PathFinding.js nun die nötigen Parameter des Rasters und dessen Start-und Endpunkte, so erhält man den Weg von Start bis Ende. Wiederholt man dies mehrere Male mit verschiedenen Pathfindern, so ermöglicht man den direkten Vergleich der Pathfinding-Algorithmen. Dies ist eine wichtige Kernfunktion dieser Berufsmaturitätsarbeit.
 \begin{figure}[H]
   \centering
   \includegraphics[width=8cm]{grid3}
@@ -230,10 +230,10 @@ Im letzten Schritt lässt man die PathFinder den Weg zwischen den markierten Sta
 \subsection{Auswertung und Merkmale}
 Zur Auswertung werden Merkmale definiert, welche bei der Statistik relevant sind. Es folgen die drei wichtigsten Merkmale beim Vergleich der Pathfinder in der Webapplikation.
 \subsubsection{Zurückgelegter Weg}
-Der zurückgelegte Weg ist aus praktischer Sicht gesehen ein bedeutendes Merkmal, da man möchte, dass der resultierende Weg möglichst kurz ausfällt. 
+Der zurückgelegte Weg ist aus praktischer Sicht gesehen ein bedeutendes Merkmal, da man natürlich möchte, dass der resultierende Weg möglichst kurz ausfällt. 
 Die Programmbibliothek PathFinding.js liefert den Weg in einer Liste mit einer Koordinate pro Element. 
 Daraus folgt, dass der Weg $s$ der Anzahl der Elemente der Liste entsprechen muss, wenn man nach PathFinding.js Sprünge oder Luftlinien ausschliest\footnote{Ein von PathFinding.js berechneter Weg: \url{https://pathfindingjs.readthedocs.io/en/latest/user-guide/getting-started/}}. 
-Es gibt demnach keine Geraden, ausser zwischen zwei Benachbarten Pünkten.
+Es gibt demnach keine Geraden, ausser zwischen zwei Benachbarten Punkten.
 Diagonalen würden nach dieser Logik bei einem diagonalen Sprung als eine Wegeinheit gelten.
 \[ s = n
 \begin{cases}
@@ -301,7 +301,7 @@ In diesem Kapitel werden wichtige Wörter aus der Fachsprache erklärt, die in u
 \paragraph{BreadthFirstFinder} Ein Pathfinding-Algorithmus. Nicht zu verwechseln mit dem BreadthFirstFinder.
 \paragraph{Dijkstra} Ein Pathfinding Algorithmus (siehe Fachbegriff Algorithmus). Dieser nutzt keine heuristische Mittel und kommt in unserer Arbeit nicht direkt vor.
 \paragraph{Front-End} Der Browser---der Teil einer Website oder Webapplikation, den der Benutzer sieht und mit dem er interagiert. In unserem Fall werden die wichtigsten Berechnungen im Front-End verrichtet.
-\paragraph{Heuristik} Hilfsalgorithmus, unter Anderem für Pathfinder, der zusätzlich hilft zwischen einzelnen Schritten die Kosten für eine mögliche Operation einzuschätzen.
+\paragraph{Heuristik} Hilfsalgorithmus, unter anderem für Pathfinder, der zusätzlich hilft zwischen einzelnen Schritten die Kosten für eine mögliche Operation einzuschätzen.
 \paragraph{Matrix} Anordnung von Elementen. In unserem Fall ein zweidimensionales Raster, in dem Wände, Korridore und Wege platziert sind.
 \paragraph{Operationen} Eine ``Operation'' beschreibt in unserem Fall einen Zyklus eines Pathfinders. Je mehr Zyklen ein Pathfinder in Relation zu einem anderen benötigt, desto weniger effizient ist er.
 \paragraph{Parameter} Die Randbedingungen für einen Durchlauf bzw. ein Experiment.
@@ -314,6 +314,8 @@ In diesem Kapitel werden wichtige Wörter aus der Fachsprache erklärt, die in u
 \paragraph{Implementieren/Implementation} Im Kontext der Software wird damit die Planung und Entwicklung des Quellcodes bezeichnet.
 \paragraph{Pixelmatrizen} Eine Liste mit Pixeldaten, die zum Beispiel bei Computergrafikapplikationen gebraucht wird. Der ``Inhalt'' des Bildschirm kann ganzheitlich in einer Pixelmatrix abgelegt werden.
 \paragraph{Prozedural} Beschreibt programme, die schrittartig ablaufen.
+\paragraph{Routine} Unter diesem Begriff kann man im Rahmen dieser Arbeit einen Teil eines Algorithmus, einer Funktion oder einer Prozedur verstehen.
+\paragraph{Unix und GNU/Linux} Betriebssysteme abstammend vom AT\&T UNIX.
 
 
 % END THESIS CONTENT
