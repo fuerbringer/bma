@@ -145,13 +145,12 @@ Die Programmbibliothek PathFinding.js versteht diese Logik genauso, indem man zu
 Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benutzte Routine\footnote{Die genaue Codestelle in der Webapplikation ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/maze.js\#L8}}, um Raster mit Wänden zu füllen.
 \begin{algorithmic}[1]
   \Procedure{Wandgenerator}{$raster$, $freq$}
-  %\State $freq \gets 4$ \Comment Frequenzparameter
-  \For{$y \gets 0\ \textbf{to}\ count(raster)$} \Comment Zeilen ($y$-Achse)
-    \For{$x \gets 0\ \textbf{to}\ count(raster[y])$} \Comment Zellen ($x$-Achse)
+  \For{$y \gets 0\ \textbf{to}\ $\textbf{count}(Zeilen von $raster$)}
+    \For{$x \gets 0\ \textbf{to}\ $\textbf{count}(Zellen von $raster$ in der Zeile $y$)}
     \State $rand \gets random(0, 100)$ \Comment Zufallszahl $[0,100]$
     \State $x \gets \floor{rand \mod freq}$ \Comment Rest von $\frac{rand}{freq}$
     \If{$x = 0$}
-      \State $raster[y][x] \gets wand()$ \Comment Zelle bei $y_i$ und $x_i$ wird zu einer Wand
+      \State Zelle in $raster$ bei $x$ und $y$ wird zu einer Wand
     \EndIf
     \EndFor
   \EndFor
@@ -173,26 +172,42 @@ Wendet man den Wandgenerator in unserem Raster der Abbildung \ref{fig:grid1} an,
 Wir sehen also, dass mit dem Frequenzparameter $freq$ die Häufigkeit der unpassierbaren Wände geändert werden kann. In unserer Webapplikation haben wir für den Frequenzparameter $freq = 4$ ausgewählt, da dieser Wert ein gutes Gleichgewicht zwischen nicht zu viel unlösbaren Rastern und genügend Wänden ergibt.
 \subsubsection{Generierung des Start-und Endpunkts}
 Wählt man zwei zufällige passierbare Zellen als Start- und Endpunkt aus, erhält man ein Raster, mit dem man Pathfinding-Algorithmen anwenden kann. In unserer Webapplikation werden diese zwei Zellen farbig differenziert. Programmatikalisch handelt es sich um Zellen, die Wände sind und in Ziel- resp. Endpünkte umgewandelt werden. Die folgenden zwei Routinen\footnote{Die genaue Codestelle in der Webapplikation ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/maze.js\#L27}} wählen in einem gegebenen Raster einen Start- und einen Endpunkt aus.
+\algblock[Name]{Let}{In}
+\algblockdefx[NAME]{LET}{IN}%
+[2][Unknown]{Let #1(#2)}%
+{Ending}
+\algblockdefx[NAME]{}{OTHEREND}%
+[1]{Until (#1)}
 \begin{algorithmic}[1]
-  \Procedure{Punktemarkieren}{$raster$, $frei$} \Comment Start- und Endpunkte markieren
-  \State $startIndex \gets \floor{random(0, count(frei))}$
-  \State $raster[frei[startIndex]\textsubscript{y}][frei[startIndex]\textsubscript{x}] \gets start()$ \Comment Startpunkt markieren
-  \State $frei[startIndex] \gets \emptyset$ \Comment Benutzten Punkt von den noch freien entfernen
-  \State $endIndex \gets \floor{random(0, count(frei))}$
-  \State $raster[frei[endIndex]\textsubscript{y}][frei[endIndex]\textsubscript{x}] \gets ende()$ \Comment Endpunkt markieren
-  \State $frei[endIndex] \gets \emptyset$ \Comment Benutzten Punkt von den noch freien entfernen
-  \State \textbf{return} $raster$
-  \EndProcedure
   \Procedure{Startundendpunktgenerator}{$raster$}
-  \State $frei \gets leere\ Liste$ \Comment mögliche Zellen für den Start- und Endpunkt
-  \For{$y \gets 0\ \textbf{to}\ count(raster)$} \Comment Zeilen ($y$-Achse)
-    \For{$x \gets 0\ \textbf{to}\ count(raster[y])$} \Comment Zellen ($x$-Achse)
-      \If{$\neg$$istWand(zelle)$}
-        \State $frei \gets frei + raster[y][x]$ \Comment Freie Zelle aus $raster$ wird $frei$ hinzugefügt
+  \State $frei$ ist eine leere Liste \Comment mögliche Zellen für den Start- und Endpunkt
+  \For{$y \gets 0\ \textbf{to}\ $\textbf{count}(Zeilen von $raster$)}
+    \For{$x \gets 0\ \textbf{to}\ $\textbf{count}(Zellen von $raster$ in der Zeile $y$)}
+      \State $zelle \gets$ Zelle mit (x,y) in $raster$
+      \If{$zelle$ ist keine Wand}
+        \State $zelle$ der Liste $frei$ hinzufügen
       \EndIf
     \EndFor
   \EndFor
   \State $raster \gets \textsc{Punktemarkieren}(raster, frei)$
+  \State \textbf{return} $raster$
+  \EndProcedure
+
+  \Procedure{Punktemarkieren}{$raster$, $frei$} \Comment Start- und Endpunkte markieren
+  \Let
+    \State $startIndex \gets \floor{random(0, \textbf{count}(frei))}$ \Comment Zufallsindex für die Liste $frei$
+    \State $sx \gets$ $x$-Koordinate von $frei$ am Index $startIndex$
+    \State $sy \gets$ $y$-Koordinate von $frei$ am Index $startIndex$
+  \In \ Zelle in $raster$ bei $sx$ und $sy$ wird zum Startpunkt
+  \State Element in $frei$ am Index $startIndex$ entfernen
+
+  \Let
+    \State $endIndex \gets \floor{random(0, \textbf{count}(frei))}$ \Comment Zufallsindex für die Liste $frei$
+    \State $ex \gets$ $x$-Koordinate von $frei$ am Index $endIndex$
+    \State $ey \gets$ $y$-Koordinate von $frei$ am Index $endIndex$
+  \In \ Zelle in $raster$ bei $ex$ und $ey$ wird zum Endpunkt
+  \State Element in $frei$ am Index $endIndex$ entfernen
+
   \State \textbf{return} $raster$
   \EndProcedure
 \end{algorithmic}
@@ -206,18 +221,18 @@ Wendet man nun den Start- und Endpunktgenerator\footnote{Die genaue Codestelle i
 Im letzten Schritt lässt man die PathFinder den Weg zwischen den markierten Start- und Enpunkten finden. Die Parameter, die man PathFinding.js dafür übergeben muss, sind grundsätzlich das Raster und die darin markierten Punkte, die als Start- und Ende dienen. Die markierten Punkte speichert man entweder im Start- und Endpunktgenerator zwischen oder man benutzt eine weitere Routine\footnote{Die genaue Codestelle in der Webapplikation ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/helper.js\#L15}}, die die Start- und Endpunkte aus einem Raster extrahiert:
 \begin{algorithmic}[1]
   \Procedure{Startundendpunktfinden}{$raster$}
-  \State $startPunkt \gets \emptyset$
-  \State $endPunkt \gets \emptyset$
+  \State $startPunkt \gets$ leeres Element
+  \State $endPunkt \gets$ leeres Element
   \ForAll{$zeile \in raster$} \Comment $y$-Achse
     \ForAll{$zelle \in zeile$} \Comment $x$-Achse
-    \If{$istStartPunkt(zelle)$}
-      \State $startPunk \gets zelle$
-    \ElsIf{$istEndPunkt(zelle)$}
-      \State $endPunk \gets zelle$
+    \If{Ist $zelle$ ein Startpunkt}
+      \State $startPunk \gets zelle$ \Comment \textit{startPunkt} entspricht der aktuellen Zelle
+    \ElsIf{Ist $zelle$ ein Endpunkt}
+      \State $endPunk \gets zelle$ \Comment \textit{endPunkt} entspricht der aktuellen Zelle
     \EndIf
     \EndFor
   \EndFor
-  \State \textbf{return} $[startPunkt, endPunkt]$ \Comment Objekt mit dem Start- und Endpunkt
+  \State \textbf{return} $startPunkt$ und $endPunkt$
   \EndProcedure
 \end{algorithmic}
 Übergibt man PathFinding.js nun die nötigen Parameter des Rasters und dessen Start-und Endpunkte, so erhält man den Weg von Start bis Ende. Wiederholt man dies mehrere Male mit verschiedenen Pathfindern, so ermöglicht man den direkten Vergleich der Pathfinding-Algorithmen. Dies ist eine wichtige Kernfunktion dieser Berufsmaturitätsarbeit.
