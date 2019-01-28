@@ -194,15 +194,15 @@ Wählt man zwei zufällige passierbare Zellen als Start- und Endpunkt aus, erhä
   \EndProcedure
 
   \Procedure{Punktemarkieren}{$raster$, $frei$} \Comment Start- und Endpunkte markieren
+  \State $startIndex \gets \floor{random(0, \textbf{count}(frei))}$ \Comment Zufallsindex für die Liste $frei$
   \Let
-    \State $startIndex \gets \floor{random(0, \textbf{count}(frei))}$ \Comment Zufallsindex für die Liste $frei$
     \State $sx \gets$ $x$-Koordinate von $frei$ am Index $startIndex$
     \State $sy \gets$ $y$-Koordinate von $frei$ am Index $startIndex$
   \In \ Zelle in $raster$ bei $sx$ und $sy$ wird zum Startpunkt
   \State Element in $frei$ am Index $startIndex$ entfernen
 
+  \State $endIndex \gets \floor{random(0, \textbf{count}(frei))}$ \Comment Zufallsindex für die Liste $frei$
   \Let
-    \State $endIndex \gets \floor{random(0, \textbf{count}(frei))}$ \Comment Zufallsindex für die Liste $frei$
     \State $ex \gets$ $x$-Koordinate von $frei$ am Index $endIndex$
     \State $ey \gets$ $y$-Koordinate von $frei$ am Index $endIndex$
   \In \ Zelle in $raster$ bei $ex$ und $ey$ wird zum Endpunkt
