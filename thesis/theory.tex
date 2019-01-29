@@ -142,20 +142,20 @@ aktuelle Standpunkt im Raster. \cite[Patel, 2019]{heuristicsredblob}
 
 \section{Auswahl der Pathfinding-Algorithmen}
 
-Das Autorenteam hat sich für folgende Pathfinding-Algorithmen
-entschieden, weil diese im Vorfeld schon ersichtliche unterschiedliche
-Wege ausgewählt haben im gleichen vorgegebenen Raster.
+Das Autorenteam dieser Arbeit hat sich für folgende Pathfinding-Algorithmen
+entschieden, da diese im Vorfeld schon ersichtlich unterschiedliche
+Wege im gleichen vorgegebenen Raster ergeben haben.
 
 \subsection{A*}
 
 Der A*-Algorithmus, gesprochen ``A Star'', untersucht mithilfe einer
-Heuristik immer den wahrscheinlich nächsten Knoten im Raster der zum
+Heuristik immer den wahrscheinlich nächsten Knoten im Raster, der zum
 Ziel führt. Jedem Nachbarknoten wird zuerst einen Wert $d$ zugeordnet, der
 angibt, wie lange der Weg geschätzt von diesem Knoten zum Ziel führt. Der Wert $d$
-wird mit der Manhattan heuristik ausgerechnet. Jeder Graph mit einem $d$-Wert 
-wird in eine liste eingetragen. Der A-Star rechnet immer die neuen
-Nachbarn aus des Graphen mit dem kleinsten $d$-Wert. Dadurch kann
-vorkommen, das nach langer Suche, der A-Star plötzlich wieder einige
+wird mit der Manhattan-Heuristik ausgerechnet. Jeder Graph mit einem $d$-Wert 
+wird in eine Liste eingetragen. Der A-Star rechnet immer die neuen
+Nachbaren des Graphen mit dem kleinsten $d$-Wert aus. Dadurch kann es
+vorkommen, das nach langer Suche der A-Star plötzlich wieder einige
 Graphen zurückspringen muss, da die neu berechneten $d$-Werte grösser als
 ein früherer gefundener $d$-Wert ist.
 \cite[Schmidt, Fuchs]{asterngeo}
