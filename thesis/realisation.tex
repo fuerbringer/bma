@@ -229,9 +229,9 @@ Zu beachten ist, dass die Datei des BestFirstFinders nicht angepasst werden muss
 Ein bedeutendes Merkmal ist die Rechenzeit, also die Zeit, in der der Pathfinder seine Arbeit verrichtet hat. 
 Um diese zu berechnen, wird unmittelbar vor der Ausführung der Wegfindungsroutine des Pathfinders der Zeitstempel $t_0$ der jetzigen Zeit zwischengespeichert und danach vom Pathfinder die Arbeit verrichtet. 
 Direkt nach dem Beenden der Wegfindung wird ein zweites Mal ein Zeitstempel $t_1$ zwischengespeichert. Die Differenz ergibt die Zeit $t$ in Millisekunden\footnote{Die Einheit Millisekunden ergibt sich aus der Schnittstelle \texttt{Performance.now()} von JavaScript}, die für die Berechnung benötigt wurde.
-\begin{equation}
+\begin{equation*}
   t = t_1 - t_0
-\end{equation}
+\end{equation*}
 Die Werte $t$ sind pro Pathfinder in der Webapplikation unter ``Messung für diesen Einzelversuch:'' unter dem Raster ersichtlich. Diese Berechnung demnach pro Durchlauf dreimal getätigt.
 \\\\
 Aus diesen drei Merkmalen folgen zusammengefasst die in unserer Webapplikation vermessenen Werte der Pathfinding-Algorithmen.
