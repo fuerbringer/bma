@@ -218,7 +218,7 @@ nicht verfügbar.
       \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image2}}
       & 
       \vspace{0.01cm}
-      Berechne Distanzwert aller Nachbaren (rot markiert) und schreibe diese in die bekannte Knoten-Liste. Zeige auf den Vorgängigen Knoten (schwarzer Balken). Da (4/1) alle bekannte Nachbaren hat, wird dieser Knoten in die Knoten-Liste der Untersuchten verschoben. Der Knopf mit den tiefsten $d$-Wert wird Angeschaut und der Prozess wird wiederholt.
+      Berechne Distanzwert aller Nachbaren (rot markiert) und schreibe diese in die bekannte Knoten-Liste. Zeige auf den Vorgängigen Knoten (schwarzer Balken). Da $(4/1)$ alle bekannte Nachbaren hat, wird dieser Knoten in die Knoten-Liste der Untersuchten verschoben. Der Knopf mit den tiefsten $d$-Wert wird Angeschaut und der Prozess wird wiederholt.
       & 
       \vspace{0.01cm}
       $(3/1)\ d = 3$
@@ -346,7 +346,7 @@ Der Startpunkt ist blau und der Zielpunkt grün, wobei diagonale Verbindungen ni
 
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{ c  p{9cm}   p{2.5cm} }
+    \begin{tabular}{ c  p{9cm}   p{2cm}   p{1cm}}
       \toprule
       Bild & Ausführung & Liste \\ 
       \cmidrule(r){1-1}\cmidrule(lr){2-2}\cmidrule(l){3-3}
@@ -361,7 +361,7 @@ Der Startpunkt ist blau und der Zielpunkt grün, wobei diagonale Verbindungen ni
       \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image9}}
       & 
       \vspace{0.01cm}
-      Wähle den besten Nachbar, anhand seiner Distanz Wert d, hier ist es Graph(3/1). Schreibe diesen Wert in die Liste.
+      Wähle den besten Nachbar, anhand seiner Distanz Wert d, hier ist es Graph $(3/1)$. Schreibe diesen Wert in die Liste.
       & 
       \vspace{0.01cm}
       $(3/1)\ d = 3$
@@ -404,113 +404,115 @@ Der Startpunkt ist blau und der Zielpunkt grün, wobei diagonale Verbindungen ni
   \end{center}
 \end{table}
 
-%\textbf{BreadthFirstFinder}
-%
-%Der BreadthFirstFinder benutzt keine Heuristik, da er sein Weg über die
-%Breitensuche findet. Er Expandiert in jede Richtung gleich schnell und
-%bewegt sich nicht wie die anderen zwei Pathfinder in Richtung Ziel. Wenn
-%alle Knoten mit der gleichen Distanz zum Start angeschaut sind, beginnt
-%er mit der Suche der eins weiter entfernten Knoten. Dieser Pathfinder
-%besitzt eine Liste in der er die noch zu bearbeitenden Knoten speichert,
-%beginnend mit dem am Start nächsten Knoten.
-%
-%{[}https://brilliant.org/wiki/breadth-first-search-bfs/{]}
-%
-%\textbf{Funktionsweise}
-%
-%Beginne beim Startpunkt und Speichere ihn in die Warteliste. Schaue am
-%obersten Knoten in der Warteschlange dessen Nachbarn an und prüfe ob
-%eines der Ausgewählten Knoten der Zielknoten ist. Ist dies der Fall wird
-%die Suche Abgebrochen, da der Weg Gefunden wurde. Falls keiner der
-%Knoten der Zielknoten ist, speichere die neuen Knoten in die Warteliste
-%an Hinterste Stelle und entferne den Ausgewählten Knoten. Jeder Knote
-%der neu gefunden wird zeigt auf den ausgewählten Knoten.
-%
-%{[}https://brilliant.org/wiki/breadth-first-search-bfs/{]}
-%
-%\textbf{Beispiel}
-%
-%Blau ist Startpunkt und Grün Zielpunkt, Diagonale Verbindungen sind
-%nicht verfügbar.
-%
-%\begin{longtable}[]{@{}lll@{}}
-%\toprule
-%\endhead
-%\textbf{Bild} & \textbf{Ausführung} & \textbf{Liste}\tabularnewline
-%\includegraphics[width=1.9375in,height=1.93056in]{media/image1.png} &
-%Schreibe den Startpunkt in die Liste. & (4/1)\tabularnewline
-%\begin{minipage}[t]{0.30\columnwidth}\raggedright
-%\includegraphics[width=1.9375in,height=1.93056in]{media/image12.png}\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%Schaue alle Nachbarn an und speichere diese in die Liste an hinterste
-%Stelle. Falls keiner der neuen Knoten das Ziel ist, führe suche fort.
-%Jeder neue Graph verweist auf den Vorgänger. Entferne aktuellen
-%ausgewählten Knoten(4/1).\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%(3/1)
-%
-%(5/1)
-%
-%(2/1)\strut
-%\end{minipage}\tabularnewline
-%\begin{minipage}[t]{0.30\columnwidth}\raggedright
-%\includegraphics[width=1.9375in,height=1.93056in]{media/image13.png}\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%Schaue alle Nachbarn der zurzeit in der Liste stehenden Knoten und
-%Wiederhole alles vom oben genannte.\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%(3/1)
-%
-%(2/1)
-%
-%(5/1)\strut
-%\end{minipage}\tabularnewline
-%\begin{minipage}[t]{0.30\columnwidth}\raggedright
-%\includegraphics[width=1.9375in,height=1.93056in]{media/image14.png}\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%(1/1)
-%
-%(2/2)\strut
-%\end{minipage}\tabularnewline
-%\begin{minipage}[t]{0.30\columnwidth}\raggedright
-%\includegraphics[width=1.9375in,height=1.93056in]{media/image15.png}\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%Das Ziel Wurde Gefunden und die Suche kann beendet werden. Folgen vom
-%Ziel zum Start und gib den Lösungsweg aus.\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%(0/1)
-%
-%(1/0)
-%
-%(1/2)
-%
-%(2/3)\strut
-%\end{minipage}\tabularnewline
-%\includegraphics[width=1.9375in,height=1.93056in]{media/image11.png} &
-%Lösung & -\tabularnewline
-%\bottomrule
-%\end{longtable}
-%
-%\textbf{Vor- und Nachteile der einzelnen Pathfinder}
-%
-%Anhand der Beispiele am gleichen Raster sieht man sehr gut, dass alle
-%drei Pathfinder den gleichen Weg finden durch unterschiedliche Methoden.
-%
-%Der A-Star führt viele Heuristik Berechnungen durch, da er von jedem
-%Knoten die Distanz zum Ziel speichern möchte. Dies erfordert mehr
-%Rechenleistung beziehungsweise mehr Operationen als die beiden anderen.
-%Bei Komplexeren Raste wird er jedoch immer den besseren Weg finden.
-%
-%Der BestFirstFinder untersucht nur den zuerst gefunden besten Weg und
-%sucht daher zuerst in der tiefe. Er braucht weniger Rechenleistung als
-%der A-Star, kann aber mühe bekommen, falls der erst gesuchte Weg in eine
-%Sackgasse führt. In diesem Beispiel musste er weniger Knoten anschauen
-%als der A-Star, obwohl er die gleiche Heuristik benutzt.
-%
-%Der BreadthFirstFinder suche alle ihm am nächsten gelegenen Knoten ab
-%und wird immer auf eine Lösung kommen auf Kosten der ``unnötigen''
-%Knoten die weiter entfernt zum Ziel als seine aktuelle Position. Die
-%Warteliste wird mit jeder neuen Expansion um ein vielfaches grösser und
-%die Expansion Erweiterung wird über die Dauer langsamer.
+\subsection{BreadthFirstFinder}
+
+Der BreadthFirstFinder benutzt keine Heuristik, da er sein Weg über die
+Breitensuche findet. Er Expandiert in jede Richtung gleich schnell und
+bewegt sich nicht wie die anderen zwei Pathfinder in Richtung Ziel. Wenn
+alle Knoten mit der gleichen Distanz zum Start angeschaut sind, beginnt
+er mit der Suche der eins weiter entfernten Knoten. Dieser Pathfinder
+besitzt eine Liste in der er die noch zu bearbeitenden Knoten speichert,
+beginnend mit dem am Start nächsten Knoten.
+\cite[Brilliant.org]{brilliantbfs}
+
+\subsubsection{Funktionsweise}
+
+Beginne beim Startpunkt und Speichere ihn in die Warteliste. Schaue am
+obersten Knoten in der Warteschlange dessen Nachbarn an und prüfe ob
+eines der Ausgewählten Knoten der Zielknoten ist. Ist dies der Fall wird
+die Suche Abgebrochen, da der Weg Gefunden wurde. Falls keiner der
+Knoten der Zielknoten ist, speichere die neuen Knoten in die Warteliste
+an Hinterste Stelle und entferne den Ausgewählten Knoten. Jeder Knote
+der neu gefunden wird zeigt auf den ausgewählten Knoten.
+
+\subsubsection{Beispiel}
+
+Der Startpunkt ist blau und der Zielpunkt grün. Diagonale Verbindungen sind nicht verfügbar.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{ c  p{9cm}   p{2cm}   p{1cm}}
+      \toprule
+      Bild & Ausführung & Liste \\ 
+      \cmidrule(r){1-1}\cmidrule(lr){2-2}\cmidrule(l){3-3}
+      \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image13}}
+      & 
+      \vspace{0.01cm}
+      Schreibe den Startpunkt in die Liste.
+      & 
+      \vspace{0.01cm}
+      $(4/1)$
+     \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image14}}
+      & 
+      \vspace{0.01cm}
+      Schaue alle Nachbarn an und speichere diese in die Liste an hinterste Stelle. Falls keiner der neuen Knoten das Ziel ist, führe suche fort. Jeder neue Graph verweist auf den Vorgänger. Entferne aktuellen ausgewählten Knoten $(4/1)$.
+      & 
+      \vspace{0.01cm}
+      $(3/1)\ \ $
+      $(5/1)\ \ $
+      $(2/1)\ \ $
+     \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image15}}
+      & 
+      \vspace{0.01cm}
+      Schaue alle Nachbarn der zurzeit in der Liste stehenden Knoten und Wiederhole alles vom oben genannte. 
+      & 
+      \vspace{0.01cm}
+      $(3/1)\ \ $
+      $(2/1)\ \ $
+      $(5/1)\ \ $
+     \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image16}}
+      & 
+      \vspace{0.01cm}
+      --
+      & 
+      \vspace{0.01cm}
+      $(1/1)\ \ $
+      $(2/2)\ \ $
+     \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image17}}
+      & 
+      \vspace{0.01cm}
+      Das Ziel Wurde Gefunden und die Suche kann beendet werden. Folgen vom Ziel zum Start und gib den Lösungsweg aus.
+      & 
+      \vspace{0.01cm}
+      $(0/1)\ \ $
+      $(1/0)\ \ $
+      $(1/2)\ \ $
+      $(2/3)\ \ $
+     \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image12}}
+      & 
+      \vspace{0.01cm}
+      Der Weg wurde gefunden.
+      & 
+      \vspace{0.01cm}
+      --
+     \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \end{tabular}
+  \end{center}
+\end{table}
+
+\section{Vor- und Nachteile der einzelnen Pathfinder}
+
+Anhand der Beispiele am gleichen Raster sieht man sehr gut, dass alle
+drei Pathfinder den gleichen Weg finden durch unterschiedliche Methoden.
+
+Der A-Star führt viele Heuristik Berechnungen durch, da er von jedem
+Knoten die Distanz zum Ziel speichern möchte. Dies erfordert mehr
+Rechenleistung beziehungsweise mehr Operationen als die beiden anderen.
+Bei Komplexeren Raste wird er jedoch immer den besseren Weg finden.
+
+Der BestFirstFinder untersucht nur den zuerst gefunden besten Weg und
+sucht daher zuerst in der tiefe. Er braucht weniger Rechenleistung als
+der A-Star, kann aber mühe bekommen, falls der erst gesuchte Weg in eine
+Sackgasse führt. In diesem Beispiel musste er weniger Knoten anschauen
+als der A-Star, obwohl er die gleiche Heuristik benutzt.
+
+Der BreadthFirstFinder suche alle ihm am nächsten gelegenen Knoten ab
+und wird immer auf eine Lösung kommen auf Kosten der ``unnötigen''
+Knoten die weiter entfernt zum Ziel als seine aktuelle Position. Die
+Warteliste wird mit jeder neuen Expansion um ein vielfaches grösser und
+die Expansion Erweiterung wird über die Dauer langsamer.
