@@ -162,15 +162,13 @@ ein früherer gefundener $d$-Wert ist.
 Alle Graphen werden in drei Listen eingetragen:
 
 \begin{itemize}
-\item
-  unbekannte Knoten
+\item Unbekannte Knoten
 \end{itemize}
 
 Bei Starten der Suche sind alle Knoten im Raster in dieser Liste.
 
 \begin{itemize}
-\item
-  bekannte Knoten
+\item Bekannte Knoten
 \end{itemize}
 
 \begin{quote}
@@ -180,8 +178,7 @@ mit kleinstem d Wert ausgewählt, der als nächstes angeschaut wird.
 \end{quote}
 
 \begin{itemize}
-\item
-  untersuchte Knoten
+\item Untersuchte Knoten
 \end{itemize}
 
 \begin{quote}
@@ -203,98 +200,117 @@ nicht verfügbar.
 
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{ c  p{8cm}  p{2cm}   p{2cm} }
+    \begin{tabular}{ c  p{7cm}  p{2cm}   p{2cm} }
       \toprule
       Bild & Ausführung & Bekannte Knoten & Untersuchte Knoten \\ 
       \cmidrule(r){1-1}\cmidrule(lr){2-2}\cmidrule(l){3-3}\cmidrule(l){4-4}
       \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image1}}
       & 
-      Schreibt Startpunkt in Bekannte Liste mit Distanz Wert.
+      \vspace{0.01cm}
+      Schreibt Startpunkt in bekannte Liste mit Distanzwert.
       & 
-      (4/1) d = 4
+      \vspace{0.01cm}
+      $(4/1)\ d = 4$
       & 
+      \vspace{0.01cm}
       --
       \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image2}}
       & 
-      Berechne Distanz Wert aller Nachbarn(Rot markiert) und schreibe diese in die bekannte Knoten-Liste. Verweise auf den Vorgängigen Knoten(Schwarzer Balken).Da (4/1) Alle bekannte Nachbarn hat, wird dieser Knoten in die untersuchten Knoten-Liste verschoben. Der Knopf mit den tiefsten d Wert wird Angeschaut und der Prozess wird wiederholt.
+      \vspace{0.01cm}
+      Berechne Distanzwert aller Nachbaren (rot markiert) und schreibe diese in die bekannte Knoten-Liste. Zeige auf den Vorgängigen Knoten (schwarzer Balken). Da (4/1) alle bekannte Nachbaren hat, wird dieser Knoten in die Knoten-Liste der Untersuchten verschoben. Der Knopf mit den tiefsten $d$-Wert wird Angeschaut und der Prozess wird wiederholt.
       & 
-      (3/1) d = 3
-      (5/1) d = 5
-      (4/2) d = 5
+      \vspace{0.01cm}
+      $(3/1)\ d = 3$
+      $(5/1)\ d = 5$
+      $(4/2)\ d = 5$
       & 
-      (4/1) d = 4
+      \vspace{0.01cm}
+      $(4/1)\ d = 4$
       \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image3}}
       & 
+      \vspace{0.01cm}
       Da der Graph(3/1) Alle bekannten Nachbarn hat, wird dieser Knoten in der untersuchten Knoten-Liste verschoben.
       & 
-      (3/0) d = 2
-      (2/1) d = 2
-      (5/1) d = 5
-      (4/2) d = 5
+      \vspace{0.01cm}
+      $(3/0)\ d = 2$
+      $(2/1)\ d = 2$
+      $(5/1)\ d = 5$
+      $(4/2)\ d = 5$
       & 
-      (3/1) d = 3
-      (4/1) d = 4
+      \vspace{0.01cm}
+      $(3/1)\ d = 3$
+      $(4/1)\ d = 4$
       \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image4}}
       & 
-      Falls Graph(3/0) vor Graph(2/1) angeschaut wird(gleiche d Werte), wird dieser, da er keine gültigen Nachbarn hat, in die untersuchten Knoten-Liste geschrieben.
+      \vspace{0.01cm}
+      Falls Graph $(3/0)$ vor dem Graph $(2/1)$ angeschaut wird (gleiche $d$-Werte), wird dieser, da er keine gültigen Nachbaren hat, in die untersuchten Knoten-Liste geschrieben.
       & 
-      (2/1) d = 2
-      (5/1) d = 5
-      (4/2) d = 5
+      \vspace{0.01cm}
+      $(2/1)\ d = 2$
+      $(5/1)\ d = 5$
+      $(4/2)\ d = 5$
       & 
-      (3/0) d = 2
-      (3/1) d = 3
-      (4/1) d = 4
+      \vspace{0.01cm}
+      $(3/0)\ d = 2$
+      $(3/1)\ d = 3$
+      $(4/1)\ d = 4$
       \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image5}}
       & 
+      \vspace{0.01cm}
       Der Prozess wird weitergeführt. Die Listen werden kontinuierlich aktualisiert.
       & 
-      (1/1) d = 1
-      (2/2) d = 2
-      (3/1) d = 3
-      (5/1) d = 5
-      (4/2) d = 5
+      \vspace{0.01cm}
+      $(1/1)\ d = 1$
+      $(2/2)\ d = 2$
+      $(3/1)\ d = 3$
+      $(5/1)\ d = 5$
+      $(4/2)\ d = 5$
       & 
-      (3/0) d = 2
-      (2/1) d = 2
-      (4/1) d = 4
+      \vspace{0.01cm}
+      $(3/0)\ d = 2$
+      $(2/1)\ d = 2$
+      $(4/1)\ d = 4$
       \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image6}}
       & 
-      Der A-Star hat das Ziel erreicht und muss noch den einzelnen Graphen zurück folgen bis zum Start und kennt somit den Weg.
+      \vspace{0.01cm}
+      Der A* hat das Ziel erreicht und muss noch den einzelnen Graphen zurückfolgen bis zum Start und kennt somit den Weg.
       & 
-      (1/0) d = 0
-      (0/1) d = 2
-      (1/2) d = 2
-      (2/2) d = 2
-      (3/1) d = 3
-      (5/1) d = 5
-      (4/2) d = 5
+      \vspace{0.01cm}
+      $(1/0)\ d = 0$
+      $(0/1)\ d = 2$
+      $(1/2)\ d = 2$
+      $(2/2)\ d = 2$
+      $(3/1)\ d = 3$
+      $(5/1)\ d = 5$
+      $(4/2)\ d = 5$
       & 
-      (1/1) d = 1
-      (3/0) d = 2
-      (2/1) d = 2
-      (4/1) d = 4
+      \vspace{0.01cm}
+      $(1/1)\ d = 1$
+      $(3/0)\ d = 2$
+      $(2/1)\ d = 2$
+      $(4/1)\ d = 4$
       \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \end{tabular}
   \end{center}
 \end{table}
 \begin{table}[H]
   \begin{center}
-    \begin{tabular}{ c  p{8cm}  p{2cm}   p{2cm} }
+    \begin{tabular}{ c  p{7cm}  p{2cm}   p{2cm} }
       \toprule
-      Bild & Ausführung & Bekannte Knoten & Untersuchte Knoten \\ 
-      \cmidrule(r){1-1}\cmidrule(lr){2-2}\cmidrule(l){3-3}\cmidrule(l){4-4}
       \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image7}}
       & 
-      Die Suche ist Beendet
+      \vspace{0.01cm}
+      Die Suche ist Beendet.
       & 
+      \vspace{0.01cm}
       --
       & 
+      \vspace{0.01cm}
       --
       \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \end{tabular}
@@ -302,208 +318,92 @@ nicht verfügbar.
 \end{table}
 
 
-%\begin{longtable}[]{@{}llll@{}}
-%\toprule
-%\endhead
-%\textbf{Bild} & \textbf{Ausführung} & \textbf{bekannte Knoten} &
-%\textbf{untersuchte Knoten}\tabularnewline
-%\includegraphics[width=2.10417in,height=2.09722in]{image1.png} &
-%Schreibt Startpunkt in Bekannte Liste mit Distanz Wert. & $(4,1) d = 4$ &
-%-\tabularnewline
-%\begin{minipage}[t]{2.09722in}\raggedright
-%\includegraphics[width=2.10417in,height=2.09722in]{image2.png}\strut
-%\end{minipage} & \begin{minipage}[t]{2.09722in}\raggedright
-%Berechne Distanz Wert aller Nachbarn(Rot markiert) und schreibe diese in
-%die bekannte Knoten-Liste. Verweise auf den Vorgängigen Knoten(Schwarzer
-%Balken).Da (4/1) Alle bekannte Nachbarn hat, wird dieser Knoten in die
-%untersuchten Knoten-Liste verschoben. Der Knopf mit den tiefsten d Wert
-%wird Angeschaut und der Prozess wird wiederholt.\strut
-%\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-%(3/1) d = 3
-%
-%(5/1) d = 5
-%
-%(4/2) d = 5\strut
-%\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-%(4/1) d = 4\strut
-%\end{minipage}\tabularnewline
-%\begin{minipage}[t]{0.22\columnwidth}\raggedright
-%\includegraphics[width=2.10417in,height=2.09722in]{image3.png}\strut
-%\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-%Da der Graph(3/1) Alle bekannten Nachbarn hat, wird dieser Knoten in der
-%untersuchten Knoten-Liste verschoben.\strut
-%\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-%(3/0) d = 2
-%
-%(2/1) d = 2
-%
-%(5/1) d = 5
-%
-%(4/2) d = 5\strut
-%\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-%(3/1) d = 3
-%
-%(4/1) d = 4\strut
-%\end{minipage}\tabularnewline
-%\begin{minipage}[t]{0.22\columnwidth}\raggedright
-%\includegraphics[width=2.10417in,height=2.09722in]{image4.png}\strut
-%\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-%Falls Graph(3/0) vor Graph(2/1) angeschaut wird(gleiche d Werte), wird
-%dieser, da er keine gültigen Nachbarn hat, in die untersuchten
-%Knoten-Liste geschrieben.\strut
-%\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-%(2/1) d = 2
-%
-%(5/1) d = 5
-%
-%(4/2) d = 5\strut
-%\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-%(3/0) d = 2
-%
-%(3/1) d = 3
-%
-%(4/1) d = 4\strut
-%\end{minipage}\tabularnewline
-%\begin{minipage}[t]{0.22\columnwidth}\raggedright
-%\includegraphics[width=2.10417in,height=2.09722in]{image5.png}\strut
-%\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-%Der Prozess wird weitergeführt. Die Listen werden kontinuierlich
-%aktualisiert.\strut
-%\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-%(1/1) d = 1
-%
-%(2/2) d = 2
-%
-%(3/1) d = 3
-%
-%(5/1) d = 5
-%
-%(4/2) d = 5\strut
-%\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-%(3/0) d = 2
-%
-%(2/1) d = 2
-%
-%(4/1) d = 4\strut
-%\end{minipage}\tabularnewline
-%\begin{minipage}[t]{0.22\columnwidth}\raggedright
-%\includegraphics[width=2.10417in,height=2.09722in]{image6.png}\strut
-%\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-%Der A-Star hat das Ziel erreicht und muss noch den einzelnen Graphen
-%zurück folgen bis zum Start und kennt somit den Weg.\strut
-%\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-%(1/0) d = 0
-%
-%(0/1) d = 2
-%
-%(1/2) d = 2
-%
-%(2/2) d = 2
-%
-%(3/1) d = 3
-%
-%(5/1) d = 5
-%
-%(4/2) d = 5\strut
-%\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-%(1/1) d = 1
-%
-%(3/0) d = 2
-%
-%(2/1) d = 2
-%
-%(4/1) d = 4\strut
-%\end{minipage}\tabularnewline
-%\includegraphics[width=2.10417in,height=2.09722in]{image7.png} &
-%Die Suche ist Beendet. & - & -\tabularnewline
-%\bottomrule
-%\end{longtable}
-%
-%\textbf{BestFirstFinder}
-%
-%Wie der Name schon sagt sucht dieser Pathfind-Algorithmus nach dem
-%erstbesten Weg zum Ziel. Im Vergleich zum A-Star hat dieser bloss eine
-%Liste mit offenen Knoten. Mit der Manhattan Heuristik wird nur der Weg
-%zum tiefsten Distanz wert Graph in diese Liste eingetragen, somit schaut
-%der Bestfirstfinder nicht auf alle nachbarknoten.
-%
-%\textbf{Funktionsweise}
-%
-%Es wird eine Liste für die Offenen Knoten eröffnet und der Startknoten
-%wird eingetragen. Auch hier verweist jeder Knoten auf seinen Vorgänger.
-%Der beste Knoten aus der Liste wird n genannt. Schau die Nachbarn von n
-%an und bewerte diese mit der Heuristik, der beste Wert wird in die Liste
-%eingetragen und der Ablauf wird wiederholt. Kommt ein Knoten, der
-%angeschaut wird, nicht weiter, wird der zweitbeste Graph in der Liste
-%Angeschaut. Es kann einer weiten Liste hinzugefügt werden, die
-%geschlossene Liste, die den Lösungsweg direkt mit Abspeichert und
-%verhindert, dass dieser Algorithmus nicht in einer Endlosschleife endet.
-%
-%{[}https://developer.roblox.com/articles/Best-first-search\#Pseudo\_Code{]}
-%
-%\textbf{Beispiel}
-%
-%Blau ist Startpunkt und Grün Zielpunkt, Diagonale Verbindungen sind
-%nicht verfügbar.
-%
-%\begin{longtable}[]{@{}lll@{}}
-%\toprule
-%\endhead
-%Bild & Ausführung & Liste\tabularnewline
-%\includegraphics[width=1.9375in,height=1.93056in]{media/image1.png} &
-%Schreibe Startpunkt in die Liste. & (4/1) d = 4\tabularnewline
-%\begin{minipage}[t]{0.30\columnwidth}\raggedright
-%\includegraphics[width=1.9375in,height=1.93056in]{media/image8.png}\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%Wähle den besten Nachbar, anhand seiner Distanz Wert d, hier ist es
-%Graph(3/1). Schreibe diesen Wert in die Liste.\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%(3/1) d = 3
-%
-%(4/1) d = 4\strut
-%\end{minipage}\tabularnewline
-%\begin{minipage}[t]{0.30\columnwidth}\raggedright
-%\includegraphics[width=1.9375in,height=1.93056in]{media/image9.png}\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%Wiederhole die Ausführung bis das Ziel erreicht wurde.\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%(2/1) d = 2
-%
-%(3/1) d = 3
-%
-%(4/1) d = 4\strut
-%\end{minipage}\tabularnewline
-%\begin{minipage}[t]{0.30\columnwidth}\raggedright
-%\includegraphics[width=1.9375in,height=1.93056in]{media/image10.png}\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%(1/1) d = 1
-%
-%(2/1) d = 2
-%
-%(3/1) d = 3
-%
-%(4/1) d = 4\strut
-%\end{minipage}\tabularnewline
-%\begin{minipage}[t]{0.30\columnwidth}\raggedright
-%\includegraphics[width=1.9375in,height=1.93056in]{media/image11.png}\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%Der Weg wurde gefunden\strut
-%\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-%(1/0) d = 0
-%
-%(1/1) d = 1
-%
-%(2/1) d = 2
-%
-%(3/1) d = 3
-%
-%(4/1) d = 4\strut
-%\end{minipage}\tabularnewline
-%\bottomrule
-%\end{longtable}
-%
+
+\subsection{BestFirstFinder}
+
+Wie der Name schon sagt sucht dieser Pathfind-Algorithmus nach dem
+erstbesten Weg zum Ziel. Im Vergleich zum A-Star hat dieser bloss eine
+Liste mit offenen Knoten. Mit der Manhattan Heuristik wird nur der Weg
+zum tiefsten Distanz wert Graph in diese Liste eingetragen, somit schaut
+der Bestfirstfinder nicht auf alle nachbarknoten.
+
+\subsubsection{Funktionsweise}
+
+Es wird eine Liste für die Offenen Knoten eröffnet und der Startknoten
+wird eingetragen. Auch hier verweist jeder Knoten auf seinen Vorgänger.
+Der beste Knoten aus der Liste wird n genannt. Schau die Nachbarn von n
+an und bewerte diese mit der Heuristik, der beste Wert wird in die Liste
+eingetragen und der Ablauf wird wiederholt. Kommt ein Knoten, der
+angeschaut wird, nicht weiter, wird der zweitbeste Graph in der Liste
+Angeschaut. Es kann einer weiten Liste hinzugefügt werden, die
+geschlossene Liste, die den Lösungsweg direkt mit Abspeichert und
+verhindert, dass dieser Algorithmus nicht in einer Endlosschleife endet.
+\cite[Roblox Developer, 2018]{robdevbff}
+
+\subsubsection{Beispiel}
+
+Der Startpunkt ist blau und der Zielpunkt grün, wobei diagonale Verbindungen nicht verfügbar sind.
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabular}{ c  p{9cm}   p{2.5cm} }
+      \toprule
+      Bild & Ausführung & Liste \\ 
+      \cmidrule(r){1-1}\cmidrule(lr){2-2}\cmidrule(l){3-3}
+      \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image8}}
+      & 
+      \vspace{0.01cm}
+      Schreibe Startpunkt in die Liste.
+      & 
+      \vspace{0.01cm}
+      $(4/1)\ d = 4$
+      \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image9}}
+      & 
+      \vspace{0.01cm}
+      Wähle den besten Nachbar, anhand seiner Distanz Wert d, hier ist es Graph(3/1). Schreibe diesen Wert in die Liste.
+      & 
+      \vspace{0.01cm}
+      $(3/1)\ d = 3$
+      $(4/1)\ d = 4$
+      \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image10}}
+      & 
+      \vspace{0.01cm}
+      Wiederhole die Ausführung bis das Ziel erreicht wurde.
+      & 
+      \vspace{0.01cm}
+      $(2/1)\ d = 2$
+      $(3/1)\ d = 3$
+      $(4/1)\ d = 4$
+     \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image11}}
+      & 
+      \vspace{0.01cm}
+      --
+      & 
+      \vspace{0.01cm}
+      $(1/1)\ d = 1$
+      $(2/1)\ d = 2$
+      $(3/1)\ d = 3$
+      $(4/1)\ d = 4$
+     \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image12}}
+      & 
+      \vspace{0.01cm}
+      Der Weg wurde gefunden.
+      & 
+      \vspace{0.01cm}
+      $(1/0)\ d = 0$
+      $(1/1)\ d = 1$
+      $(2/1)\ d = 2$
+      $(3/1)\ d = 3$
+      $(4/1)\ d = 4$
+     \\ \bottomrule %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \end{tabular}
+  \end{center}
+\end{table}
+
 %\textbf{BreadthFirstFinder}
 %
 %Der BreadthFirstFinder benutzt keine Heuristik, da er sein Weg über die
