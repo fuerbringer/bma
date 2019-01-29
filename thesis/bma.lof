@@ -37,4 +37,7 @@
 \contentsline {figure}{\numberline {5.22}{\ignorespaces Messresultate der Unterkategorie 31-40 Felder (Tabellenform).}}{46}{figure.5.22}
 \contentsline {figure}{\numberline {5.23}{\ignorespaces Messresultate der Unterkategorie 41-50 Felder (Tabellenform).}}{47}{figure.5.23}
 \contentsline {figure}{\numberline {5.24}{\ignorespaces Durchschnitt der Messresultate (Tabellenform).}}{47}{figure.5.24}
+\contentsline {figure}{\numberline {5.25}{\ignorespaces Sehr grosser Pfadl\IeC {\"a}ngenunterschied des BestFirstFinders.}}{48}{figure.5.25}
+\contentsline {figure}{\numberline {5.26}{\ignorespaces Eine Abbiegung des BestFirstFinders, welche zu einem l\IeC {\"a}ngeren Weg f\IeC {\"u}hrt.}}{49}{figure.5.26}
+\contentsline {figure}{\numberline {5.27}{\ignorespaces Ein Resultat, bei dem jeder Pathfinder eine andere Pfadl\IeC {\"a}nge errechnet hat.}}{50}{figure.5.27}
 \addvspace {10\p@ }

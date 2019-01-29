@@ -1,5 +1,5 @@
-Berufsmaturitätsarbeit (WIP)
-============================
+Berufsmaturitätsarbeit
+======================
 
 [![Build Status](https://travis-ci.org/fuerbringer/bma.svg?branch=master)](https://travis-ci.org/fuerbringer/bma)
 
