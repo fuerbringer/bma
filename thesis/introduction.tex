@@ -1,61 +1,58 @@
 \chapter{Einleitung}
 \section{Fragestellungen und Ziel der Arbeit}
-Algorithmen sind überall in unserem Leben zu finden, selbst dort, wo wir sie nicht erwarten: In der Natur, im Weltraum, oder in der Biologie. Da das Autorenteam dieser Berufsmaturitätsarbeit sehr technisch interessiert ist wird in dieser Arbeit eine bedeutende Klasse der Algorithmen ausgewertet. Das vorgegebene Oberthema ist ``Mobilität''. Aufgrund des gegebenen Thema haben wir uns für die Zweidimensionalen Matrix Pathfinding-Algorithmus entschieden. Einer der bekanntesten Algorithmen in diesem Themenbereich ist der Dijkstra A* (``A-Star'') Algorithmus. Es ist allgemein bekannt, dass er der effizienteste ist. 
+Algorithmen sind überall in unserem Leben zu finden, selbst dort, wo wir sie nicht erwarten: In der Natur, im Weltraum, oder in der Biologie. Da das Autorenteam dieser Berufsmaturitätsarbeit sehr technisch interessiert ist, wird in dieser Arbeit eine bedeutende Klasse der Algorithmen ausgewertet. Das vorgegebene Oberthema ist ``Mobilität''. Aufgrund dessen haben wir uns für die zweidimensionalen Pathfinding-Algorithmen entschieden. Einer der bekanntesten Algorithmen in diesem Themenbereich ist der Dijkstra A* (``A-Star''). Es ist allgemein bekannt, dass er der effizienteste ist. 
 
-Die Merkmale von Algorithmen sind in unserer Zeit extrem wichtig, sie definiert die Vor- und Nachteile von Algorithmen bei ihrer Ausführung. Die Merkmale definiert Aufwand der Rechenleistung, Zeit die benötigt wird für das Ergebnis, Tiefe der Suche nach der besten oder optimalsten Lösung. Intelligente Systeme wie z.B. Künstliche Intelligenz, maschinelles Lernen oder der neuesten Deep-learning Technologie bauen auf der Algorithmentechnologie auf.
-
-
-Durch Vergleiche dreier Pathfinding Algorithmen wollen wir herausfinden, welcher Algorithmus in welchen Situationen am effizientesten ist. Die Drei Algorithmen sind: A*, BestFirst und BreadthFirst. Diese drei wurden vom Autorenteam ausgewählt, da im bereits bestehenden Produkt Unterschiede in der Ausführung und Pfadsuche sichtbar war.
+Die Merkmale der Algorithmen sind in unserer Zeit sehr wichtig, da sie die Vor- und Nachteile von Algorithmen bei ihrer Ausführung definieren. Interessante Merkmale sind dabei Aufwand der Rechenleistung, Zeit die benötigt wird für das Ergebnis und Tiefe der Suche nach der besten oder optimalsten Lösung. Intelligente Systeme wie zum Beispiel künstliche Intelligenz, maschinelles Lernen oder der neuesten Deep-Learning Technologie bauen auf der Algorithmentechnologie auf.
 
 
-Falls einer der drei Algorithmen ein anderen Weg wählt, wollen wir den Grund dieser Entscheidung Herausfinden. Bei einem anderem Weg werden andere Rechenoperationen ausgeführt, es kann sein, dass der beste weg zehnmal mehr Operationen benötigte, um nur wenig effizienter zu sein. Diese Arbeit möchten herausfinden wie das Verhältnis von aufwand zu Effizienz bei den drei Algorithmen ist.
+Durch Vergleiche dreier Pathfinding Algorithmen wollen wir herausfinden, welcher Algorithmus in welchen Situationen am effizientesten ist und somit prüfen, ob der A* darin tatsächlich der Beste ist. Die drei ausgewählten Pathfinding-Algorithmen sind: A*, BestFirst- und BreadthFirstFinder. Diese drei wurden vom Autorenteam ausgewählt, da im bereits bestehenden Produkt unterschiede in der Ausführung und Pfadsuche sichtbar war.
 
 
-Unsere Vermutung hinsichtlich unseren Fragestellungen ist, dass die Algorithmen aus einem Uralgorithmus stammen und so technisch weiterentwickelt wurden und das der Dijkstra A* (``A-Star'') in den meisten Situationen der effizienteste Pathfinding Algorithmus ist. \cite[Andrew Walker, StackOverflow, 2012]{isastarbest}
+Falls einer der drei Algorithmen ein anderen Weg wählt, wollen wir den Grund dieser Entscheidung herausfinden. Bei einem anderem Weg werden andere Rechenoperationen ausgeführt. Es kann sein, dass der beste Weg zehnmal mehr Operationen benötigte, um nur wenig effizienter zu sein. Diese Arbeit möchten herausfinden, wie das Verhältnis von Aufwand zu Effizienz bei den drei Algorithmen ist.
+
+
+Unsere Vermutung hinsichtlich unserer Fragestellung ist, dass die Algorithmen aus einem Uralgorithmus stammen und so technisch weiterentwickelt wurden und das der Dijkstra A* (``A-Star'') in den meisten Situationen der effizienteste Pathfinding-Algorithmus ist. \cite[Andrew Walker, StackOverflow, 2012]{isastarbest}
 
 \section{Vorgehen und Methoden}
 
-Wir möchten erklären, was Pathfinding-Algorithmen sind, was sie definiert
+Wir möchten zunächst erklären, was Pathfinding-Algorithmen sind, was sie definiert
 und wie sie ablaufen. Um dies besser zu visualisieren und die Pathfinder
 zu vergleichen, wird im Rahmen dieser Berufsmaturitätsarbeit ein
-technisches Produkt weiterentwickelt.
+technisches Produkt von einer Basis aufbauend entwickelt.
 
-Das bestehende produkt ist hier zu finden:
-\url{qiao.github.io/PathFinding.js/visual/}\\
+Das bestehende Produkt ist hier zu finden: \url{qiao.github.io/PathFinding.js/visual/}\\
 
 Folgende Features wurden hinzugefügt oder verbessert:
 \begin{itemize}
 \item
   Einführung in die Berufsmaturitätsarbeit
-
   \begin{itemize}
   \item
-    was sind Algorithmen / Pathfinding Algorithmen
+    Was sind Algorithmen und Pathfinding Algorithmen
   \item
-    wozu kann man Algorithmen brauchen
+    Wozu kann man Algorithmen brauchen
   \item
-    was für Arten Pathfinding Algorithmen gibt es auf der Webapplikation
+    Was für Arten Pathfinding Algorithmen gibt es auf der Webapplikation
   \item
     Was ist das Ziel dieser Berufsmaturitätsarbeit
   \end{itemize}
 \end{itemize}
 \begin{itemize}
 \item
-  Benutzerfreundliche einführung in die Webapplikation
+  Benutzerfreundliche Einführung in die Webapplikation
 \item
   Visualisierung der einzelnen Pathfinder
 \item
   Messungen der einzelnen Pathfinder
 \item
-  Verbesserte auswahl der Rastertypen
-
+  Verbesserte Auswahl der Rastertypen
   \begin{itemize}
   \item
-    vorgegebene Raster
+    Vorgegebene Raster
   \item
-    Zufallsgenerierte Rastertypen*
+    Zufallsgenerierte Rastertypen
   \item
-    definierung der Rastergröße
+    Definierung der Rastergröße
   \end{itemize}
 \item
   Vergleich mehreren Pathfinder im gleichen Raster\footnote{Der Pathfinder-Vergleicher ist das Haupfeature unserer Arbeit.}
@@ -63,11 +60,11 @@ Folgende Features wurden hinzugefügt oder verbessert:
   \item
     Visueller Vergleich
   \item
-    Operationen Vergleich
+    Operationenvergleich
   \item
-    Strecken Vergleich
+    Streckenvergleich
   \item
-    Rechenzeit Vergleich
+    Rechenzeitvergleich
   \end{itemize}
 \end{itemize}
 \begin{itemize}
@@ -75,17 +72,17 @@ Folgende Features wurden hinzugefügt oder verbessert:
   Glossar mit Fachwörtern und Erklärungen
 \end{itemize}
 
-Dieses Produkt ist eine Webapplikation, die für jedermann zugänglich ist
+Dieses Produkt ist eine Webapplikation, die für frei zugänglich ist
 und deren Quellcode frei verfügbar ist. Ausschnitte aus dem technischen
-Produkt werden in form von Bildern in dieser Arbeit einfliessen.
+Produkt werden in Form von Bildern in dieser Arbeit einfliessen.
 
 \section{Aufbau der Arbeit}
 
 Im ersten Teil der Arbeit wird der Leser mit den Grundkenntnissen
-vertraut gemacht, dabei geht es um Algorithmen, Graphen und Heuristik.
-Danach werden die einzelnen gewählten Algorithmen erklärt durch
-Funktionsweises und Beispiele. Die einzelnen Vor- und Nachteile der
-ausgewählten Pfadfindern werden erläutert und danach wird die
+vertraut gemacht. Dabei geht es um Algorithmen, Graphen und Heuristik.
+Danach werden die Funktionsweisen der ausgewählten Algorithmen mit Beispielen erklärt. 
+Die einzelnen Vor- und Nachteile der
+ausgewählten Pfadfinder werden ebenfalls erläutert und danach die
 Realisierung des Produktes genauer beschrieben. Zum Schluss folgt ein
-Statistischer Vergleich der drei Pathfindern durch Messresultate aus dem
-erweiterten Produkt.
+statistischer Vergleich der drei Pathfindern durch Messresultate aus dem
+entwickelten Produkt.
