@@ -26,7 +26,7 @@ das Autorenteam deutlicher zu sehen sind.
 \end{longtable}
 
 Man erkennt gut, dass der A-Star und BreadthFirstFinder circa die gleiche
-Felderdistanz finden. Je grösser der Abstand von Start und Ziel, desto grösser ist der Unterschied zwischen dem BestFirtFinder und den anderen zwei.
+Felderdistanz finden. Je grösser der Abstand von Start und Ziel, desto grösser ist der Unterschied zwischen dem BestFirstFinder und den anderen zwei.
 
 \begin{longtable}[]{@{}l@{}}
 \toprule
@@ -41,7 +41,7 @@ die anderen. Der A-Star muss im Verhältnis zum BestFirstFinder immer
 mehr Operationen ausführen. Die Steigung des BreadthFirstFinder senkt
 sich im Laufe der Felderdistanz. Dies kommt daher, dass er am Rand des
 Rasters ist und diese Seite nicht mehr weiter erkunden muss. Die
-Vorteile einer Heuristik wird hier klar verdeutlicht. Der A-Star und
+Vorteile einer Heuristik werden hier somit klar verdeutlicht. Der A-Star und
 BestFirstFinder müssen durch die Wahrscheinlichkeitsberechnung weniger
 Operationen durchführen.
 
@@ -55,7 +55,7 @@ Operationen durchführen.
 Da der BestFirstFinder den erstbesten Weg tiefer durchsucht, ist seine
 Rechenzeit um einiges kürzer als die anderen. Da der
 BreadthFirstFinder am meisten Operationen hat, folgt, dass
-seine Rechenzeit höher als die vom A-Star oder BestFirstFinder ist.
+seine Rechenzeit höher als die vom A-Star und BestFirstFinder ist.
 
 \section{Interpretation Resultate}
 
@@ -67,7 +67,7 @@ Aus den Statistiken kann man folgendes herauslesen:
   wobei der BreadthFirstFinder viel mehr an Operationen aufwenden muss,
   da er über keine Heuristik verfügt.
 \item
-  Hat man begrenzte Zeit, so ist der BestFirstFinder gut geeignet, er
+  Hat man begrenzte Zeit, so ist der BestFirstFinder gut geeignet. Er
   findet nicht den optimalsten Weg, spart dafür in Zeit und Operationen.
 \item
   Je grösser das Raster, desto weniger ist der BreadthFirstFinder
@@ -80,4 +80,4 @@ Aus den Statistiken kann man folgendes herauslesen:
 
 
 \section{Zusammenfassung}
-Es wurde beschrieben und erklärt, was ein Algorithmus und Pathfinding-Algorithmus ist. Es ist geklärt, wozu man Graphen braucht und wie diese in Pathfinding-Algorithmen einfliessen. Durch ein technisches Produkt werden die Unterschiede des A-Star, BestFirstFinde und BreadthFirstFidner in Vergleichen verdeutlicht. Die Realisierung der Webapplikation ist klar beschrieben und dessen Messresultate in statistischen Diagrammen verglichen und erläutert. Durch die Bearbeitung der Fachliteratur kam heraus, dass die benutzten Pathfinding-Algorithmen nicht aus einem Uralgorithmus stammen. Jeder der Algorithmen basiert auf einer Idee, wie das Vorgehen zum Lösen der Aufgabe bearbeitet werden soll. Der BreadthFirstFidner sucht ausschliesslich in der Breite der Graphen, das heisst er schaut sich alle ihm am nächstliegenden Graphen zuerst an. Der BestFirstFindes sucht in der Tiefe nach der Lösung und vernachlässigt potentiell bessere Lösungen, die am Anfang nicht besser aussehen. Der A-Star geht mit intelligenten Listen vor, mit denen er jeden Zyklus dem wahrscheinlich besten Graph als nächstes untersucht. Durch das erweiterte Produkt mit Vergleichsmöglichkeiten des selben Rasters konnten diese Schlüsse durch die Statistiken belegt werden. Interpretiert man die Resultate mit dem vorgegebenen Oberthema, erkennt man die daraus folgenden Erkenntnisse, wie die einzelnen Pathfinding-Algorithmen in ihren Merkmalen funktionieren und wie sie am besten anzuwenden sind. Ein Problem ist, dass diese Algorithmen in einem zweidimensionalen Raum funktionieren, unsere Welt jedoch dreidimensional ist. Hätte man komplexere dreidimensionale Pathfinding-Algorithmen untersucht, wäre der Aufwand zur Erkenntnis bestimmt höher und hätte mehr Einflüsse im Raum. Die Ortsbestimmung über ein GPS ist schwieriger als das berechnen einer Schachfigur auf einem Spielfeld durch Pathfinding-Algorithmen. Mit der Erkenntnis dieser Arbeit kann beispielsweise ein Spieleentwickler besser bestimmen, welchen Pathfinding-Algorithmus er für sein zweidimensionales Spiel wählen soll und warum.
+Es wurde beschrieben und erklärt, was ein Algorithmus und Pathfinding-Algorithmus ist. Es ist geklärt, wozu man Graphen braucht und wie diese in Pathfinding-Algorithmen einfliessen. Durch ein technisches Produkt werden die Unterschiede des A-Star, BestFirstFinde und BreadthFirstFinder in Vergleichen verdeutlicht. Die Realisierung der Webapplikation ist klar beschrieben und dessen Messresultate in statistischen Diagrammen verglichen und erläutert. Durch die Bearbeitung der Fachliteratur kam heraus, dass die benutzten Pathfinding-Algorithmen nicht aus einem Uralgorithmus stammen. Jeder der Algorithmen basiert auf einer Idee, wie das Vorgehen zum Lösen der Aufgabe bearbeitet werden soll. Der BreadthFirstFinder sucht ausschliesslich in der Breite der Graphen, das heisst er schaut sich alle ihm am nächstliegenden Graphen zuerst an. Der BestFirstFinder sucht in der Tiefe nach der Lösung und vernachlässigt potentiell bessere Lösungen, die am Anfang nicht besser aussehen. Der A-Star geht mit intelligenten Listen vor, mit denen er jeden Zyklus den wahrscheinlich besten Graphen als nächstes untersucht. Durch das erweiterte Produkt mit Vergleichsmöglichkeiten des selben Rasters konnten diese Schlüsse durch die Statistiken belegt werden. Interpretiert man die Resultate mit dem vorgegebenen Oberthema, erkennt man die daraus folgenden Erkenntnisse, wie die einzelnen Pathfinding-Algorithmen in ihren Merkmalen funktionieren und wie sie am besten anzuwenden sind. Ein Problem ist, dass diese Algorithmen in einem zweidimensionalen Raum funktionieren, unsere Welt jedoch dreidimensional ist. Hätte man komplexere dreidimensionale Pathfinding-Algorithmen untersucht, wäre der Aufwand zur Erkenntnis bestimmt höher und hätte mehr Einflüsse im Raum. Die Ortsbestimmung über ein GPS ist schwieriger als das berechnen einer Schachfigur auf einem Spielfeld durch Pathfinding-Algorithmen. Mit der Erkenntnis dieser Arbeit kann beispielsweise ein Spieleentwickler besser bestimmen, welchen Pathfinding-Algorithmus er für sein zweidimensionales Spiel wählen soll und warum.

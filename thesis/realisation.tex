@@ -3,15 +3,15 @@ Dieser Abschnitt soll dazu verhelfen, die technischen Entscheidungen und Schritt
 \section{Konzept}
 Die Konzipierung dieser Webapplikation verlangte einige technische und gestalterische Entscheidungen. 
 Einerseits musste die Programmiersprache und Struktur der Applikation geplant werden und andererseits auch das eigentliche Aussehen der Benutzeroberfläche der Webapplikation. 
-Auf diese zwei wesentlichen Aspekte wird in diesem Abschnitt eingegangen.
+Auf diese zwei wesentlichen Aspekte wird in diesem Kapitel eingegangen.
 \subsection{Pathfinding.js}
 Eine korrekte Implementation der ausgewählten Pathfinder sind Voraussetzung für das Projekt. 
-Daher wurde, um diese Voraussetzung zu erfüllen, die frei verfügbare Implementation PathFinding.js \cite{pfjs} verschiedener Pathfinder ausgewählt.
+Daher wurde, um diese Voraussetzung zu erfüllen, die frei verfügbare Implementation PathFinding.js\cite{pfjs} verschiedener Pathfinder ausgewählt.
 \subsection{Programmierwerkzeuge}
 Die vorhandenen Fachkenntnisse und Erfahrungen schlugen für die Implementierung entweder PHP oder JavaScript als mögliche Programmiersprachen vor. 
-Zum Entscheid massgebend war, dass die Programmbibliothek PathFinding.js \cite{pfjs}, welche in unserer Arbeit eine wichtige Rolle spielt, in JavaScript implementiert wurde. 
-Durch den Einsatz von JavaScript im Front-End und im Back-End, wäre es möglich die Pathfinder Berechnungen beliebig auf dem Rechner des Nutzers und auch auf dem Rechner des Servers auszuführen. Aus diesen Gründen wurde für das Front- und Back-End JavaScript ausgewählt.
-Folgend werden die wichtigsten Technologien unserer Webapplikation aufgelistet\footnote{Eine komplette Auflistung inklusive der abhängenden Programmbibliotheken macht wenig Sinn, vor allem da unser Quellcode frei ersichtlich ist.}.
+Zum Entscheid massgebend war, dass die Programmbibliothek PathFinding.js \cite{pfjs}, welche in unserer Arbeit eine wichtige Rolle spielt, in JavaScript implementiert wurde. Zudem ergab eine Recherche keine komplette Referenzimplementation der Pathfinder für PHP.
+Durch den Einsatz von JavaScript im Front-End und im Back-End, wäre es möglich die Berechnungen beliebig auf dem Rechner des Nutzers oder auch auf dem Rechner des Servers auszuführen. Aus diesen Gründen wurde für das Front- und Back-End JavaScript ausgewählt.
+Folgend werden die wichtigsten Technologien der Arbeit aufgelistet\footnote{Eine komplette Auflistung inklusive der abhängenden Programmbibliotheken macht wenig Sinn, vor allem da unser Quellcode frei ersichtlich ist.}.
 
 \begin{description}
   \item [Programmiersprache] JavaScript mit Einbindung von PathFinding.js \cite{pfjs}
@@ -26,7 +26,7 @@ Umsomehr ist dies von Bedeutung, da die Webapplikation frei zugänglich ist und 
 Aus diesem Grund wurde unsere Webapplikation für den Nutzer einführend gestaltet. 
 Das heisst, dass der Benutzer beim Aufruf der Webapplikation zunächst auf einer Willkommensseite landet, die ihn wiederum zu einer Einführung in das Thema und Ziel der Arbeit führt. 
 Nach der Einführung kann der Benutzer in der Visualisierung mit einzelnen Pathfindern erste Erfahrungen machen. 
-Im Abschluss kommt der Benutzer zum Hauptteil der Arbeit, dem Pathfinding-Vergleicher. 
+Im Abschluss kommt der Benutzer zum Hauptteil der Arbeit, dem Pathfinder-Vergleicher. 
 Ziel dieser Struktur ist, dass jede Person wenigstens einen Einblick in die Welt der Pathfinding-Algorithmen erhält und über das nötige Wissen verfügt, das Ziel des Pathfinding-Vergleichers zu verstehen.
 \begin{figure}[H]
   \centering
@@ -38,7 +38,7 @@ Ziel dieser Struktur ist, dass jede Person wenigstens einen Einblick in die Welt
 \clearpage
 
 \subsubsection{Einführungs- und Willkommensseite}
-Die Einführungsseite erklärt dem Benutzer was Algorithmen sind und führt ihn anschliessend mit einfachen Beispielen in das Thema der Pathfinder ein. Zuletzt werden die Ziele der Arbeit aufgelistet.
+Die Einführungsseite erklärt dem Benutzer kurz was Algorithmen sind und führt ihn anschliessend mit einfachen Beispielen in das Thema der Pathfinder ein. Zuletzt werden die Ziele der Arbeit aufgelistet.
 \begin{figure}[H]
   \centering
   \includegraphics[width=16cm]{einfuehrung1}
@@ -60,7 +60,7 @@ Nach der Einführung erhält der Benutzer die Möglichkeit mit einzelnen Pathfin
 \clearpage
 
 \subsubsection{Vergleich der Pathfinder}
-Als Herzstück der Arbeit ermöglicht der Pathfinder-Vergleicher dem Nutzer die in unserer Arbeit ausgewählten Pathfinder zu vergleichen. Hier werden, gleich wie beim Visualisierer, zuerst vom Benutzer die Parameter gewählt. Die parallel ausgeführten Resultate mit Informationen über die Rechenzeit, zurückgelegten Weg und Operationen, sind dann interaktiv anwählbar. Gleichzeitig wird auch unter ``Resultate'' unten links das Total aller Vergleiche akkumuliert, damit ein Gesamteindruck verschaffen werden kann. Die Resultate dieser Seite dienen im Statistikteil als Datenquelle.
+Als Herzstück der Arbeit ermöglicht der Pathfinder-Vergleicher dem Nutzer die in unserer Arbeit ausgewählten Pathfinder zu vergleichen. Hier werden, gleich wie beim Visualisierer, zuerst vom Benutzer die Parameter gewählt. Die parallel ausgeführten Resultate mit Informationen über die Rechenzeit, zurückgelegten Weg und Operationen, sind dann interaktiv anwählbar. Gleichzeitig wird auch unter ``Resultate'' unten links das Total aller Vergleiche akkumuliert, damit ein Gesamteindruck verschafft werden kann. Die Resultate dieser Seite dienen im Statistikteil als Datenquelle.
 
 \begin{figure}[H]
   \centering
@@ -73,7 +73,7 @@ Als Herzstück der Arbeit ermöglicht der Pathfinder-Vergleicher dem Nutzer die 
 Vor allem für die statistischen Auswertungen ist es von Bedeutung zu wissen, wie der Vergleicher zu den Resultaten kommt und die Berechnungen durchführt. Um an die statistischen Merkmale zu gelangen, musste je nach Merkmal die Webapplikation oder PathFinding.js erweitert werden.
 
 \subsection{Raster}
-Pathfinder benötigen einen Raum, um ihre Arbeit zu verrichten. Folglich wird erläutert, wie diese Räume im Quellcode der Arbeit implementiert wurden.
+Pathfinder benötigen einen Raum, um ihre Arbeit zu verrichten. Folglich wird erläutert, wie diese Räume im Quellcode der Arbeit implementiert wurden. Das Vorwissen vom \autoref{chap:was-ist-ein-pathfinding-algorithmus} ff. ist hier von Nutzen.
 Die Implementation der Pathfinding-Algorithmen von PathFinding.js erwartet als Raum eine Liste mit beispielsweise $8\times8$ Zellen: \\
 \begin{center}
 $[(0,0),(1,0),(2,0),(3,0),(4,0),(5,0),(6,0),(7,0)]$\\
@@ -85,11 +85,11 @@ $[(0,5),(1,5),(2,5),(3,5),(4,5),(5,5),(6,5),(7,5)]$\\
 $[(0,6),(1,6),(2,6),(3,6),(4,6),(5,6),(6,6),(7,6)]$\\
 $[(0,7),(1,7),(2,7),(3,7),(4,7),(5,7),(6,7),(7,7)]$
 \end{center}
-Zu beachten ist, dass die obige Liste pro Element (Zelle) lediglich die Koordinate $(x,y)$ als Eigenschaft aufweist. Weitere Eigenschaften pro Zelle, wie die Wandeigenschaft, werden in späteren Abschnitten erwähnt.
+Zu beachten ist, dass die obige Liste pro Element (Zelle) lediglich die Koordinate $(x,y)$ als Eigenschaft aufweist. Weitere Eigenschaften pro Zelle, wie die Wandeigenschaft oder Hintergrundfarbe, werden in späteren Abschnitten erwähnt.
 Diese Art von Raster ist bei der Darstellung von Pixelmatrizen und sonstigen computergrafikorientierten Anwendungen üblich. 
 Man kann sich diese Anordnung auch als den vierten Quadranten eines kartesischen Koordinatensystems vorstellen, dessen $y$-Koordinate ihren Absolutwert annimmt. 
 Des Weiteren gilt $x \in \mathbb{N}$ und $y \in \mathbb{N}$. 
-Daraus folgt, dass Zwischenschritte nicht möglich sind, beispielsweise das Ziel nicht die Koordinate $(\frac{1}{2},\frac{42}{11})$ annehmen kann. Ein weiteres Beispiel dafür wären die Pixel eines gewöhnlichen Monitors, denn einen Bruchteil eines Pixels anzusteuern ist ebenfalls nicht möglich.
+Daraus folgt, dass Zwischenschritte nicht möglich sind, beispielsweise das Ziel nicht die Koordinate $(\frac{1}{2},\frac{42}{11})$ annehmen kann. Ein Beispiel dafür wären die Pixel eines gewöhnlichen Monitors, denn einen Bruchteil eines Pixels anzusteuern ist nicht möglich.
 Benötigt man eine derartige Präzision, erhöht man dazu am besten die Auflösung des Raums. Es folgt eine Abbildung eines zweidimensionalen leeren Raumes der oben gegebenen Liste.
 \begin{figure}[H]
   \centering
@@ -100,7 +100,7 @@ Benötigt man eine derartige Präzision, erhöht man dazu am besten die Auflösu
 
 \subsubsection{Generierung der Wände und Gänge}
 Damit die Eigenschaften der Pathfinder besser zum Vorschein kommen, sie also nicht nur im leeren Raum ausgeführt werden, wurde im nächsten Schritt für den Rastergenerator die Logik zum Verstreuen von Wänden implementiert. 
-Die Rastermatrix erhält dann pro Zelle die Eigenschaft, ob sie vom Pathfinder passierbar ist oder nicht. 
+Die Rastermatrix erhält dann pro Zelle die Eigenschaft, ob sie vom Pathfinder passierbar ist oder nicht, visualisiert mittels einer Hintergrundfarbe. 
 Die Programmbibliothek PathFinding.js versteht diese Logik genauso, indem man zu einer gegebenen Koordinate definiert, ob sie eine Wand ist. 
 Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benutzte Routine\footnote{Die genaue Codestelle in der Webapplikation ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/maze.js\#L8}}, um Raster mit Wänden zu füllen.
 \begin{algorithmic}[1]
@@ -117,7 +117,7 @@ Der folgende prozedurale Pseudocode definiert die in unserer Webapplikation benu
   \State \textbf{return} $raster$
   \EndProcedure
 \end{algorithmic}
-Vom Frequenzparameter $freq$ hängt schlussendlich ab, wie oft Wände im Raster vorkommen. Er kann frei gewählt werden. Nähert sich der Wert $freq$ jedoch $1$ mit $freq > 1$, erhöht sich auch die Anzahl unlösbarer Raster, da immer weniger mögliche Wege zwischen den verbliebenen Zellen besteht.
+Vom Frequenzparameter $freq$ hängt schlussendlich ab, wie oft Wände im Raster vorkommen. Er kann frei gewählt werden. Nähert sich der Wert $freq$ jedoch $1$ mit $freq > 1$, erhöht sich auch die Anzahl unlösbarer Raster, da immer weniger mögliche Wege zwischen den verbliebenen Zellen (Korridoren) besteht.
 Wendet man den Wandgenerator in unserem Raster der Abbildung \ref{fig:grid1} an, so erhält man ein Raster mit Wänden.
 \begin{figure}[H]
   \centering
@@ -224,7 +224,7 @@ Ein Algorithmus, der für das gleiche Resultat weniger Schritte (Operationen) t�
 \item{src/finders/AStarFinder.js}
 \item{src/finders/BreadthFirstFinder.js}
 \end{itemize}
-Zu beachten ist, dass die Datei des BestFirstFinders nicht angepasst werden musste, da dieser auf dem A*-Finder basiert und somit alle Änderungen vom A*-Finder vererbt.
+Zu beachten ist, dass die Datei des BestFirstFinders nicht angepasst werden musste, da dieser im Quellcode auf dem A*-Finder basiert und somit alle Änderungen vom A*-Finder vererbt.
 \subsubsection{Rechenzeit}
 Ein bedeutendes Merkmal ist die Rechenzeit, also die Zeit, in der der Pathfinder seine Arbeit verrichtet hat. 
 Um diese zu berechnen, wird unmittelbar vor der Ausführung der Wegfindungsroutine des Pathfinders der Zeitstempel $t_0$ der jetzigen Zeit zwischengespeichert und danach vom Pathfinder die Arbeit verrichtet. 
@@ -232,7 +232,7 @@ Direkt nach dem Beenden der Wegfindung wird ein zweites Mal ein Zeitstempel $t_1
 \begin{equation*}
   t = t_1 - t_0
 \end{equation*}
-Die Werte $t$ sind pro Pathfinder in der Webapplikation unter ``Messung für diesen Einzelversuch:'' unter dem Raster ersichtlich. Diese Berechnung demnach pro Durchlauf dreimal getätigt.
+Die Werte $t$ sind pro Pathfinder in der Webapplikation unter ``Messung für diesen Einzelversuch:'' unter dem Raster ersichtlich. Diese Berechnung wird demnach pro Durchlauf dreimal getätigt (für die drei ausgewählten Pathfinder).
 \\\\
 Aus diesen drei Merkmalen folgen zusammengefasst die in unserer Webapplikation vermessenen Werte der Pathfinding-Algorithmen.
 \begin{figure}[H]
