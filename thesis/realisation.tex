@@ -132,6 +132,7 @@ Wendet man den Wandgenerator in unserem Raster der Abbildung \ref{fig:grid1} an,
 Wir sehen also, dass mit dem Frequenzparameter $freq$ die Häufigkeit der unpassierbaren Wände geändert werden kann. In unserer Webapplikation haben wir für den Frequenzparameter $freq = 4$ ausgewählt, da dieser Wert ein gutes Gleichgewicht zwischen nicht zu viel unlösbaren Rastern und genügend Wänden ergibt.
 \subsubsection{Generierung des Start-und Endpunkts}
 Wählt man zwei zufällige passierbare Zellen als Start- und Endpunkt aus, erhält man ein Raster, mit dem man Pathfinding-Algorithmen anwenden kann. In unserer Webapplikation werden diese zwei Zellen farbig differenziert. Programmatikalisch handelt es sich um Zellen, die Wände sind und in Ziel- resp. Endpünkte umgewandelt werden. Die folgenden zwei Routinen\footnote{Die genaue Codestelle in der Webapplikation ist hier ersichtlich: \url{https://github.com/fuerbringer/bma/blob/master/src/maze.js\#L27}} wählen in einem gegebenen Raster einen Start- und einen Endpunkt aus.
+\clearpage
 \algblock[Name]{Let}{In}
 \algblockdefx[NAME]{LET}{IN}%
 [2][Unknown]{Let #1(#2)}%

@@ -2,15 +2,15 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Zwei einfache Graphen $G_1$ und $G_2$ mit Ecken und Kanten. Quelle: Benny Sudakov, \textit {Graph Theory}, 2016, ETH Z\IeC {\"u}rich.}}{7}{figure.2.1}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Struktur der Webapplikation.}}{17}{figure.3.1}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Konzept der Einf\IeC {\"u}hrungsseite.}}{18}{figure.3.2}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Benutzeroberfl\IeC {\"a}chenkonzept des Pathfinding-Visualisierers.}}{19}{figure.3.3}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Benutzeroberfl\IeC {\"a}chenkonzept des Pathfinder-Vergleichers.}}{20}{figure.3.4}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Ein von unserer Webapplikation generiertes $8\times 8$ Raster.}}{22}{figure.3.5}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Raster mit Frequenzparametern $freq = 2$, $freq = 4$ und $freq = 16$ im Wandgenerator.}}{23}{figure.3.6}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Struktur der Webapplikation.}}{16}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Konzept der Einf\IeC {\"u}hrungsseite.}}{17}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Benutzeroberfl\IeC {\"a}chenkonzept des Pathfinding-Visualisierers.}}{18}{figure.3.3}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Benutzeroberfl\IeC {\"a}chenkonzept des Pathfinder-Vergleichers.}}{19}{figure.3.4}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Ein von unserer Webapplikation generiertes $8\times 8$ Raster.}}{21}{figure.3.5}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Raster mit Frequenzparametern $freq = 2$, $freq = 4$ und $freq = 16$ im Wandgenerator.}}{22}{figure.3.6}
 \contentsline {figure}{\numberline {3.7}{\ignorespaces Ein von unserer Webapplikation generiertes $8\times 8$ Raster mit W\IeC {\"a}nden und markierten Start- und Endpunkten.}}{24}{figure.3.7}
 \contentsline {figure}{\numberline {3.8}{\ignorespaces Ein von unserer Webapplikation generiertes $8\times 8$ Raster mit W\IeC {\"a}nden und gel\IeC {\"o}stem Weg.}}{25}{figure.3.8}
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Ausschnitt aus dem Pathfinding-Vergleicher f\IeC {\"u}r einzelne Vergleiche.}}{27}{figure.3.9}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Ausschnitt aus dem Pathfinding-Vergleicher f\IeC {\"u}r einzelne Vergleiche.}}{26}{figure.3.9}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Ein vollst\IeC {\"a}ndiger Screenshot der Willkommensseite.}}{32}{figure.5.1}
