@@ -8,8 +8,8 @@ Ein Algorithmus beschreibt eine abstrakte Form eines Aufgabenlösungswegs.
 Er besteht aus klaren Handlungsvorschriften, die in Form einer Kette
 oder Reihe in Einzelschritten abgearbeitet werden, um ein Problem
 zu lösen. Ein Algorithmus kann den Satzaufbau einer Sprache
-vorschreiben (Subjekt, Verb, Objekt) oder die Herstellung eines Gerichts
-in der Küche als Kochrezept. Es wird immer eine bestimmte Eingabe in
+(Subjekt, Verb, Objekt) oder die Herstellung eines Gerichts
+in der Küche als Kochrezept vorschreiben. Es wird immer eine bestimmte Eingabe in
 eine bestimmte Ausgabe verarbeitet. Das Ergebnis ist dabei immer das
 Gleiche, ähnlich wie bei einer Funktion in der Mathematik.
 
@@ -22,7 +22,7 @@ Mathematik, Datenanalyse oder auch im Bewusstsein der Menschen.
 \subsection{Was ist ein Pathfinding-Algorithmus}
 
 Die Pathfinding-Algorithmen sind eine Unterklasse der Algorithmen, sie
-spezialisieren sich auf die suche des optimalsten Wegs von einem Punkt $A$
+spezialisieren sich auf die Suche des optimalsten Wegs von einem Punkt $A$
 zu einem anderen Punkt $B$ in einem Raum. Der Raum oder die Matrix kann hierbei
 zweidimensional oder dreidimensional sein, in dieser Arbeit befassen wir
 uns nur mit den Pathfinding-Algorithmen im zweidimensionalen Raum.
@@ -55,16 +55,16 @@ ab, da es eventuell sinnvollere Wege zum Ziel gibt.
   festhalten.
 \end{itemize}
 
-Man beachte, dass egal welcher Weg ausgewählt wurde, dieser immer Vor-
+Man beachte, dass egal welcher Weg berechnet wurde, dessen Prozess immer Vor-
 und Nachteile aufweist. Dies kann man sich unter einem Kuchendiagramm vorstellen.
 Es gibt drei Stücke: Zeitoptimierung, Kostenoptimierung und
 Wegoptimierung. Egal für welches Stück bevorzugend man den Kuchen
-unterteilt, die anderen werden darunter ``leiden''.
+unterteilt, werden die anderen darunter ``leiden''.
 \cite[Wikipedia, 2018]{wikipath}
 
 \section{Einführung der Graphen}
 
-Pathfinding-Algorithmus ``sehen'' keine Wände oder Start- und
+Pathfinding-Algorithmen ``sehen'' keine Wände oder Start- und
 Endpunkte. Sie verarbeiten lediglich eingegebene Daten in ausgehende
 Daten (Input und Output). In unserer Webapplikation vereinfachen die
 Pathfinding-Algorithmen die Darstellung des Raumes in nicht-negative
@@ -73,12 +73,13 @@ werden, dass die Pathfinding Algorithmen komplett unabhängig von der
 visuellen Darstellung des Raumes arbeiten.
 \cite[Andreas Hofmann, 2013]{pfbsc}
 
-\subsection{Was ist ein Graph: Graphentheorie und Pathfinder}
+\subsection{Was ist ein Graph}
+\subsubsection{Graphentheorie und Pathfinder}
 
 Ein Graph ist eine mathematische Struktur zur Darstellung abstrakter
 Beziehungsstrukturen und besteht aus zwei Elementen: Ecken/Knoten (engl.
 vertices) und Kanten (englisch edges). Jede Kante verbindet exakt zwei
-Ecken, es können aber mehrere Kanten auf eine Ecke verweisen. Jeder
+Ecken. Es können aber mehrere Kanten auf eine Ecke verweisen. Jeder
 angeschaute Knoten vom Algorithmus muss über mindesten eine Verbindung
 erreichbar sein.
 
@@ -91,8 +92,8 @@ erreichbar sein.
 
 Die Knoten stellen bei unserer Anwendung die $x$- und $y$-Koordinaten des Raums
 dar und die Kanten die Verbindungen der einzelnen Felder. Somit hat ein
-Knoten bei Ausführung des bestimmten Algorithmus 4 Kanten. Wenn dem
-Pathfinder die Diagonale zugelassen werden, gelten für die Knoten 8
+Knoten bei der Ausführung des bestimmten Algorithmus 4 Kanten. Wenn dem
+Pathfinder die Diagonalen zugelassen werden, gelten für die Knoten 8
 Kanten.
 \cite[Franz Embacher, 2003]{uniwiengraphen}
 
@@ -113,8 +114,8 @@ vorstellen. Es beginnt am Startpunkt und sucht Graph um Graph nach dem Ziel.
 In jedem Graph wird gespeichert von wo und wessen Nachbargraph man kam und
 wie weit man vom Startpunkt entfernt ist. Findet man den gleichen Graph
 ein zweites mal, durch einen anderen Weg, wird der schnellere Weg zum
-start in den Graph geschrieben. Findet die Struktur das Ziel, so
-verweist jeder Vorgehende Graph auf den Graph davor. Diese Graphenkette zeigt dann vom Ziel zum Start.
+Start in den Graph geschrieben. Findet die Struktur das Ziel, so
+verweist jeder vorgehende Graph auf den Graph davor. Diese Graphenkette zeigt dann vom Ziel zum Start.
 \cite[Vinther, Vinther, 2015, S. 22]{pftwodim}
 
 %4.3 \#\#\#genauer nachkontrollieren\#\#\#\#\#\#
@@ -123,21 +124,21 @@ verweist jeder Vorgehende Graph auf den Graph davor. Diese Graphenkette zeigt da
 
 Im Allgemeinen können Algorithmen auf eine Heuristik zugreifen, um
 optimierter nach einem Weg zu suchen. Der Begriff ``Heuristik'' bedeutet
-mit begrenztem Wissen oder unvollständiger Informationen die optimale
+mit begrenztem Wissen oder unvollständigen Informationen die optimale
 Lösung im Vorhinein zu schätzen. Anders gesagt teilt die Heuristik dem
-Algorithmus mit, welcher Graphen am wahrscheinlichsten zum Zielpunkt führt.
+Algorithmus mit, welcher Graph am wahrscheinlichsten zum Zielpunkt führt.
 
 Bei den ausgewählten Pathfinding-Algorithmen beim Vergleich benutzt der A* und
-BestFirstFinder die Manhattan Heuristik und der BreadthFirstFinder
+BestFirstFinder die Manhattan-Heuristik und der BreadthFirstFinder
 keine. Der BreadthFirstFinder benutzt in seiner Standardkonfiguration nie eine
-Heuristik. Die Manhattan Heuristik, auch Cityblock-Metrik, wurde
+Heuristik. Die Manhattan-Heuristik, auch Cityblock-Metrik genannt, wurde
 ausgewählt, da das Raster dieser Berufsmaturitätsarbeit einem Schachbrett
 ähnelt, mit immer dem gleichen Abstand zwischen den Feldern.\\
 Die Manhattan-Heuristik wird folgend für alle Punkte im Raster definiert:
 \begin{equation*}
 d\big((x_1,y_1),(x_2,y_2)\big) = |x_1 - x_{2}| + |y_{1} - y_{2}|
 \end{equation*}
-Die Distanz $d$ ist gleich der Länge aller Wege, die $P_1$ und $P_2$ entlang der horizontalen und vertikaler Linie verbindet. $P_2$ ist bei dieser Arbeit immer der Zielpunkt und $P_1$ der
+Die Distanz $d$ ist gleich der Länge aller Wege, die $P_1$ und $P_2$ entlang der horizontalen und vertikalen Linie verbindet. Der Punkt $P_2$ ist bei dieser Arbeit immer der Zielpunkt und $P_1$ der
 aktuelle Standpunkt im Raster. \cite[Patel, 2019]{heuristicsredblob}
 
 \section{Auswahl der Pathfinding-Algorithmen}
@@ -150,14 +151,14 @@ Wege im gleichen vorgegebenen Raster ergeben haben.
 
 Der A*-Algorithmus, gesprochen ``A Star'', untersucht mithilfe einer
 Heuristik immer den wahrscheinlich nächsten Knoten im Raster, der zum
-Ziel führt. Jedem Nachbarknoten wird zuerst einen Wert $d$ zugeordnet, der
+Ziel führt. Jedem Nachbarknoten wird zuerst ein Wert $d$ zugeordnet, der
 angibt, wie lange der Weg geschätzt von diesem Knoten zum Ziel führt. Der Wert $d$
 wird mit der Manhattan-Heuristik ausgerechnet. Jeder Graph mit einem $d$-Wert 
 wird in eine Liste eingetragen. Der A-Star rechnet immer die neuen
 Nachbarn des Graphen mit dem kleinsten $d$-Wert aus. Dadurch kann es
-vorkommen, das nach langer Suche der A-Star plötzlich wieder einige
+vorkommen, dass nach langer Suche der A-Star plötzlich wieder einige
 Graphen zurückspringen muss, da die neu berechneten $d$-Werte grösser als
-ein früherer gefundener $d$-Wert ist.
+ein früher gefundener $d$-Wert ist.
 \cite[Schmidt, Fuchs]{asterngeo}
 
 \subsubsection{Funktionsweise}
@@ -177,7 +178,7 @@ Beim Start der Suche sind alle Knoten im Raster in dieser Liste.
 \begin{quote}
 Wurde einem Knoten der $d$-Wert der Heuristik zugeteilt, wird er in diese
 Liste mit dem $d$-Wert eingetragen. Aus dieser Liste wird immer der Knoten
-mit dem kleinstem $d$-Wert ausgewählt, der als nächstes angeschaut wird.
+mit dem kleinsten $d$-Wert ausgewählt, der als nächstes angeschaut wird.
 \end{quote}
 
 \begin{itemize}
@@ -185,7 +186,7 @@ mit dem kleinstem $d$-Wert ausgewählt, der als nächstes angeschaut wird.
 \end{itemize}
 
 \begin{quote}
-Zu diesem Knoten wurde der kleinste Weg herausgefunden, das heisst alle
+Zu diesem Knoten wurde der kleinste Weg herausgefunden. Das heisst alle
 Nachbarknoten sind in der Liste mit bekannten Knoten.
 \end{quote}
 
@@ -207,7 +208,7 @@ Der Startpunkt ist blau und der Zielpunkt grün, wobei diagonale Verbindungen ni
       \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image1}}
       & 
       \vspace{0.01cm}
-      Schreibt Startpunkt in bekannte Liste mit Distanzwert.
+      Schreibe den Startpunkt in die bekannte Liste mit dem Distanzwert.
       & 
       \vspace{0.01cm}
       $(4/1)\ d = 4$
@@ -218,7 +219,7 @@ Der Startpunkt ist blau und der Zielpunkt grün, wobei diagonale Verbindungen ni
       \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image2}}
       & 
       \vspace{0.01cm}
-      Berechne Distanzwert aller Nachbarn (rot markiert) und schreibe diese in die bekannte Knoten-Liste. Zeige auf den Vorgängigen Knoten (schwarzer Balken). Da $(4/1)$ alle bekannte Nachbarn hat, wird dieser Knoten in die Knoten-Liste der Untersuchten verschoben. Der Knopf mit den tiefsten $d$-Wert wird Angeschaut und der Prozess wird wiederholt.
+      Berechne den Distanzwert aller Nachbarn (rot markiert) und schreibe diese in die bekannte Knoten-Liste. Zeige auf den Vorgängigen Knoten (schwarzer Balken). Da $(4/1)$ alle bekannte Nachbarn hat, wird dieser Knoten in die Knoten-Liste der Untersuchten verschoben. Der Knopf mit dem tiefsten $d$-Wert wird angeschaut und der Prozess wird wiederholt.
       & 
       \vspace{0.01cm}
       $(3/1)\ d = 3$
@@ -305,7 +306,7 @@ Der Startpunkt ist blau und der Zielpunkt grün, wobei diagonale Verbindungen ni
       \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image7}}
       & 
       \vspace{0.01cm}
-      Die Suche ist Beendet.
+      Die Suche ist beendet.
       & 
       \vspace{0.01cm}
       --
@@ -326,11 +327,11 @@ Der Startpunkt ist blau und der Zielpunkt grün, wobei diagonale Verbindungen ni
 %Liste mit offenen Knoten. Mit der Manhattan-Heuristik wird nur der Weg
 %zum tiefsten Distanzwert des Graphen in diese Liste eingetragen, somit schaut
 %der BestFirstFinder nicht auf alle Nachbarknoten.%%%TODO?
-Mit der Benutztung der Mannhattan-Heuristik untersucht der BestFirstFinder 
-nur den vom angeschautem Graph besten Nachbarsgraph, dies ist der Graph mit dem tiefsten
-Heursitikwert. Jeder beste Graph wird dann in die offene Liste eingetragen und die Suche
+Mit der Benutzung der Manhattan-Heuristik untersucht der BestFirstFinder 
+nur den vom angeschautem Graphen besten Nachbarsgraph. Dies ist der Graph mit dem tiefsten
+Heuristikwert. Jeder beste Graph wird dann in die offene Liste eingetragen und die Suche
 beim nächsten Graphen wiederholt. Falls nun vom früheren Graph ein kleinerer Heursitikwert
-berechnet wurde und der jetztige Graph grössere Heuristikwerte in den neuen Nachbarn finden,
+berechnet wurde und der jetzige Graph grössere Heuristikwerte in den neuen Nachbarn finden,
 geht der BestFirstFinder nicht zurück, ausser er landet in einer Sackgasse.
 
 \subsubsection{Funktionsweise}
