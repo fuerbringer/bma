@@ -344,7 +344,7 @@ eingetragen und der Ablauf wiederholt wird. Kommt ein Knoten, der
 angeschaut wird nicht weiter, wird der zweitbeste Graph in der Liste
 angeschaut. Er kann einer weiteren Liste hinzugefügt werden, der
 geschlossenen Liste, die den Lösungsweg direkt  abspeichert und
-verhindert, dass dieser Algorithmus nicht in einer Endlosschleife endet.
+verhindert, dass dieser Algorithmus in einer Endlosschleife endet.
 \cite[Roblox Developer, 2018]{robdevbff}
 
 \subsubsection{Beispiel}
@@ -360,7 +360,7 @@ Der Startpunkt ist blau und der Zielpunkt grün, wobei diagonale Verbindungen ni
       \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image8}}
       & 
       \vspace{0.01cm}
-      Schreibe Startpunkt in die Liste.
+      Schreibe den Startpunkt in die Liste.
       & 
       \vspace{0.01cm}
       $(4/1)\ d = 4$
@@ -368,7 +368,7 @@ Der Startpunkt ist blau und der Zielpunkt grün, wobei diagonale Verbindungen ni
       \raisebox{-\totalheight}{\includegraphics[width=0.20\textwidth]{image9}}
       & 
       \vspace{0.01cm}
-      Wähle den besten Nachbar, anhand seiner Distanzwert $d$, hier ist es Graph $(3/1)$. Schreibe diesen Wert in die Liste.
+      Wähle den besten Nachbarn anhand seines Distanzwerts $d$, der hier der Graph mit $(3/1)$ ist. Schreibe diesen Wert in die Liste.
       & 
       \vspace{0.01cm}
       $(3/1)\ d = 3$
@@ -418,7 +418,7 @@ Breitensuche findet. Er expandiert in jede Richtung gleich schnell und
 bewegt sich nicht wie die anderen zwei Pathfinder in Richtung Ziel. Wenn
 alle Knoten mit der gleichen Distanz zum Start angeschaut sind, beginnt
 er mit der Suche der um eins weiter entfernten Knoten. Dieser Pathfinder
-besitzt eine Liste in der er die noch zu bearbeitenden Knoten speichert,
+besitzt eine Liste, in der er die noch zu bearbeitenden Knoten speichert,
 beginnend mit dem am Start nächsten Knoten.
 \cite[Brilliant.org]{brilliantbfs}
 
@@ -509,8 +509,8 @@ drei Pathfinder den gleichen Weg durch unterschiedliche Methoden finden.
 
 Der A-Star führt viele Heuristikberechnungen durch, da er von jedem
 Knoten die Distanz zum Ziel speichern möchte. Dies erfordert mehr
-Rechenleistung, beziehungsweise mehr Operationen als die beiden anderen.
-Bei komplexeren Rastern wird er jedoch immer den besseren Weg finden.
+Rechenleistung (Operationen) als die beiden anderen.
+Bei komplexeren Rastern wird er jedoch eher den besseren Weg finden.
 
 Der BestFirstFinder untersucht nur den zuerst gefundenen besten Weg und
 sucht daher zuerst in der Tiefe. Er braucht weniger Rechenleistung als
