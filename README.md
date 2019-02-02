@@ -3,6 +3,8 @@ Berufsmaturitätsarbeit
 
 [![Build Status](https://travis-ci.org/fuerbringer/bma.svg?branch=master)](https://travis-ci.org/fuerbringer/bma)
 
+Arbeit eingereicht: 01. Februar 2019
+
 ## Beschreibung
 
 Demo: [Link](https://bma.fuerbringer.info).
