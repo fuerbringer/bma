@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+function pdf() {
+  pdflatex presentation.tex -halt-on-error
+}
+
+function md() {
+  pandoc presentation.tex --to markdown_github -o README.md
+}
+
+case "$1" in
+  md)
+    md
+    ;;
+  pdf)
+    pdf
+    ;;
+  *)
+esac
