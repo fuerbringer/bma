@@ -5,6 +5,8 @@ Berufsmaturitätsarbeit
 
 Arbeit eingereicht: 01. Februar 2019
 
+Präsentation vorgetragen: 05. März 2019
+
 ## Beschreibung
 
 Demo: [Link](https://bma.fuerbringer.info).
