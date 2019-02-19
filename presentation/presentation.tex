@@ -76,22 +76,25 @@ Architektur, Life Sciences}}
   \frametitle{Einführung}
   \framesubtitle{Was ist ein Algorithmus?}
   \begin{columns}[c] % the "c" option specifies center vertical alignment
-    \column{.5\textwidth} % column designated by a command
+    \begin{column}[T]{.5\textwidth} % column designated by a command
       \begin{itemize}
         \item \textbf{Handlungsplan zur Lösung eines Problems}
-        \item Beispiel: Kochrezept, Lösungsverfahren für lin. oder quad. Gleichungen
+        \item Name abstammend von al-Chwarizmi (geb. 780, lt. Algorismi)
+          % (lt. == latein) 
           % Al-Chwarizmi (Iraner)gilt als einer der bedeutendsten Mathematiker,
           % da er sich mit Algebra als elementarer Untersuchungsform
           % beschäftigte.  Er entwickelte sozusagen Algorithmen zur grafischen
           % lösung von linearen und quadratischen Gleichungen
-        \item Name abstammend von al-Chwarizmi (geb. 780, lt. Algorismi)
+        \item Beispiel: Kochrezept, Lösungsverfahren für lin. oder quad. Gleichungen
         \item Sehr relevant in der Informatik
       \end{itemize}
-    \column{.5\textwidth}
-    \begin{figure}
-      \includegraphics[height=4.5cm]{img/algorismi.png}
-      \caption{Statue von al-Chwarizmi in Iran, Quelle: M. Tomczak, 2013}
-    \end{figure}
+    \end{column}
+    \begin{column}[T]{.5\textwidth}
+      \begin{figure}
+        \includegraphics[height=4.5cm]{img/algorismi.png}
+        \caption{Statue von al-Chwarizmi in Iran, Quelle: M. Tomczak, 2013}
+      \end{figure}
+    \end{column}
   \end{columns}
   % Evtl. hier Interaktion mit Publikum "Was ist euer Algorithmus um sich in
   % einer fremden Stadt zu orientieren?"
@@ -100,18 +103,42 @@ Architektur, Life Sciences}}
   \frametitle{Einführung}
   \framesubtitle{Was sind Pathfinding-Algorithmen?}
   \begin{columns}
-    \column{.4\textwidth}
+    \begin{column}[T]{.4\textwidth}
       \begin{itemize}
         \item \textbf{Finden den Weg von \texttt{A} nach \texttt{B}}
-        \item Es gibt verschiedene Arten
-        \item Kommt vor in: selbstfahrenden Fahrzeugen, Videospielen, Netzwerktechnik, ...
+        \item Es gibt verschiedene Arten von Pathfinder
+        \item Zentrale Rolle in dieser BMA
       \end{itemize}
-    \column{.6\textwidth}
+    \end{column}
+    \begin{column}[T]{.6\textwidth}
       \begin{figure}
         \includegraphics[height=3cm]{img/bms.png}
         \caption{BestFirstFinder findet den Weg (Grün ist Start, Rot ist Ende)}
       \end{figure}
+    \end{column}
   \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Einführung}
+  \framesubtitle{Was hat das mit Mobilität zu tun?}
+    Pathfinding-Algorithmen kommen vor in:
+    \begin{columns}
+      \begin{column}[T]{0.5\textwidth}
+        \begin{itemize}
+          \item Selbstfahrenden Fahrzeugen
+          \item Digitalen Maps (Routenplanung)
+          \item Netzwerktechnik
+          \item Videospielen
+        \end{itemize}
+      \end{column}
+      \begin{column}[T]{0.5\textwidth}
+        \begin{figure}
+          \includegraphics[height=3cm]{img/routing.png}
+          \caption{Graph eines Computernetzwerks. Quelle: Wikibooks, 2008 (Public Domain)}
+        \end{figure}
+      \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
