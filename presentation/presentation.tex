@@ -9,7 +9,8 @@
 \title[Pathfinder-Vergleicher]{Pathfinding-Algorithmen}
 \subtitle{Einführung und Vergleich mittels einer Webapplikation}
 \author[A. Stoop, S. Fürbringer]{Adrian Stoop und Severin Fürbringer}
-\institute[BMZ, EVT18a]{Berufsmaturitätsschule Zürich \\ \tiny{Technik, Architektur, Life Sciences}}
+\institute[BMZ, EVT18a]{Berufsmaturitätsschule Zürich \\ \tiny{Technik,
+Architektur, Life Sciences}}
 \date{5. März 2019}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -71,12 +72,56 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
+  \section[Einführung in Algorithmen und Pathfinder]{Einführung}
+  \frametitle{Einführung}
+  \framesubtitle{Was ist ein Algorithmus?}
+  \begin{columns}[c] % the "c" option specifies center vertical alignment
+    \column{.5\textwidth} % column designated by a command
+      \begin{itemize}
+        \item \textbf{Handlungsplan zur Lösung eines Problems}
+        \item Beispiel: Kochrezept, Lösungsverfahren für lin. oder quad. Gleichungen
+          % Al-Chwarizmi (Iraner)gilt als einer der bedeutendsten Mathematiker,
+          % da er sich mit Algebra als elementarer Untersuchungsform
+          % beschäftigte.  Er entwickelte sozusagen Algorithmen zur grafischen
+          % lösung von linearen und quadratischen Gleichungen
+        \item Name abstammend von al-Chwarizmi (geb. 780, lt. Algorismi)
+        \item Sehr relevant in der Informatik
+      \end{itemize}
+    \column{.5\textwidth}
+    \begin{figure}
+      \includegraphics[height=4.5cm]{img/algorismi.png}
+      \caption{Statue von al-Chwarizmi in Iran, Quelle: M. Tomczak, 2013}
+    \end{figure}
+  \end{columns}
+  % Evtl. hier Interaktion mit Publikum "Was ist euer Algorithmus um sich in
+  % einer fremden Stadt zu orientieren?"
+\end{frame}
+\begin{frame}
+  \frametitle{Einführung}
+  \framesubtitle{Was sind Pathfinding-Algorithmen?}
+  \begin{columns}
+    \column{.4\textwidth}
+      \begin{itemize}
+        \item \textbf{Finden den Weg von \texttt{A} nach \texttt{B}}
+        \item Es gibt verschiedene Arten
+        \item Kommt vor in: selbstfahrenden Fahrzeugen, Videospielen, Netzwerktechnik, ...
+      \end{itemize}
+    \column{.6\textwidth}
+      \begin{figure}
+        \includegraphics[height=3cm]{img/bms.png}
+        \caption{BestFirstFinder findet den Weg (Grün ist Start, Rot ist Ende)}
+      \end{figure}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
   \section[Vielen Dank für eure Aufmerksamkeit!]{Schluss}
   \framesubtitle{Vielen Dank für eure Aufmerksamkeit!}
   \frametitle{Schluss}
   \begin{itemize}
     \item BMA-Produkt als Webapplikation:\\ \url{bma.fuerbringer.info}
-    \item Quelltext Webapplikation und Dokument:\\ \url{github.com/fuerbringer/bma}
+    \item Quelltext Webapplikation und Dokument:\\
+      \url{github.com/fuerbringer/bma}
   \end{itemize}
 \end{frame}
 
