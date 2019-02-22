@@ -1,10 +1,14 @@
 \documentclass[professionalfont,serif,german]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[german]{babel}
+\usepackage{xcolor}
 \usetheme{Pittsburgh}
 %\usetheme{Boadilla}
 
 \usepackage{newtxtext,newtxmath}
+\definecolor{pfblue}{RGB}{1, 0, 103}
+\definecolor{pfred}{RGB}{255, 0, 86}
+\definecolor{pfgreen}{RGB}{0, 255, 0}
 
 \title[Pathfinder-Vergleicher]{Pathfinding-Algorithmen}
 \subtitle{Einführung und Vergleich mittels einer Webapplikation}
@@ -139,6 +143,62 @@ Architektur, Life Sciences}}
         \end{figure}
       \end{column}
     \end{columns}
+\end{frame}
+
+\begin{frame}
+  \section{Produkt}
+  \frametitle{Das Produkt}
+  \framesubtitle{Wie soll's nun aussehen?}
+    \begin{columns}
+      \begin{column}[T]{0.5\textwidth}
+        Pathfinding-Algorithmen brauchen einen Raum.
+      \end{column}
+      \begin{column}[T]{0.5\textwidth}
+        \begin{figure}
+          \includegraphics[height=4cm]{img/grid1.png}
+        \end{figure}
+      \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Das Produkt}
+  \framesubtitle{Korridore und Wände}
+  \begin{columns}
+    \begin{column}[T]{0.5\textwidth}
+      \begin{itemize}
+        \item Leer $\rightarrow$ Korridor (passierbar)
+        \item Grau $\rightarrow$ Wand
+        \item Blau $\rightarrow$ Startpunkt
+        \item Grün $\rightarrow$ Ziel
+      \end{itemize}
+    \end{column}
+    \begin{column}[T]{0.5\textwidth}
+      \begin{figure}
+        \includegraphics[height=4cm]{img/grid2.png}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Das Produkt}
+  \framesubtitle{Korridore und Wände}
+  \begin{columns}
+    \begin{column}[T]{0.5\textwidth}
+      \begin{itemize}
+        \item Ausführung der drei ausgewählten Pathfinding-Algorithmen.
+        \item \textcolor{pfblue}{A*}
+        \item \textcolor{pfred}{BestFirstFinder}
+        \item \textcolor{pfgreen}{BreadthFirstFinder}
+      \end{itemize}
+    \end{column}
+    \begin{column}[T]{0.5\textwidth}
+      \begin{figure}
+        \includegraphics[height=4cm]{img/grid3.png}
+      \end{figure}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
