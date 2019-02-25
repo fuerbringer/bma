@@ -146,6 +146,17 @@ Architektur, Life Sciences}}
 \end{frame}
 
 \begin{frame}
+  \section{Tools}
+  \frametitle{Tools}
+  \framesubtitle{Entwicklungswerkzeuge und Umgebung}
+  Umgebung: Das Web $\rightarrow$ Einfach programmierbar und zugänglich.
+  \begin{itemize}
+    \item Frontend: JavaScript 
+    \item Backend: JavaScript (per Express.js)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
   \section{Produkt}
   \frametitle{Das Produkt}
     \begin{columns}
@@ -186,10 +197,33 @@ Architektur, Life Sciences}}
   \begin{columns}
     \begin{column}[T]{0.5\textwidth}
       \begin{itemize}
-        \item Ausführung der drei ausgewählten Pathfinding-Algorithmen.
+        \item Ausführung der \textbf{drei ausgewählten Pathfinding-Algorithmen}.
         \item \textcolor{pfblue}{A*}
         \item \textcolor{pfred}{BestFirstFinder}
         \item \textcolor{pfgreen}{BreadthFirstFinder}
+      \end{itemize}
+    \end{column}
+    \begin{column}[T]{0.5\textwidth}
+      \begin{figure}
+        \includegraphics[height=4cm]{img/grid3.png}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Das Produkt}
+  \framesubtitle{Pathfinding-Algorithmen werden angewendet}
+  \begin{columns}
+    \begin{column}[T]{0.5\textwidth}
+      Ausführung eines Beispiels ergibt \textbf{3 wichtige Merkmale/Resultate}
+      \begin{itemize}
+        \item Anzahl Operationen:
+        \\ \textcolor{pfblue}{A*}: $74$, \textcolor{pfred}{BestFirst}: $31$, \textcolor{pfgreen}{BreadthFirst}: $123$
+        \item Zurückgelegter Weg:
+        \\ \textcolor{pfblue}{A*}: $15$, \textcolor{pfred}{BestFirst}: $19$, \textcolor{pfgreen}{BreadthFirst}: $15$
+        \item Vergangene Rechenzeit
+        \\ \textcolor{pfblue}{A*}: $< 1$ms, \\ \textcolor{pfred}{BestFirstFinder}: $< 1$ms, \\ \textcolor{pfgreen}{BreadthFirstFinder}: $1$ms
       \end{itemize}
     \end{column}
     \begin{column}[T]{0.5\textwidth}
