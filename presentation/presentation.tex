@@ -25,10 +25,10 @@ Architektur, Life Sciences}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
-  \frametitle{Inhalt}
-  \tableofcontents
-\end{frame}
+% \begin{frame}
+%   \frametitle{Inhalt}
+%   \tableofcontents
+% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -90,7 +90,7 @@ Architektur, Life Sciences}}
           % beschäftigte.  Er entwickelte sozusagen Algorithmen zur grafischen
           % lösung von linearen und quadratischen Gleichungen
         \item Bsp.: Kochrezept, Lösungsverfahren für lin. oder quad. Gleichungen
-        \item Relevant in der Informatik
+        \item Relevant in der Informatik. Ablauf ist nachvollziehbar.
       \end{itemize}
     \end{column}
     \begin{column}[T]{.5\textwidth}
@@ -146,6 +146,39 @@ Architektur, Life Sciences}}
 \end{frame}
 
 \begin{frame}
+  \frametitle{Einführung}
+  \framesubtitle{Auswahl der Pathfinding-Algorithmen}
+  \begin{itemize}
+    \item \textcolor{pfblue}{A*}: Der intelligenteste Pathfinde 
+    \item \textcolor{pfred}{BestFirstFinder}: Der faulste Pathfinder
+    \item \textcolor{pfgreen}{BreadthFirstFinder}: Der in der Breite suchende Pathfinder
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Einführung}
+  \framesubtitle{Heuristik}
+  Bedeutet ``mit Begrenztem Wissen'' nach der Lösung suchen.
+  \includegraphics[height=3cm]{img/mathegrafix.jpg}
+  \begin{equation*}
+    d\big((x_1,y_1),(x_2,y_2)\big) = |x_1 - x_{2}| + |y_{1} - y_{2}|
+  \end{equation*}
+\end{frame}
+
+% Hier demo des bestehenden Produkts
+
+\begin{frame}
+  \frametitle{Ziel}
+  \framesubtitle{Was war das Ziel?}
+  \begin{itemize}
+    \item Webapplikation, frei verfügbar
+    \item generieren Automatische Räume mit Hindernissen % für statistik zufällig generierte Wände simpel
+    \item Gleichzeitige Ausführung
+    \item Ergibt statistisch relevante Daten
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
   \frametitle{Konzept}
   \framesubtitle{Einführungspage}
   \begin{figure}
@@ -171,14 +204,12 @@ Architektur, Life Sciences}}
 %\end{frame}
 
 \begin{frame}
-  \section{Tools}
-  \frametitle{Tools}
-  \framesubtitle{Entwicklungswerkzeuge und Umgebung}
-  Umgebung: Das Web $\rightarrow$ Einfach programmierbar und zugänglich.
-  \begin{itemize}
-    \item Frontend: JavaScript 
-    \item Backend: JavaScript (per Express.js)
-  \end{itemize}
+  \section{Realisierung}
+  \frametitle{Realisierung}
+  \framesubtitle{Realisierung und Infrastruktur}
+  \begin{figure}
+    \includegraphics[height=4cm]{img/diagram1.png}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -236,28 +267,58 @@ Architektur, Life Sciences}}
   \end{columns}
 \end{frame}
 
+%\begin{frame}
+%  \frametitle{Das Produkt}
+%  \framesubtitle{Pathfinding-Algorithmen werden angewendet}
+%  \begin{columns}
+%    \begin{column}[T]{0.5\textwidth}
+%      Ausführung eines Beispiels ergibt \textbf{3 wichtige Merkmale/Resultate}
+%      \begin{itemize}
+%        \item Anzahl Operationen:
+%        \\ \textcolor{pfblue}{A*}: $74$, \textcolor{pfred}{BestFirst}: $31$, \textcolor{pfgreen}{BreadthFirst}: $123$
+%        \item Zurückgelegter Weg:
+%        \\ \textcolor{pfblue}{A*}: $15$, \textcolor{pfred}{BestFirst}: $19$, \textcolor{pfgreen}{BreadthFirst}: $15$
+%        \item Vergangene Rechenzeit
+%        \\ \textcolor{pfblue}{A*}: $< 1$ms, \\ \textcolor{pfred}{BestFirstFinder}: $< 1$ms, \\ \textcolor{pfgreen}{BreadthFirstFinder}: $1$ms
+%      \end{itemize}
+%    \end{column}
+%    \begin{column}[T]{0.5\textwidth}
+%      \begin{figure}
+%        \includegraphics[height=4cm]{img/grid3.png}
+%      \end{figure}
+%    \end{column}
+%  \end{columns}
+%\end{frame}
+
 \begin{frame}
-  \frametitle{Das Produkt}
-  \framesubtitle{Pathfinding-Algorithmen werden angewendet}
+  \section[Vorführung]{Vorführung}
+  \frametitle{Vorführung}
+  \begin{center}
+    \textbf{bma.fuerbringer.info}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \section[Statistik]{Statistik}
+  \frametitle{Statistische Auswertungen}
   \begin{columns}
     \begin{column}[T]{0.5\textwidth}
-      Ausführung eines Beispiels ergibt \textbf{3 wichtige Merkmale/Resultate}
-      \begin{itemize}
-        \item Anzahl Operationen:
-        \\ \textcolor{pfblue}{A*}: $74$, \textcolor{pfred}{BestFirst}: $31$, \textcolor{pfgreen}{BreadthFirst}: $123$
-        \item Zurückgelegter Weg:
-        \\ \textcolor{pfblue}{A*}: $15$, \textcolor{pfred}{BestFirst}: $19$, \textcolor{pfgreen}{BreadthFirst}: $15$
-        \item Vergangene Rechenzeit
-        \\ \textcolor{pfblue}{A*}: $< 1$ms, \\ \textcolor{pfred}{BestFirstFinder}: $< 1$ms, \\ \textcolor{pfgreen}{BreadthFirstFinder}: $1$ms
-      \end{itemize}
+      \begin{figure}
+        \includegraphics[height=4cm]{../thesis/images/statistik_1.JPG}
+      \end{figure}
+      \begin{figure}
+        \includegraphics[height=4cm]{../thesis/images/statistik_2.JPG}
+      \end{figure}
     \end{column}
     \begin{column}[T]{0.5\textwidth}
       \begin{figure}
-        \includegraphics[height=4cm]{img/grid3.png}
+        \includegraphics[height=4cm]{../thesis/images/statistik_3.JPG}
       \end{figure}
     \end{column}
   \end{columns}
 \end{frame}
+
+% https://www.youtube.com/watch?v=YU5ZERVkewM
 
 \begin{frame}
   \section[Vielen Dank für eure Aufmerksamkeit!]{Schluss}
