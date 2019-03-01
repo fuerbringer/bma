@@ -89,8 +89,8 @@ Architektur, Life Sciences}}
           % da er sich mit Algebra als elementarer Untersuchungsform
           % beschäftigte.  Er entwickelte sozusagen Algorithmen zur grafischen
           % lösung von linearen und quadratischen Gleichungen
-        \item Bsp.: Kochrezept, Lösungsverfahren für lin. oder quad. Gleichungen
-        \item Relevant in der Informatik. Ablauf ist nachvollziehbar.
+        \item Kochrezepte, Lösungsverfahren für lin. oder quad. Gleichungen
+        \item Informatikrelevant (Abläufe sind nachvollziehbar)
       \end{itemize}
     \end{column}
     \begin{column}[T]{.5\textwidth}
@@ -149,16 +149,16 @@ Architektur, Life Sciences}}
   \frametitle{Einführung}
   \framesubtitle{Auswahl der Pathfinding-Algorithmen}
   \begin{itemize}
-    \item \textcolor{pfblue}{A*}: Der intelligenteste Pathfinde 
-    \item \textcolor{pfred}{BestFirstFinder}: Der faulste Pathfinder
-    \item \textcolor{pfgreen}{BreadthFirstFinder}: Der in der Breite suchende Pathfinder
+    \item \textcolor{pfblue}{A*}: Der \textbf{intelligenteste} Pathfinde (sprich ``A-Star'')
+    \item \textcolor{pfred}{BestFirstFinder}: Der \textbf{``faulste''} Pathfinder
+    \item \textcolor{pfgreen}{BreadthFirstFinder}: Der in der \textbf{Breite suchende} Pathfinder (``breadth'' $\rightarrow$ dt. ``Breite'')
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Einführung}
   \framesubtitle{Heuristik}
-  Bedeutet ``mit begrenztem Wissen'' nach der Lösung suchen.
+  Bedeutet \textbf{mit begrenztem Wissen} nach der Lösung suchen.
   \begin{figure}
     \centering
     \includegraphics[height=4.5cm]{img/mathegrafix.jpg}
@@ -205,15 +205,6 @@ Architektur, Life Sciences}}
 %    \includegraphics[height=6cm]{img/visualisierung1.png}
 %  \end{figure}
 %\end{frame}
-
-\begin{frame}
-  \section{Realisierung}
-  \frametitle{Realisierung}
-  \framesubtitle{Realisierung und Infrastruktur}
-  \begin{figure}
-    \includegraphics[height=4cm]{img/diagram1.png}
-  \end{figure}
-\end{frame}
 
 \begin{frame}
   \section{Produkt}
@@ -270,28 +261,30 @@ Architektur, Life Sciences}}
   \end{columns}
 \end{frame}
 
-%\begin{frame}
-%  \frametitle{Das Produkt}
-%  \framesubtitle{Pathfinding-Algorithmen werden angewendet}
-%  \begin{columns}
-%    \begin{column}[T]{0.5\textwidth}
-%      Ausführung eines Beispiels ergibt \textbf{3 wichtige Merkmale/Resultate}
-%      \begin{itemize}
-%        \item Anzahl Operationen:
-%        \\ \textcolor{pfblue}{A*}: $74$, \textcolor{pfred}{BestFirst}: $31$, \textcolor{pfgreen}{BreadthFirst}: $123$
-%        \item Zurückgelegter Weg:
-%        \\ \textcolor{pfblue}{A*}: $15$, \textcolor{pfred}{BestFirst}: $19$, \textcolor{pfgreen}{BreadthFirst}: $15$
-%        \item Vergangene Rechenzeit
-%        \\ \textcolor{pfblue}{A*}: $< 1$ms, \\ \textcolor{pfred}{BestFirstFinder}: $< 1$ms, \\ \textcolor{pfgreen}{BreadthFirstFinder}: $1$ms
-%      \end{itemize}
-%    \end{column}
-%    \begin{column}[T]{0.5\textwidth}
-%      \begin{figure}
-%        \includegraphics[height=4cm]{img/grid3.png}
-%      \end{figure}
-%    \end{column}
-%  \end{columns}
-%\end{frame}
+\begin{frame}
+  \section{Realisierung}
+  \frametitle{Realisierung}
+  \framesubtitle{Realisierung und Infrastruktur}
+  \begin{figure}
+    \includegraphics[height=4cm]{img/diagram1.png}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Realisierung}
+  \framesubtitle{Technische Kernkomponenten}
+  Wir haben neue* Algorithmen entwickelt und implementiert.
+  \begin{itemize}
+    \item Dynamische Generierung des Rasters (mit Hindernissen)
+    \item Start-und Endpunkt-Funktionen
+    \item Funktionen für Ausgabe der Statistikwerte
+    \item User-Interface: Grafische Darstellung des Rasters
+    \item User-Interface: Steuerung Parameter
+    \item Zusammenführung bestehendes Produkt (3 Pathfinder)
+    \item ...und vieles mehr.
+  \end{itemize}
+  \scriptsize{* Die 3 Pathfinder-Implementationen vom bestehenden Produkt übernommen und etwas erweitert.}
+\end{frame}
 
 \begin{frame}
   \section[Vorführung]{Vorführung}
@@ -300,6 +293,7 @@ Architektur, Life Sciences}}
     \textbf{bma.fuerbringer.info}
   \end{center}
 \end{frame}
+
 
 \begin{frame}
   \section[Statistik]{Statistik}
