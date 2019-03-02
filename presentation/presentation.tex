@@ -149,7 +149,7 @@ Architektur, Life Sciences}}
   \frametitle{Einführung}
   \framesubtitle{Auswahl der Pathfinding-Algorithmen}
   \begin{itemize}
-    \item \textcolor{pfblue}{A*}: Der \textbf{intelligenteste} Pathfinde (sprich ``A-Star'')
+    \item \textcolor{pfblue}{A*}: Der \textbf{intelligenteste} Pathfinder (sprich ``A-Star'')
     \item \textcolor{pfred}{BestFirstFinder}: Der \textbf{``faulste''} Pathfinder
     \item \textcolor{pfgreen}{BreadthFirstFinder}: Der in der \textbf{Breite suchende} Pathfinder (``breadth'' $\rightarrow$ dt. ``Breite'')
   \end{itemize}
@@ -175,6 +175,7 @@ Architektur, Life Sciences}}
   \framesubtitle{Was war das Ziel?}
   \begin{itemize}
     \item Programmierung Webapplikation
+    \item Einbindung bestehendes Produkt PathFinding.js
     \item Räume automatisch generieren mit Hindernissen % für statistik zufällig generierte Wände simpel
     \item Gleichzeitige Ausführung
     \item Daten statistisch auswerten
@@ -209,6 +210,7 @@ Architektur, Life Sciences}}
 \begin{frame}
   \section{Produkt}
   \frametitle{Das Produkt}
+  \framesubtitle{Raster}
     \begin{columns}
       \begin{column}[T]{0.5\textwidth}
         Pathfinding-Algorithmen brauchen einen Raum.
@@ -273,15 +275,13 @@ Architektur, Life Sciences}}
 \begin{frame}
   \frametitle{Realisierung}
   \framesubtitle{Technische Kernkomponenten}
-  Wir haben neue* Algorithmen entwickelt und implementiert.
+  Entwicklung neuer* Algorithmen.
   \begin{itemize}
     \item Dynamische Generierung des Rasters (mit Hindernissen)
-    \item Start-und Endpunkt-Funktionen
     \item Funktionen für Ausgabe der Statistikwerte
-    \item User-Interface: Grafische Darstellung des Rasters
-    \item User-Interface: Steuerung Parameter
+    \item UI: Grafische Darstellung des Rasters
+    \item UI: Steuerung Parameter
     \item Zusammenführung bestehendes Produkt (3 Pathfinder)
-    \item ...und vieles mehr.
   \end{itemize}
   \scriptsize{* Die 3 Pathfinder-Implementationen vom bestehenden Produkt übernommen und etwas erweitert.}
 \end{frame}
@@ -290,7 +290,7 @@ Architektur, Life Sciences}}
   \section[Vorführung]{Vorführung}
   \frametitle{Vorführung}
   \begin{center}
-    \textbf{bma.fuerbringer.info}
+    URL: \textbf{https://bma.fuerbringer.info}
   \end{center}
 \end{frame}
 
@@ -299,17 +299,9 @@ Architektur, Life Sciences}}
   \section[Statistik]{Statistik}
   \frametitle{Statistische Auswertungen}
   \begin{columns}
-    \begin{column}[T]{0.5\textwidth}
+    \begin{column}[T]{1.1\textwidth}
       \begin{figure}
-        \includegraphics[height=4cm]{../thesis/images/statistik_1.JPG}
-      \end{figure}
-      \begin{figure}
-        \includegraphics[height=4cm]{../thesis/images/statistik_2.JPG}
-      \end{figure}
-    \end{column}
-    \begin{column}[T]{0.5\textwidth}
-      \begin{figure}
-        \includegraphics[height=4cm]{../thesis/images/statistik_3.JPG}
+        \includegraphics[height=7.75cm]{../thesis/images/statistik_all2.JPG}
       \end{figure}
     \end{column}
   \end{columns}
