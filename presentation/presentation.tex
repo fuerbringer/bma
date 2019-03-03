@@ -25,56 +25,6 @@ Architektur, Life Sciences}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \begin{frame}
-%   \frametitle{Inhalt}
-%   \tableofcontents
-% \end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-%       IDEAS
-% 
-%   1)  Einfach verständliches Inhaltsverzeichnis (Oberflächlich)
-% 
-%   2)  Was ist ein Algorithmus: Mit dem echten Leben verbundenes Beispiel
-%       - Am besten mit Medien und/oder Publikum arbeiten
-% 
-%   3)  Was ist ein Pathfinder: Vorgehen wie 2)
-%       - Bezug zum Oberthema MOBILITÄT
-% 
-%   4)  Ziel der Arbeit: 
-%       - Ziel: Was wollten wir herausfinden; Wieso welche Pathfinder auch
-%       erläutern; Hypothese darlegen
-%       - Wie: Webapplikation (Pathfinder-Vergleicher)
-%       - Wieso: Was macht unsere Webapplikation speziell. Evtl. Alternativen
-%       zeigen
-% 
-%   5)  Eingesetzte Methoden (Webapplikation und statistische Auswertung): 
-%       - Funktion der Webapplikation: Wie vergleicht die Webapp die
-%       Pathfinder?
-%       - Statistik: Wie haben wir die Daten erhoben und Ausgewertet?
-%
-%   6)  Demo der Webapplikation
-%       - Teil evtl. zusammen mit der Klasse machen; Jeder kann die
-%       Webapplikation auf seinem Handy aufrufen und kurz testen
-%       - Parallel dazu eine Bedienungsanleitung
-%
-%   7)  Zusammenfassung:
-%       [^ Bewertung on JP zur Hilfe nehmen, da mehrere Punkte hierzu
-%       kritisiert wurden^]
-%       - Resultate der Arbeit und statistischen Auswertung verständlich
-%       erklären; Stellungnahme zur Hypothese mit Bezug zu den Resultaten
-%       nehmen;
-%       - Kurze Wiederholung was das ganze Resultat ist
-%       - Erweiterungsmöglichkeiten und Schwachstellen
-%       
-%   8)  Schluss:
-%       - Alle relevanten Links aufzeigen (Webapplikation-URL und
-%       GitHub-Repository)
-% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}
   \section[Einführung in Algorithmen und Pathfinder]{Einführung}
   \frametitle{Einführung}
@@ -168,18 +118,23 @@ Architektur, Life Sciences}}
   \end{equation*}
 \end{frame}
 
-% Hier demo des bestehenden Produkts
-
 \begin{frame}
   \frametitle{Ziel}
   \framesubtitle{Was war das Ziel?}
   \begin{itemize}
     \item Programmierung Webapplikation
     \item Einbindung bestehendes Produkt PathFinding.js
-    \item Räume automatisch generieren mit Hindernissen % für statistik zufällig generierte Wände simpel
+    \item Räume automatisch generieren mit Hindernissen
     \item Gleichzeitige Ausführung
+    \item Ausführungsdaten der Pathfinder sammeln
     \item Daten statistisch auswerten
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Konzept und Realisierung}
+  \framesubtitle{Struktur der Website}
+  Willkommenspage $\rightarrow$ Einführungspage $\rightarrow$ Visualisierer (weitere Einführung) $\rightarrow$ Pathfinding-Algorithmen-Vergleicher
 \end{frame}
 
 \begin{frame}
@@ -197,15 +152,6 @@ Architektur, Life Sciences}}
     \includegraphics[height=7cm]{img/konzept1.png}
   \end{figure}
 \end{frame}
-
-% Visualisierer
-%\begin{frame}
-%  \frametitle{Konzept}
-%  \framesubtitle{}
-%  \begin{figure}
-%    \includegraphics[height=6cm]{img/visualisierung1.png}
-%  \end{figure}
-%\end{frame}
 
 \begin{frame}
   \section{Produkt}
