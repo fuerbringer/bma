@@ -3,7 +3,7 @@ Teil von Severin: Von "Konzept: Einführungspage" bis "Vorführung"
 
 # Folien
 
-## Konzept und Realisierung: Struktur der Website
+## Konzept und Realisierung: Struktur der Webapplikation
 
 Wir haben nun von Adrian mitbekommen, was Algorithmen und Pathfinder sind, wo
 sie vorkommen, wofür sie gut sind und was sie mit dem Oberthema zu tun
