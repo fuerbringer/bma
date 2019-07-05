@@ -1,11 +1,11 @@
 Berufsmaturitätsarbeit
 ======================
 
-[![Build Status](https://travis-ci.org/fuerbringer/bma.svg?branch=master)](https://travis-ci.org/fuerbringer/bma)
-
 Arbeit eingereicht: 01. Februar 2019
 
 Präsentation vorgetragen: 05. März 2019
+
+Note: 5.5
 
 ## Beschreibung
 
