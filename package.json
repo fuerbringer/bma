@@ -22,14 +22,14 @@
     "serve-index": "^1.9.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.0",
-    "@babel/preset-env": "^7.5.0",
-    "babel-loader": "^8.0.6",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-loader": "^8.1.0",
     "chai": "^4.2.0",
     "eslint": "^5.16.0",
     "jsdoc": "^3.6.3",
     "mocha": "^5.2.0",
-    "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5"
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
   }
 }
