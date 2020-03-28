@@ -18,7 +18,7 @@
     "morgan": "^1.9.1",
     "node-sass-middleware": "0.11.0",
     "pathfinding": "^0.4.18",
-    "pug": "2.0.0-beta11",
+    "pug": "^2.0.4",
     "serve-index": "^1.9.1"
   },
   "devDependencies": {
@@ -27,7 +27,7 @@
     "babel-loader": "^8.0.6",
     "chai": "^4.2.0",
     "eslint": "^5.16.0",
-    "jsdoc": "^3.6.2",
+    "jsdoc": "^3.6.3",
     "mocha": "^5.2.0",
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5"
